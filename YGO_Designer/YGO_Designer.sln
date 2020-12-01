@@ -5,6 +5,11 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YGO_Designer", "YGO_Designer\YGO_Designer.csproj", "{7B5170C1-F3F1-4E67-9F45-5D6FA16373CB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YGOLib", "YGOLib\YGOLib.csproj", "{A2FC6A08-03D4-44F7-9389-AA683261167A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7B5170C1-F3F1-4E67-9F45-5D6FA16373CB} = {7B5170C1-F3F1-4E67-9F45-5D6FA16373CB}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +32,15 @@ Global
 		{7B5170C1-F3F1-4E67-9F45-5D6FA16373CB}.YGO Test|Any CPU.Build.0 = YGO Test|Any CPU
 		{7B5170C1-F3F1-4E67-9F45-5D6FA16373CB}.YGO Test|x64.ActiveCfg = YGO Test|x64
 		{7B5170C1-F3F1-4E67-9F45-5D6FA16373CB}.YGO Test|x64.Build.0 = YGO Test|x64
+		{A2FC6A08-03D4-44F7-9389-AA683261167A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2FC6A08-03D4-44F7-9389-AA683261167A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2FC6A08-03D4-44F7-9389-AA683261167A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A2FC6A08-03D4-44F7-9389-AA683261167A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2FC6A08-03D4-44F7-9389-AA683261167A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2FC6A08-03D4-44F7-9389-AA683261167A}.Release|x64.ActiveCfg = Release|Any CPU
+		{A2FC6A08-03D4-44F7-9389-AA683261167A}.YGO Test|Any CPU.ActiveCfg = Release|Any CPU
+		{A2FC6A08-03D4-44F7-9389-AA683261167A}.YGO Test|Any CPU.Build.0 = Release|Any CPU
+		{A2FC6A08-03D4-44F7-9389-AA683261167A}.YGO Test|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

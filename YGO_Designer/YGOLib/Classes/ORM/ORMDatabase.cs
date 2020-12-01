@@ -22,7 +22,7 @@ namespace YGO_Designer.Classes.ORM
         /// <returns>Un booléen : true si la connexion a pu s'opérer, false sinon</returns>
         public static bool Connexion()
         {
-            conn = new MySqlConnection(Properties.Settings.Default.loginDist);
+            conn = new MySqlConnection(YGOLib.Properties.Settings.Default.loginDist);
             conn.Open();
             return conn.State == System.Data.ConnectionState.Open;
         }

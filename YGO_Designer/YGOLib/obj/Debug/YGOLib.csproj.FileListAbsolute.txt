@@ -1,0 +1,7 @@
+C:\Users\Thomas\Documents\GitHub\YGO_Designer\YGO_Designer\YGOLib\obj\Debug\YGOLib.csprojResolveAssemblyReference.cache
+C:\Users\Thomas\Documents\GitHub\YGO_Designer\YGO_Designer\YGOLib\bin\Debug\YGOLib.dll.config
+C:\Users\Thomas\Documents\GitHub\YGO_Designer\YGO_Designer\YGOLib\bin\Debug\YGOLib.dll
+C:\Users\Thomas\Documents\GitHub\YGO_Designer\YGO_Designer\YGOLib\bin\Debug\YGOLib.pdb
+C:\Users\Thomas\Documents\GitHub\YGO_Designer\YGO_Designer\YGOLib\bin\Debug\MySql.Data.dll
+C:\Users\Thomas\Documents\GitHub\YGO_Designer\YGO_Designer\YGOLib\obj\Debug\YGOLib.dll
+C:\Users\Thomas\Documents\GitHub\YGO_Designer\YGO_Designer\YGOLib\obj\Debug\YGOLib.pdb
