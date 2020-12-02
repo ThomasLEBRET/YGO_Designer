@@ -82,14 +82,12 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="YGOLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\YGOLib\bin\Debug\YGOLib.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Notification.cs" />
-    <Compile Include="Theme.cs" />
+    <Compile Include="Classes\Deck\Deck.cs" />
+    <Compile Include="Classes\Deck\ORMDeck.cs" />
+    <Compile Include="Classes\Notification.cs" />
+    <Compile Include="Classes\Theme.cs" />
     <Compile Include="Vues\FormLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +112,22 @@
     <Compile Include="Vues\Administrateur\FormHome.Designer.cs">
       <DependentUpon>FormHome.cs</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Carte\Attribut.cs" />
+    <Compile Include="Classes\Carte\Carte.cs" />
+    <Compile Include="Classes\Carte\Effet.cs" />
+    <Compile Include="Classes\Carte\ORMCarte.cs" />
+    <Compile Include="Classes\Magie\Magie.cs" />
+    <Compile Include="Classes\Magie\ORMMagie.cs" />
+    <Compile Include="Classes\Monstre\Enum\AttributMonstre.cs" />
+    <Compile Include="Classes\Monstre\Enum\TypeCarteMonstre.cs" />
+    <Compile Include="Classes\Monstre\Enum\TypeMonstre.cs" />
+    <Compile Include="Classes\Monstre\Monstre.cs" />
+    <Compile Include="Classes\Monstre\ORMMonstre.cs" />
+    <Compile Include="Classes\ORM\ORMDatabase.cs" />
+    <Compile Include="Classes\Piege\ORMPiege.cs" />
+    <Compile Include="Classes\Piege\Piege.cs" />
+    <Compile Include="Classes\User\ORMUser.cs" />
+    <Compile Include="Classes\User\User.cs" />
     <Compile Include="Vues\Administrateur\FormTemplateAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
