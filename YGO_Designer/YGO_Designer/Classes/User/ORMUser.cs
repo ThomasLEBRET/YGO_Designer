@@ -19,7 +19,7 @@ namespace YGO_Designer.Classes.User
         public static bool Exist(string username)
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "SELECT Count(*)  FROM utilisateur WHERE USER = @user";
+            cmd.CommandText = "SELECT Count(*)  FROM UTILISATEUR WHERE USER = @user";
             cmd.Parameters.Add("@user", MySqlDbType.VarChar).Value = username;
 
             return Convert.ToInt32(cmd.ExecuteScalar()) == 1;
@@ -34,7 +34,7 @@ namespace YGO_Designer.Classes.User
         public static bool Connexion(string username, string password)
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "SELECT *  FROM utilisateur WHERE USER = @user and MDP = @mdp";
+            cmd.CommandText = "SELECT * FROM UTILISATEUR WHERE USER = @user and MDP = @mdp";
             cmd.Parameters.Add("@user", MySqlDbType.VarChar).Value = username;
             cmd.Parameters.Add("@mdp", MySqlDbType.VarChar).Value = password;
             MySqlDataReader rdr = cmd.ExecuteReader();
@@ -59,7 +59,7 @@ namespace YGO_Designer.Classes.User
         public static bool Inscription(string user, string mdp)
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "INSERT INTO utilisateur(USER, CD_TYPE, MDP) VALUES(@user, 'JOU', @mdp)";
+            cmd.CommandText = "INSERT INTO UTILISATEUR(USER, CD_TYPE, MDP) VALUES(@user, 'JOU', @mdp)";
             cmd.Parameters.Add("@user", MySqlDbType.VarChar).Value = user;
             cmd.Parameters.Add("@mdp", MySqlDbType.VarChar).Value = mdp;
             return cmd.ExecuteNonQuery() == 1;

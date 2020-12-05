@@ -17,11 +17,11 @@ namespace YGO_Designer.Classes.Carte
         /// Méthode asynchrone renvoyant le nombre de cartes dans un objet Task
         /// </summary>
         /// <returns>Une tâche Task possédant un entier de type int</returns>
-        public static async Task<int> GetNbr()
+        public static int GetNbr()
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "SELECT Count(*) FROM carte";
-            int res = Convert.ToInt32(await cmd.ExecuteScalarAsync());
+            cmd.CommandText = "SELECT COUNT(*) FROM CARTE";
+            int res = Convert.ToInt32(cmd.ExecuteScalar());
             return res; 
         }
 
@@ -29,33 +29,33 @@ namespace YGO_Designer.Classes.Carte
         /// Méthode asynchrone renvoyant le nombre de carte ayant un attribut de type Monstre dans un objet Task
         /// </summary>
         /// <returns>Un objet tâche Task comportant un pourcentage de cartes monstres parmis les cartes de type float</returns>
-        public static async Task<float> GetNbrMonstre()
+        public static float GetNbrMonstre()
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "SELECT Count(*) FROM carte WHERE CODE_ATTR_CARTE = 'MON'";
-            return ((Convert.ToInt32(cmd.ExecuteScalar()) * 100) /  (await GetNbr()));
+            cmd.CommandText = "SELECT Count(*) FROM CARTE WHERE CODE_ATTR_CARTE = 'MON'";
+            return ((Convert.ToInt32(cmd.ExecuteScalar()) * 100) /  (GetNbr()));
         }
 
         /// <summary>
         /// Méthode asynchrone renvoyant le nombre de carte ayant un attribut de type Magie dans un objet Task
         /// </summary>
         /// <returns>Un objet tâche Task comportant un pourcentage de cartes monstres parmis les cartes de type float</returns>
-        public static async Task<float> GetNbrMagie()
+        public static float GetNbrMagie()
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "SELECT Count(*) FROM carte WHERE CODE_ATTR_CARTE = 'MAG'";
-            return ((Convert.ToInt32(cmd.ExecuteScalar()) * 100) / (await  GetNbr()));
+            cmd.CommandText = "SELECT COUNT(*) FROM CARTE WHERE CODE_ATTR_CARTE = 'MAG'";
+            return ((Convert.ToInt32(cmd.ExecuteScalar()) * 100) / (GetNbr()));
         }
 
         /// <summary>
         /// Méthode asynchrone renvoyant le nombre de carte ayant un attribut de type Piege dans un objet Task
         /// </summary>
         /// <returns>Un objet tâche Task comportant un pourcentage de cartes monstres parmis les cartes de type float</returns>
-        public static async Task<float> GetNbrPiege()
+        public static float GetNbrPiege()
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "SELECT Count(*) FROM carte WHERE CODE_ATTR_CARTE = 'PIE'";
-            return ((Convert.ToInt32(cmd.ExecuteScalar()) * 100) / (await GetNbr()));
+            cmd.CommandText = "SELECT COUNT(*) FROM CARTE WHERE CODE_ATTR_CARTE = 'PIE'";
+            return ((Convert.ToInt32(cmd.ExecuteScalar()) * 100) / (GetNbr()));
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace YGO_Designer.Classes.Carte
         public static bool Exist(Carte c)
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "SELECT Count(*)  FROM carte WHERE NO_CARTE = @noCarte";
+            cmd.CommandText = "SELECT Count(*)  FROM CARTE WHERE NO_CARTE = @noCarte";
             cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = c.GetNo();
 
             return  Convert.ToInt32(cmd.ExecuteScalar()) == 1;
@@ -81,7 +81,7 @@ namespace YGO_Designer.Classes.Carte
         public static bool Delete(Carte c)
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "DELETE FROM carte WHERE NO_CARTE = @noC";
+            cmd.CommandText = "DELETE FROM CARTE WHERE NO_CARTE = @noC";
             cmd.Parameters.Add("@noC", MySqlDbType.Int16).Value = c.GetNo();
 
             return Convert.ToInt32(cmd.ExecuteNonQuery()) == 1;
@@ -94,7 +94,7 @@ namespace YGO_Designer.Classes.Carte
         public static List<Effet> GetEffets()
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "SELECT * FROM effet";
+            cmd.CommandText = "SELECT * FROM EFFET";
             List<Effet> lE = new List<Effet>();
             MySqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
@@ -111,7 +111,7 @@ namespace YGO_Designer.Classes.Carte
         public static List<Effet> GetEffetsByCard(int noCarte)
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "SELECT E.* FROM effet_carte EC, effet E, carte C WHERE C.NO_CARTE = EC.NO_CARTE AND C.NO_CARTE = @noCarte AND EC.CODE_EFFET = E.CODE_EFFET";
+            cmd.CommandText = "SELECT E.* FROM EFFET_CARTE EC, EFFET E, CARTE C WHERE C.NO_CARTE = EC.NO_CARTE AND C.NO_CARTE = @noCarte AND EC.CODE_EFFET = E.CODE_EFFET";
             cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = noCarte;
 
             List<Effet> lE = new List<Effet>();
@@ -130,7 +130,7 @@ namespace YGO_Designer.Classes.Carte
         public static Carte GetByNo(int noCarte)
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "SELECT * FROM carte WHERE NO_CARTE = @noCarte";
+            cmd.CommandText = "SELECT * FROM CARTE WHERE NO_CARTE = @noCarte";
 
             cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = noCarte;
 
@@ -154,7 +154,7 @@ namespace YGO_Designer.Classes.Carte
                         int nivMo = Convert.ToInt32(rdr["NIVEAU_MO"]);
                         int atk = Convert.ToInt32(rdr["ATK"]);
                         int def = Convert.ToInt32(rdr["DEF"]);
-                        string typeMoCarte = (string)rdr["TYPES_MONSTE_CARTE"];
+                        string typeMoCarte = (string)rdr["TYPE_MONSTRE_CARTE"];
                         c = new Monstre(typeMo, attrMo, nivMo, atk, def, typeMoCarte, eff, noCarte, attr, nom, description);
                         break;
                     case "MAG":
@@ -178,7 +178,7 @@ namespace YGO_Designer.Classes.Carte
         public static Carte GetByNoForDeck(int noCarte, int noDeck)
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "SELECT c.*, i.NB_EXEMPLAIRE FROM carte c, inclus i WHERE c.NO_CARTE = i.NO_CARTE AND i.NO_CARTE = @noCarte AND i.NO_DECK = @noDeck";
+            cmd.CommandText = "SELECT c.*, i.NB_EXEMPLAIRE FROM CARTE c, INCLUS i WHERE c.NO_CARTE = i.NO_CARTE AND i.NO_CARTE = @noCarte AND i.NO_DECK = @noDeck";
 
             cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = noCarte;
             cmd.Parameters.Add("@noDeck", MySqlDbType.Int32).Value = noDeck;
@@ -204,7 +204,7 @@ namespace YGO_Designer.Classes.Carte
                         int nivMo = Convert.ToInt32(rdr["NIVEAU_MO"]);
                         int atk = Convert.ToInt32(rdr["ATK"]);
                         int def = Convert.ToInt32(rdr["DEF"]);
-                        string typeMoCarte = (string)rdr["TYPES_MONSTE_CARTE"];
+                        string typeMoCarte = (string)rdr["TYPE_MONSTRE_CARTE"];
                         c = new Monstre(typeMo, attrMo, nivMo, atk, def, typeMoCarte, eff, noCarte, attr, nom, description, nbExemplaire);
                         break;
                     case "MAG":
@@ -227,7 +227,7 @@ namespace YGO_Designer.Classes.Carte
         public static List<Carte> GetByPartialName(string partName)
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "SELECT NO_CARTE FROM carte WHERE NOM LIKE '%" + partName + "%'";
+            cmd.CommandText = "SELECT NO_CARTE FROM CARTE WHERE NOM LIKE '%" + partName + "%'";
             MySqlDataReader rdr = cmd.ExecuteReader();
 
             List<List<Effet>> lE = new List<List<Effet>>();
@@ -243,7 +243,7 @@ namespace YGO_Designer.Classes.Carte
                 lE.Add(GetEffetsByCard(lN[i]));
                 lA.Add(GetAttribut(lN[i]));
             }
-            cmd.CommandText = "SELECT * FROM carte WHERE NOM LIKE '%" + partName + "%'";
+            cmd.CommandText = "SELECT * FROM CARTE WHERE NOM LIKE '%" + partName + "%'";
             List<Carte> lC = new List<Carte>();
             Carte c = new Carte();
             int no;
@@ -267,7 +267,7 @@ namespace YGO_Designer.Classes.Carte
                         int nivMo = Convert.ToInt32(rdr["NIVEAU_MO"]);
                         int atk = Convert.ToInt32(rdr["ATK"]);
                         int def = Convert.ToInt32(rdr["DEF"]);
-                        string typeMoCarte = (string)rdr["TYPES_MONSTE_CARTE"];
+                        string typeMoCarte = (string)rdr["TYPE_MONSTRE_CARTE"];
                         c = new Monstre(typeMo, attrMo, nivMo, atk, def, typeMoCarte, lE[cursorCard], no, at, nom, description);
                         break;
                     case "MAG":
@@ -291,7 +291,7 @@ namespace YGO_Designer.Classes.Carte
         public static List<Attribut> GetAttributs()
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "SELECT * FROM attribut_carte";
+            cmd.CommandText = "SELECT * FROM ATTRIBUT_CARTE";
             List<Attribut> lA = new List<Attribut>();
             MySqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
@@ -308,7 +308,7 @@ namespace YGO_Designer.Classes.Carte
         public static Attribut GetAttribut(int noCarte)
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "SELECT AT.* FROM attribut_carte AT, carte C WHERE AT.CODE_ATTR_CARTE = C.CODE_ATTR_CARTE AND C.NO_CARTE = @noCarte";
+            cmd.CommandText = "SELECT AT.* FROM ATTRIBUT_CARTE AT, CARTE C WHERE AT.CODE_ATTR_CARTE = C.CODE_ATTR_CARTE AND C.NO_CARTE = @noCarte";
 
             cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = noCarte;
             Attribut at = new Attribut();
@@ -329,22 +329,59 @@ namespace YGO_Designer.Classes.Carte
             if (c != null && ORMCarte.Exist(c))
             {
                 MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-                cmd.CommandText = "INSERT INTO effet_carte(CODE_EFFET, NO_CARTE) VALUES(@cdEffet, @noCarte)";
+                cmd.CommandText = "INSERT INTO EFFET_CARTE(CODE_EFFET, NO_CARTE) VALUES(@cdEffet, @noCarte)";
                 bool estTransactionReussi = true;
                 cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = c.GetNo();
                 MySqlParameter cdEffet = new MySqlParameter("@cdEffet", MySqlDbType.VarChar);
                 cmd.Parameters.Add(cdEffet);
-                if (estTransactionReussi)
+                
+                foreach (Effet e in c.GetListEffets())
                 {
-                    foreach (Effet e in c.GetListEffets())
+                    if (estTransactionReussi)
                     {
                         cdEffet.Value = e.GetCode();
                         estTransactionReussi = cmd.ExecuteNonQuery() == 1;
+                    }
+                    else
+                    {
+                        Notification.ShowFormDanger("Echec : L'effet " + e.GetCode() + " n'a pas été lié à la carte");
+                        estTransactionReussi = true;
                     }
                 }
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Ajoute un effet à la liste globale des effets que peuvent posséder une carte
+        /// </summary>
+        /// <param name="eff">Un effet</param>
+        /// <returns></returns>
+        public static bool AddEffet(Effet eff)
+        {
+            MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
+            if (!IsExistEffet(eff))
+            {
+                cmd.CommandText = "INSERT INTO EFFET(CODE_EFFET, NOM_EFFET) VALUES(@cdEffet, @nomEffet)";
+                cmd.Parameters.Add("@cdEffet", MySqlDbType.VarChar).Value = eff.GetCode();
+                cmd.Parameters.Add("@nomEffet", MySqlDbType.VarChar).Value = eff.GetNom();
+                return cmd.ExecuteNonQuery() == 1;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Vérifie si un effet existe
+        /// </summary>
+        /// <param name="eff">Un effet</param>
+        /// <returns></returns>
+        private static bool IsExistEffet(Effet eff)
+        {
+            MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
+            cmd.CommandText = "SELECT COUNT(CODE_EFFET) FROM EFFET WHERE CODE_EFFET = @cdEff";
+            cmd.Parameters.Add("@cdEff", MySqlDbType.VarChar).Value = eff.GetCode();
+                return Convert.ToInt32(cmd.ExecuteScalar()) == 1;
         }
     }
 }

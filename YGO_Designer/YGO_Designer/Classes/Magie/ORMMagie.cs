@@ -22,18 +22,23 @@ namespace YGO_Designer
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
 
             cmd.CommandText = "" +
-                "INSERT INTO carte(NO_CARTE , CODE_ATTR_CARTE , NOM, DESCRIPTION, TYPE_MO, ATTR_MO, NIVEAU_MO, ATK, DEF, TYPES_MONSTE_CARTE, TYPE_MA, TYPE_PI) " +
-                "VALUES (@noC, @cdAttrC, @nomC, @descriptC, NULL, NULL, NULL, NULL, NULL, NULL, @typeMagie, NULL)";
+                "INSERT INTO CARTE(CODE_ATTR_CARTE , NOM, DESCRIPTION, TYPE_MO, ATTR_MO, NIVEAU_MO, TYPE_MA, TYPE_PI, ATK, DEF, TYPE_MONSTRE_CARTE) " +
+                "VALUES (@cdAttrC, @nomC, @descriptC, NULL, NULL, NULL, NULL, @typeMagie, NULL, NULL, NULL, NULL)";
 
-            cmd.Parameters.Add("@noC", MySqlDbType.Int32).Value = ma.GetNo();
             cmd.Parameters.Add("@cdAttrC", MySqlDbType.VarChar).Value = ma.GetAttr().GetCdAttrCarte();
             cmd.Parameters.Add("@nomC", MySqlDbType.VarChar).Value = ma.GetNom();
             cmd.Parameters.Add("@descriptC", MySqlDbType.VarChar).Value = ma.GetDescription();
 
             cmd.Parameters.Add("@typeMagie", MySqlDbType.VarChar).Value = ma.GetNomType();
             if (cmd.ExecuteNonQuery() == 1)
+            {
+                string req = "SELECT LAST_INSERT_ID() FROM CARTE";
+                cmd.CommandText = req;
+                int no = Convert.ToInt32(cmd.ExecuteScalar());
+                ma.SetNo(no);
                 return ORMCarte.AjouterEffetsCarte(ma);
-            return false;
+            }
+            return false;   
         }
     }
 }

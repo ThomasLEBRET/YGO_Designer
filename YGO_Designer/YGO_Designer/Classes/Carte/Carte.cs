@@ -151,5 +151,10 @@ namespace YGO_Designer.Classes.Carte
             return this.nbExemplaireDansDeck;
         }
 
+        public void SetNo(int no)
+        {
+            this.no = no;
+        }
+
     }
 }

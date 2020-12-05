@@ -65,10 +65,15 @@ namespace YGO_Designer
             this.rbContinu = new System.Windows.Forms.RadioButton();
             this.rbNormal = new System.Windows.Forms.RadioButton();
             this.btAddPiege = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
             this.clbEffets = new System.Windows.Forms.CheckedListBox();
+            this.tcEffet = new System.Windows.Forms.TabControl();
+            this.tpEffet = new System.Windows.Forms.TabPage();
+            this.tpAddEffet = new System.Windows.Forms.TabPage();
+            this.tbCodeEffet = new System.Windows.Forms.TextBox();
+            this.tbDescEffet = new System.Windows.Forms.TextBox();
+            this.btAddEffet = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.tbNoCarte = new System.Windows.Forms.TextBox();
             this.tbContainCarte.SuspendLayout();
             this.tbMonstre.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -76,14 +81,19 @@ namespace YGO_Designer
             this.gbTypeMagie.SuspendLayout();
             this.tbPiege.SuspendLayout();
             this.gbTypePiege.SuspendLayout();
+            this.tcEffet.SuspendLayout();
+            this.tpEffet.SuspendLayout();
+            this.tpAddEffet.SuspendLayout();
             this.SuspendLayout();
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Candara", 14.25F);
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(472, 9);
+            this.label2.Location = new System.Drawing.Point(8, 5);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(50, 23);
             this.label2.TabIndex = 1;
@@ -94,7 +104,7 @@ namespace YGO_Designer
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Candara", 14.25F);
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(73, 107);
+            this.label3.Location = new System.Drawing.Point(8, 107);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(103, 23);
             this.label3.TabIndex = 2;
@@ -102,19 +112,21 @@ namespace YGO_Designer
             // 
             // tbNomCarte
             // 
+            this.tbNomCarte.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbNomCarte.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbNomCarte.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbNomCarte.Location = new System.Drawing.Point(469, 46);
+            this.tbNomCarte.Location = new System.Drawing.Point(12, 31);
             this.tbNomCarte.Multiline = true;
             this.tbNomCarte.Name = "tbNomCarte";
-            this.tbNomCarte.Size = new System.Drawing.Size(291, 25);
+            this.tbNomCarte.Size = new System.Drawing.Size(381, 25);
             this.tbNomCarte.TabIndex = 4;
             // 
             // rtbDescriptCarte
             // 
             this.rtbDescriptCarte.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtbDescriptCarte.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbDescriptCarte.Location = new System.Drawing.Point(77, 144);
+            this.rtbDescriptCarte.Location = new System.Drawing.Point(12, 144);
             this.rtbDescriptCarte.Name = "rtbDescriptCarte";
             this.rtbDescriptCarte.Size = new System.Drawing.Size(295, 78);
             this.rtbDescriptCarte.TabIndex = 5;
@@ -515,17 +527,6 @@ namespace YGO_Designer
             this.btAddPiege.UseVisualStyleBackColor = false;
             this.btAddPiege.Click += new System.EventHandler(this.btAddPiege_Click);
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Candara", 14.25F);
-            this.label11.ForeColor = System.Drawing.Color.White;
-            this.label11.Location = new System.Drawing.Point(465, 107);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(57, 23);
-            this.label11.TabIndex = 20;
-            this.label11.Text = "Effets";
-            // 
             // clbEffets
             // 
             this.clbEffets.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -534,32 +535,94 @@ namespace YGO_Designer
             this.clbEffets.CheckOnClick = true;
             this.clbEffets.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Bold);
             this.clbEffets.FormattingEnabled = true;
-            this.clbEffets.Location = new System.Drawing.Point(469, 144);
+            this.clbEffets.Location = new System.Drawing.Point(47, 17);
             this.clbEffets.Name = "clbEffets";
-            this.clbEffets.Size = new System.Drawing.Size(295, 78);
+            this.clbEffets.Size = new System.Drawing.Size(286, 130);
             this.clbEffets.TabIndex = 16;
+            // 
+            // tcEffet
+            // 
+            this.tcEffet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tcEffet.Controls.Add(this.tpEffet);
+            this.tcEffet.Controls.Add(this.tpAddEffet);
+            this.tcEffet.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tcEffet.Location = new System.Drawing.Point(450, 31);
+            this.tcEffet.Name = "tcEffet";
+            this.tcEffet.SelectedIndex = 0;
+            this.tcEffet.Size = new System.Drawing.Size(370, 220);
+            this.tcEffet.TabIndex = 26;
+            // 
+            // tpEffet
+            // 
+            this.tpEffet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(70)))), ((int)(((byte)(107)))));
+            this.tpEffet.Controls.Add(this.clbEffets);
+            this.tpEffet.Location = new System.Drawing.Point(4, 32);
+            this.tpEffet.Name = "tpEffet";
+            this.tpEffet.Padding = new System.Windows.Forms.Padding(3);
+            this.tpEffet.Size = new System.Drawing.Size(362, 184);
+            this.tpEffet.TabIndex = 0;
+            this.tpEffet.Text = "Effets";
+            // 
+            // tpAddEffet
+            // 
+            this.tpAddEffet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(70)))), ((int)(((byte)(107)))));
+            this.tpAddEffet.Controls.Add(this.label7);
+            this.tpAddEffet.Controls.Add(this.label1);
+            this.tpAddEffet.Controls.Add(this.btAddEffet);
+            this.tpAddEffet.Controls.Add(this.tbDescEffet);
+            this.tpAddEffet.Controls.Add(this.tbCodeEffet);
+            this.tpAddEffet.Location = new System.Drawing.Point(4, 32);
+            this.tpAddEffet.Name = "tpAddEffet";
+            this.tpAddEffet.Padding = new System.Windows.Forms.Padding(3);
+            this.tpAddEffet.Size = new System.Drawing.Size(362, 184);
+            this.tpAddEffet.TabIndex = 1;
+            this.tpAddEffet.Text = "Ajouter";
+            // 
+            // tbCodeEffet
+            // 
+            this.tbCodeEffet.Location = new System.Drawing.Point(133, 15);
+            this.tbCodeEffet.Name = "tbCodeEffet";
+            this.tbCodeEffet.Size = new System.Drawing.Size(100, 31);
+            this.tbCodeEffet.TabIndex = 0;
+            // 
+            // tbDescEffet
+            // 
+            this.tbDescEffet.Location = new System.Drawing.Point(133, 78);
+            this.tbDescEffet.Name = "tbDescEffet";
+            this.tbDescEffet.Size = new System.Drawing.Size(228, 31);
+            this.tbDescEffet.TabIndex = 1;
+            // 
+            // btAddEffet
+            // 
+            this.btAddEffet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btAddEffet.BackColor = System.Drawing.Color.Black;
+            this.btAddEffet.FlatAppearance.BorderSize = 0;
+            this.btAddEffet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btAddEffet.Location = new System.Drawing.Point(90, 140);
+            this.btAddEffet.Name = "btAddEffet";
+            this.btAddEffet.Size = new System.Drawing.Size(181, 40);
+            this.btAddEffet.TabIndex = 2;
+            this.btAddEffet.Text = "Ajouter";
+            this.btAddEffet.UseVisualStyleBackColor = false;
+            this.btAddEffet.Click += new System.EventHandler(this.btAddEffet_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(62, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(51, 23);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Code";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Candara", 14.25F);
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(73, 9);
+            this.label7.Location = new System.Drawing.Point(10, 81);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(28, 23);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "N°";
-            // 
-            // tbNoCarte
-            // 
-            this.tbNoCarte.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
-            this.tbNoCarte.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbNoCarte.Font = new System.Drawing.Font("Candara", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbNoCarte.Location = new System.Drawing.Point(77, 43);
-            this.tbNoCarte.MaxLength = 8;
-            this.tbNoCarte.Name = "tbNoCarte";
-            this.tbNoCarte.Size = new System.Drawing.Size(182, 30);
-            this.tbNoCarte.TabIndex = 8;
+            this.label7.Size = new System.Drawing.Size(103, 23);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "Description";
             // 
             // FormAjouterCartes
             // 
@@ -567,11 +630,8 @@ namespace YGO_Designer
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(70)))), ((int)(((byte)(107)))));
             this.ClientSize = new System.Drawing.Size(843, 627);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.tbNoCarte);
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.tcEffet);
             this.Controls.Add(this.tbContainCarte);
-            this.Controls.Add(this.clbEffets);
             this.Controls.Add(this.rtbDescriptCarte);
             this.Controls.Add(this.tbNomCarte);
             this.Controls.Add(this.label3);
@@ -593,6 +653,10 @@ namespace YGO_Designer
             this.tbPiege.ResumeLayout(false);
             this.gbTypePiege.ResumeLayout(false);
             this.gbTypePiege.PerformLayout();
+            this.tcEffet.ResumeLayout(false);
+            this.tpEffet.ResumeLayout(false);
+            this.tpAddEffet.ResumeLayout(false);
+            this.tpAddEffet.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -617,15 +681,12 @@ namespace YGO_Designer
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbNbrEtoiles;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox tbNoCarte;
         private System.Windows.Forms.TextBox tbDefMo;
         private System.Windows.Forms.TextBox tbAtkMo;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckedListBox clbEffets;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.CheckedListBox clbTypeCarteMonstre;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.GroupBox gbTypeMagie;
@@ -639,6 +700,14 @@ namespace YGO_Designer
         private System.Windows.Forms.RadioButton rbContrePiege;
         private System.Windows.Forms.RadioButton rbContinu;
         private System.Windows.Forms.RadioButton rbNormal;
+        private System.Windows.Forms.TabControl tcEffet;
+        private System.Windows.Forms.TabPage tpEffet;
+        private System.Windows.Forms.TabPage tpAddEffet;
+        private System.Windows.Forms.Button btAddEffet;
+        private System.Windows.Forms.TextBox tbDescEffet;
+        private System.Windows.Forms.TextBox tbCodeEffet;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label1;
     }
 }
 

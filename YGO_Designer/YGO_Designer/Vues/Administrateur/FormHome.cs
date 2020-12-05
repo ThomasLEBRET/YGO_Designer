@@ -28,10 +28,10 @@ namespace YGO_Designer
         /// <summary>
         /// Procédure privée asynchrone chargeant les données du diagramme statistique des cartes de la base de données
         /// </summary>
-        private async void LoadDashboard()
+        private void LoadDashboard()
         {
             //Récupère le nombre de cartes de la base
-            int nbCartes = await ORMCarte.GetNbr();
+            int nbCartes = ORMCarte.GetNbr();
 
             //Affiche le ratio de cartes
             chPropCartes.Series.Clear();
@@ -42,21 +42,21 @@ namespace YGO_Designer
             lbNbCartes.Text = "Nombre de cartes : " + nbCartes;
 
             //Charge et affiche le ratio de monstre
-            float nbMonstre = await ORMCarte.GetNbrMonstre();
+            float nbMonstre = ORMCarte.GetNbrMonstre();
             chPropCartes.Series["Monstre"].Points.Add(nbMonstre);
             chPropCartes.Series["Monstre"].Points[0].Color = Color.FromArgb(167, 103, 38);
             chPropCartes.Series["Monstre"].Points[0].Label = "" + nbMonstre + "%";
             chPropCartes.Series["Monstre"].Points[0].LegendText = "Monstre";
 
             //Charge et affiche le ratio de magie
-            float nbMagie = await ORMCarte.GetNbrMagie();
+            float nbMagie = ORMCarte.GetNbrMagie();
             chPropCartes.Series["Magie"].Points.Add(nbMagie);
             chPropCartes.Series["Magie"].Points[0].Color = Color.FromArgb(64, 130, 109);
             chPropCartes.Series["Magie"].Points[0].Label = "" + nbMagie + "%";
             chPropCartes.Series["Magie"].Points[0].LegendText = "Magie ";
 
             //Charge et affiche le ratio de piège
-            float nbPiege = await ORMCarte.GetNbrPiege();
+            float nbPiege = ORMCarte.GetNbrPiege();
             chPropCartes.Series["Piege"].Points.Add(nbPiege);
             chPropCartes.Series["Piege"].Points[0].Color = Color.FromArgb(204, 78, 92);
             chPropCartes.Series["Piege"].Points[0].Label = "" + nbPiege + "%";

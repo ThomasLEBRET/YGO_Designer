@@ -10,8 +10,7 @@
         Feu,
         Eau,
         Terre,
-        Lumière,
-        Ténèbres
-        
+        Lumiere,
+        Tenebres
     }
 }

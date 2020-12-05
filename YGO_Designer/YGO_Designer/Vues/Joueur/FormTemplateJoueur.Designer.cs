@@ -31,12 +31,12 @@ namespace YGO_Designer
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTemplateJoueur));
             this.pnContainer = new System.Windows.Forms.Panel();
+            this.btCreerDeck = new System.Windows.Forms.Button();
             this.btClose = new System.Windows.Forms.Button();
             this.btChercherCarte = new System.Windows.Forms.Button();
             this.btHome = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pnFormChild = new System.Windows.Forms.Panel();
-            this.btCreerDeck = new System.Windows.Forms.Button();
             this.pnContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,6 +55,24 @@ namespace YGO_Designer
             this.pnContainer.Name = "pnContainer";
             this.pnContainer.Size = new System.Drawing.Size(171, 485);
             this.pnContainer.TabIndex = 4;
+            // 
+            // btCreerDeck
+            // 
+            this.btCreerDeck.BackColor = System.Drawing.Color.Transparent;
+            this.btCreerDeck.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btCreerDeck.FlatAppearance.BorderSize = 0;
+            this.btCreerDeck.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btCreerDeck.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.btCreerDeck.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btCreerDeck.Font = new System.Drawing.Font("Candara", 15.75F, System.Drawing.FontStyle.Bold);
+            this.btCreerDeck.ForeColor = System.Drawing.Color.White;
+            this.btCreerDeck.Location = new System.Drawing.Point(0, 162);
+            this.btCreerDeck.Name = "btCreerDeck";
+            this.btCreerDeck.Size = new System.Drawing.Size(171, 75);
+            this.btCreerDeck.TabIndex = 4;
+            this.btCreerDeck.Text = "Créer un deck stratégique";
+            this.btCreerDeck.UseVisualStyleBackColor = false;
+            this.btCreerDeck.Click += new System.EventHandler(this.btCreerDeck_Click);
             // 
             // btClose
             // 
@@ -130,24 +148,6 @@ namespace YGO_Designer
             this.pnFormChild.Name = "pnFormChild";
             this.pnFormChild.Size = new System.Drawing.Size(672, 485);
             this.pnFormChild.TabIndex = 5;
-            // 
-            // btCreerDeck
-            // 
-            this.btCreerDeck.BackColor = System.Drawing.Color.Transparent;
-            this.btCreerDeck.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btCreerDeck.FlatAppearance.BorderSize = 0;
-            this.btCreerDeck.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.btCreerDeck.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
-            this.btCreerDeck.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btCreerDeck.Font = new System.Drawing.Font("Candara", 15.75F, System.Drawing.FontStyle.Bold);
-            this.btCreerDeck.ForeColor = System.Drawing.Color.White;
-            this.btCreerDeck.Location = new System.Drawing.Point(0, 162);
-            this.btCreerDeck.Name = "btCreerDeck";
-            this.btCreerDeck.Size = new System.Drawing.Size(171, 75);
-            this.btCreerDeck.TabIndex = 4;
-            this.btCreerDeck.Text = "Créer un deck";
-            this.btCreerDeck.UseVisualStyleBackColor = false;
-            this.btCreerDeck.Click += new System.EventHandler(this.btCreerDeck_Click);
             // 
             // FormTemplateJoueur
             // 

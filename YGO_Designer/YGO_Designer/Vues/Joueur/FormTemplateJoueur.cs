@@ -26,6 +26,7 @@ namespace YGO_Designer
 
         private FormHomeJoueur fhj;
         private FormChercherCarte fcc;
+        private FormDeckStrategique fds;
         public FormTemplateJoueur()
         {
             InitializeComponent();
@@ -81,13 +82,8 @@ namespace YGO_Designer
         {
             fhj = new FormHomeJoueur();
             fcc = new FormChercherCarte();
+            fds = new FormDeckStrategique();
             openChildForm(fhj);
-        }
-
-        private void btCreerDeck_Click(object sender, EventArgs e)
-        {
-            //TO DO 
-            //Affiche un form pour générer un deck stratégique
         }
 
         /// <summary>
@@ -98,6 +94,11 @@ namespace YGO_Designer
         private void btClose_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void btCreerDeck_Click(object sender, EventArgs e)
+        {
+            openChildForm(fds);
         }
     }
 }

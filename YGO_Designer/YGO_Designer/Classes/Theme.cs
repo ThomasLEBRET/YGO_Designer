@@ -35,15 +35,18 @@ namespace YGO_Designer.Classes
         /// <param name="tc">Le TabControl</param>
         /// <param name="backgroundF">La couleur de fond</param>
         /// <param name="backgroundC">La couleur des contrôles</param>
-        public static void AddTabControl(TabControl tc, Color backgroundF, Color backgroundC)
+        public static void AddColorTabControl(Form f, Color backgroundF, Color backgroundC)
         {
-            tc.SelectedTab.BackColor = backgroundF;
-            foreach (Control c in tc.SelectedTab.Controls)
+            foreach (TabControl t in f.Controls.OfType<TabControl>())
             {
-                if(c is Button)
-                    c.BackColor = Color.FromArgb(222, 184, 135);
-                if (c is TextBox || c is RichTextBox || c is CheckedListBox || c is TabControl || c is ComboBox)
-                    c.BackColor = backgroundC;
+                t.SelectedTab.BackColor = backgroundF;
+                foreach (Control c in t.SelectedTab.Controls)
+                {
+                    if (c is Button)
+                        c.BackColor = Color.FromArgb(222, 184, 135);
+                    if (c is TextBox || c is RichTextBox || c is CheckedListBox || c is TabControl || c is ComboBox)
+                        c.BackColor = backgroundC;
+                }
             }
         }
     }

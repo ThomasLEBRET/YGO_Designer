@@ -29,7 +29,7 @@ namespace YGO_Designer
             InitializeComponent();
 
             Theme.Add(this, Color.FromArgb(167, 103, 38), Color.FromArgb(187, 174, 152));
-            Theme.AddTabControl(tbContainCarte, Color.FromArgb(187, 174, 152), Color.FromArgb(187, 174, 152));
+            Theme.AddColorTabControl(this, Color.FromArgb(187, 174, 152), Color.FromArgb(187, 174, 152));
 
             ORMDatabase.Connexion();
 
@@ -48,9 +48,22 @@ namespace YGO_Designer
         /// <returns>Un booléen : true si le contrôle de données est réussi, false sinon</returns>
         private bool EstCarteValide()
         {
-            if (!string.IsNullOrEmpty(tbNomCarte.Text) && !string.IsNullOrEmpty(tbNoCarte.Text) && tbNoCarte.Text.Length == 8)
+            if (!string.IsNullOrEmpty(tbNomCarte.Text))
                 return true;
             return false;
+        }
+
+        private void RAZ()
+        {
+            foreach (Control c in this.Controls)
+            {
+                if (c is TextBox)
+                    c.Text = "";
+            }
+            foreach (ComboBox clb in this.Controls.OfType<ComboBox>())
+            {
+                clb.SelectedIndex = -1;
+            }
         }
 
         /// <summary>
@@ -60,13 +73,12 @@ namespace YGO_Designer
         /// <returns>Un objet de type Carte</returns>
         private Carte CreeCarte(Attribut attrCarte)
         {
-            int noC = Convert.ToInt32(tbNoCarte.Text);
             string nom = tbNomCarte.Text;
             string description = rtbDescriptCarte.Text;
             List<Effet> lE = new List<Effet>();
             foreach (Effet eff in clbEffets.CheckedItems)
                 lE.Add(eff);
-            return new Carte(lE, noC, attrCarte, nom, description);
+            return new Carte(lE, 0, attrCarte, nom, description);
         }
 
         /// <summary>
@@ -110,15 +122,16 @@ namespace YGO_Designer
                 }
                 else
                 {
-                    MessageBox.Show("Entrez un numéro de carte non existant dans la base de données.");
-                    return;
+                    Notification.ShowFormAlert("Entrez un numéro de carte non existant dans la base de données");
+                    
                 }
             }
             else
             {
-                MessageBox.Show("Entrez des valeurs valides pour la conception d'une carte");
-                return;
+                Notification.ShowFormAlert("Entrez des valeurs valides pour la conception d'une carte");
+                
             }
+            RAZ();
         }
 
         /// <summary>
@@ -144,26 +157,27 @@ namespace YGO_Designer
                     
                     if (ORMMagie.Add((Magie)magie))
                     {
-                        MessageBox.Show(magie.ToString() + " a bien été ajouté.");
-                        return;
+                        Notification.ShowFormSuccess(magie.ToString() + "a bien été ajouté.");
+                        
                     }
                     else
                     {
-                        MessageBox.Show("Le monstre n'a pas pu être ajouté.");
-                        return;
+                        Notification.ShowFormAlert("La carte n'a pas pu être ajoutée");
+                        
                     }
                 }
                 else
                 {
-                    MessageBox.Show("La carte existe déjà");
-                    return;
+                    Notification.ShowFormAlert("La carte existe déjà");
+                    
                 }
             }
             else
             {
-                MessageBox.Show("Entrez des valeurs valides pour la conception d'une carte");
-                return;
+                Notification.ShowFormAlert("Entrez des valeurs valides pour la conception d'une carte");
+                
             }
+            RAZ();
         }
 
         /// <summary>
@@ -189,26 +203,26 @@ namespace YGO_Designer
 
                     if (ORMPiege.Add((Piege)piege))
                     {
-                        MessageBox.Show(piege.ToString() + " a bien été ajouté.");
-                        return;
+                        Notification.ShowFormSuccess(piege.ToString() + " a bien été ajouté.");
+                        
                     }
                     else
                     {
-                        MessageBox.Show("Le monstre n'a pas pu être ajouté.");
-                        return;
+                        Notification.ShowFormAlert("La carte n'a pas pu être ajoutée");
+                        
                     }
                 }
                 else
                 {
-                    MessageBox.Show("La carte existe déjà");
-                    return;
+                    Notification.ShowFormAlert("La carte existe déjà");
+                    
                 }
             }
             else
             {
-                MessageBox.Show("Entrez des valeurs valides pour la conception d'une carte");
-                return;
+                Notification.ShowFormAlert("Entrez des valeurs valides pour la conception d'une carte");
             }
+            RAZ();
         }
 
         /// <summary>
@@ -222,18 +236,43 @@ namespace YGO_Designer
             {
                 case "Monstre":
                     Theme.Add(this, Color.FromArgb(167, 103, 38), Color.FromArgb(187, 174, 152));
-                    Theme.AddTabControl(tbContainCarte, Color.FromArgb(187, 174, 152), Color.FromArgb(187, 174, 152));
+                    Theme.AddColorTabControl(this, Color.FromArgb(187, 174, 152), Color.FromArgb(187, 174, 152));
                     break;
                 case "Magie":
                     Theme.Add(this, Color.FromArgb(64, 130, 109), Color.FromArgb(151, 223, 198));
-                    Theme.AddTabControl(tbContainCarte, Color.FromArgb(151, 223, 198), Color.FromArgb(151, 223, 198));
+                    Theme.AddColorTabControl(this, Color.FromArgb(151, 223, 198), Color.FromArgb(151, 223, 198));
                     break;
                 case "Piège":
                     Theme.Add(this, Color.FromArgb(204, 78, 92), Color.FromArgb(253, 223, 224));
-                    Theme.AddTabControl(tbContainCarte, Color.FromArgb(253, 223, 224), Color.FromArgb(253, 223, 224));
+                    Theme.AddColorTabControl(this, Color.FromArgb(253, 223, 224), Color.FromArgb(253, 223, 224));
                     break;
-
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btAddEffet_Click(object sender, EventArgs e)
+        {
+            if(tbCodeEffet.Text.Length > 0 && tbDescEffet.Text.Length > 0)
+            {
+                string code = tbCodeEffet.Text;
+                string desc = tbDescEffet.Text;
+                Effet eff = new Effet(code, desc);
+                if (ORMCarte.AddEffet(eff))
+                {
+                    Notification.ShowFormSuccess("L'effet a été ajouté à la liste des effets");
+                    clbEffets.Items.Add(eff);
+                }
+                else
+                    Notification.ShowFormDanger("L'effet n'a pas pu être ajouté pour une erreur inconnue");
+            }
+            else
+                Notification.ShowFormAlert("Le code et/ou la description de l'effet a ajouter n'est pas complétée");
+            tbCodeEffet.Clear();
+            tbDescEffet.Clear();
         }
     }
 }
