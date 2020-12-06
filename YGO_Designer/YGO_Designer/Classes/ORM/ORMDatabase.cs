@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.SqlServer.Server;
-using System.Windows.Forms;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 
-namespace YGO_Designer.Classes.ORM
+namespace YGO_Designer
 {
     /// <summary>
     /// Classe simulant un ORM pour un objet de tye MySqlConnection
@@ -22,7 +15,7 @@ namespace YGO_Designer.Classes.ORM
         /// <returns>Un booléen : true si la connexion a pu s'opérer, false sinon</returns>
         public static bool Connexion()
         {
-            conn = new MySqlConnection(Properties.Settings.Default.loginDist);
+            conn = new MySqlConnection(Properties.Settings.Default.loginLocal);
             conn.Open();
             return conn.State == System.Data.ConnectionState.Open;
         }

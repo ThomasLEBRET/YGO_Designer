@@ -37,6 +37,7 @@ namespace YGO_Designer
             this.btHome = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pnFormChild = new System.Windows.Forms.Panel();
+            this.btCreerStrat = new System.Windows.Forms.Button();
             this.pnContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,6 +47,7 @@ namespace YGO_Designer
             | System.Windows.Forms.AnchorStyles.Left)));
             this.pnContainer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnContainer.BackColor = System.Drawing.Color.Black;
+            this.pnContainer.Controls.Add(this.btCreerStrat);
             this.pnContainer.Controls.Add(this.btClose);
             this.pnContainer.Controls.Add(this.btChercherCarte);
             this.pnContainer.Controls.Add(this.btAjouterCarte);
@@ -149,6 +151,24 @@ namespace YGO_Designer
             this.pnFormChild.Size = new System.Drawing.Size(672, 485);
             this.pnFormChild.TabIndex = 5;
             // 
+            // btCreerStrat
+            // 
+            this.btCreerStrat.BackColor = System.Drawing.Color.Transparent;
+            this.btCreerStrat.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btCreerStrat.FlatAppearance.BorderSize = 0;
+            this.btCreerStrat.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btCreerStrat.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.btCreerStrat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btCreerStrat.Font = new System.Drawing.Font("Candara", 15.75F, System.Drawing.FontStyle.Bold);
+            this.btCreerStrat.ForeColor = System.Drawing.Color.White;
+            this.btCreerStrat.Location = new System.Drawing.Point(0, 242);
+            this.btCreerStrat.Name = "btCreerStrat";
+            this.btCreerStrat.Size = new System.Drawing.Size(171, 75);
+            this.btCreerStrat.TabIndex = 4;
+            this.btCreerStrat.Text = "Créer une stratégie de jeu";
+            this.btCreerStrat.UseVisualStyleBackColor = false;
+            this.btCreerStrat.Click += new System.EventHandler(this.btCreerStrat_Click);
+            // 
             // FormTemplateAdmin
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.OutlineButton;
@@ -181,6 +201,7 @@ namespace YGO_Designer
         private System.Windows.Forms.Button btChercherCarte;
         private System.Windows.Forms.Button btClose;
         private System.Windows.Forms.Panel pnFormChild;
+        private System.Windows.Forms.Button btCreerStrat;
     }
 }
 

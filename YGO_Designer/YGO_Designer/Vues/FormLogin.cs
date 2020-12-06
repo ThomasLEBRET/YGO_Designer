@@ -8,10 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using YGO_Designer.Classes;
-using YGO_Designer.Classes.Carte;
-using YGO_Designer.Classes.Carte.Attribut_Carte;
-using YGO_Designer.Classes.Carte.TypeCarte;
-using YGO_Designer.Classes.ORM;
 using YGO_Designer.Classes.User;
 using YGO_Designer.Vues.Joueur;
 

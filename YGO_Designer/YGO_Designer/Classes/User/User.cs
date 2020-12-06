@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using YGO_Designer.Classes.Carte;
 
 namespace YGO_Designer.Classes.User
 {

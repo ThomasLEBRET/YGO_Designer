@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace YGO_Designer.Classes
+namespace YGO_Designer
 {
     /// <summary>
     /// Classe static définissant un thème de couleur pour une carte

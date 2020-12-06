@@ -1,14 +1,9 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using YGO_Designer.Classes.Carte;
-using YGO_Designer.Classes.ORM;
+using MySql.Data.MySqlClient;
+using YGO_Designer.Classes.User;
 
-namespace YGO_Designer.Classes.Deck
+namespace YGO_Designer
 {
     /// <summary>
     /// Classe static simulant un ORM associé à l'objet Deck
@@ -23,7 +18,7 @@ namespace YGO_Designer.Classes.Deck
         /// <returns></returns>
         private static int NbExemplaireCard(int noDeck, int noCarte)
         {
-            string userName = User.User.GetUsername();
+            string userName = User.GetUsername();
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
             cmd.CommandText = "SELECT NB_EXEMPLAIRE FROM INCLUS WHERE NO_DECK = @noDeck AND NO_CARTE = @noCarte";
             cmd.Parameters.Add("@noDeck", MySqlDbType.Int32).Value = noDeck;
@@ -43,7 +38,7 @@ namespace YGO_Designer.Classes.Deck
         /// <returns>Un booléen : true si le deck existe, false sinon</returns>
         private static bool Exist(int noDeck)
         {
-            string userName = User.User.GetUsername();
+            string userName = User.GetUsername();
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
             cmd.CommandText = "SELECT NO_DECK FROM INCLUS WHERE NO_DECK = @noDeck";
             cmd.Parameters.Add("@noDeck", MySqlDbType.Int32).Value = noDeck;
@@ -67,7 +62,7 @@ namespace YGO_Designer.Classes.Deck
             if (Exist(d.GetNo()))
                 return false;
 
-            string userName = User.User.GetUsername();
+            string userName = User.GetUsername();
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
             cmd.CommandText = "INSERT INTO DECK(NO_DECK, USER, NOM_DECK) VALUES(@no, @user, @nom)";
             cmd.Parameters.Add("@no", MySqlDbType.Int32).Value = d.GetNo();
@@ -84,7 +79,7 @@ namespace YGO_Designer.Classes.Deck
         /// <returns>Un booléen : true si la carte a pu être ajoutée au deck, false sinon</returns>
         public static bool AddCard(int numCarte, int numDeck)
         {
-            string userName = User.User.GetUsername();
+            string userName = User.GetUsername();
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
             if (NbExemplaireCard(numDeck, numCarte) == 0)
                 cmd.CommandText = "INSERT INTO INCLUS(NO_DECK, NO_CARTE, NB_EXEMPLAIRE) VALUES(@noDeck, @noCarte, 1)";
@@ -104,7 +99,7 @@ namespace YGO_Designer.Classes.Deck
         /// <returns>Une liste typée Deck</returns>
         public static List<Deck> GetByUser()
         {
-            string userName = User.User.GetUsername();
+            string userName = User.GetUsername();
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
             cmd.CommandText = "SELECT * FROM DECK WHERE USER = @user";
             cmd.Parameters.Add("@user", MySqlDbType.VarChar).Value = userName;
@@ -124,9 +119,9 @@ namespace YGO_Designer.Classes.Deck
         /// </summary>
         /// <param name="noDeck">Le numéro d'un deck</param>
         /// <returns>Une liste typée Carte</returns>
-        public static List<Carte.Carte> GetCartes(int noDeck)
+        public static List<Carte> GetCartes(int noDeck)
         {
-            string userName = User.User.GetUsername();
+            string userName = User.GetUsername();
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
             cmd.CommandText = "SELECT NO_CARTE FROM INCLUS WHERE NO_DECK = @noDeck";
             cmd.Parameters.Add("@noDeck", MySqlDbType.Int32).Value = noDeck;
@@ -137,7 +132,7 @@ namespace YGO_Designer.Classes.Deck
                 lNbCartes.Add(Convert.ToInt32(rdr["NO_CARTE"]));
             rdr.Close();
 
-            List<Carte.Carte> listCartes = new List<Carte.Carte>();
+            List<Carte> listCartes = new List<Carte>();
             foreach (int i in lNbCartes)
                 listCartes.Add(ORMCarte.GetByNoForDeck(i, noDeck));
             return listCartes;
@@ -161,7 +156,7 @@ namespace YGO_Designer.Classes.Deck
         /// <param name="c">Un objet de type Carte</param>
         /// <param name="d">Un objet de type Deck</param>
         /// <returns>Un booléen : true si la carte a pu être supprimée du deck, false sinon</returns>
-        public static bool DeleteCard(Carte.Carte c, Deck d)
+        public static bool DeleteCard(Carte c, Deck d)
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
             cmd.CommandText = "DELETE FROM INCLUS WHERE NO_DECK = @noDeck AND NO_CARTE = @noCarte";
@@ -170,7 +165,7 @@ namespace YGO_Designer.Classes.Deck
             return Convert.ToInt32(cmd.ExecuteNonQuery()) == 1;
         }
 
-        public static bool RemoveCopyCard(Carte.Carte c, Deck d)
+        public static bool RemoveCopyCard(Carte c, Deck d)
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
             cmd.CommandText = "UPDATE INCLUS SET NB_EXEMPLAIRE = NB_EXEMPLAIRE - 1 WHERE NO_DECK = @noDeck AND NO_CARTE = @noCarte";

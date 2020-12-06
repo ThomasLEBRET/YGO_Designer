@@ -1,10 +1,8 @@
-﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using YGO_Designer.Classes.ORM;
+﻿using System;
+using MySql.Data.MySqlClient;
+using YGO_Designer.Classes.User;
 
-namespace YGO_Designer.Classes.User
+namespace YGO_Designer
 {
     /// <summary>
     /// Classe simulant un ORM pour la classe statique User

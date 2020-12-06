@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace YGO_Designer.Classes.Deck
+namespace YGO_Designer
 {
     /// <summary>
     /// Classe représentant une liste de cartes appartenant à un joueur appelé Deck 
@@ -14,7 +10,7 @@ namespace YGO_Designer.Classes.Deck
         private int numDeck;
         private string user;
         private string nom;
-        private List<Carte.Carte> listCartes;
+        private List<Carte> listCartes;
 
         //Les constantes servent à déterminer le nombre minimum de carte et le nombre maximum de carte que peut comporter un Deck
         private const int nbrCarteMinClassic = 40;
@@ -31,7 +27,7 @@ namespace YGO_Designer.Classes.Deck
             this.numDeck = numDeck;
             this.user = user;
             this.nom = nom;
-            this.listCartes = new List<Carte.Carte>();
+            this.listCartes = new List<Carte>();
         }
 
         public override bool Equals(object obj)
@@ -81,7 +77,7 @@ namespace YGO_Designer.Classes.Deck
         /// Accesseur de la liste de cartes du deck
         /// </summary>
         /// <returns>Une liste typée Carte associée au deck</returns>
-        public List<Carte.Carte> GetCartes()
+        public List<Carte> GetCartes()
         {
             return this.listCartes;
         }
@@ -90,7 +86,7 @@ namespace YGO_Designer.Classes.Deck
         /// Mutateur de la liste de cartes du deck
         /// </summary>
         /// <param name="listCartes">Une nouvelle liste typée Carte</param>
-        public void SetCartes(List<Carte.Carte> listCartes)
+        public void SetCartes(List<Carte> listCartes)
         {
             this.listCartes = listCartes;
         }
@@ -114,7 +110,7 @@ namespace YGO_Designer.Classes.Deck
         private int NbCartesFromDeck()
         {
             int nbExemplaireTotal = 0;
-            foreach (Carte.Carte c in listCartes)
+            foreach (Carte c in listCartes)
                 nbExemplaireTotal += c.GetNbExemplaireFromDeck();
             return nbExemplaireTotal;
         }

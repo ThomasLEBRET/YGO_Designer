@@ -1,12 +1,8 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
-using YGO_Designer.Classes.ORM;
-using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
 
-namespace YGO_Designer.Classes.Carte
+namespace YGO_Designer
 {
     /// <summary>
     /// Classe static simulant le comportement d'un ORM associé à l'objet Carte
@@ -66,7 +62,7 @@ namespace YGO_Designer.Classes.Carte
         public static bool Exist(Carte c)
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "SELECT Count(*)  FROM CARTE WHERE NO_CARTE = @noCarte";
+            cmd.CommandText = "SELECT COUNT(*)  FROM CARTE WHERE NO_CARTE = @noCarte";
             cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = c.GetNo();
 
             return  Convert.ToInt32(cmd.ExecuteScalar()) == 1;
@@ -88,41 +84,6 @@ namespace YGO_Designer.Classes.Carte
         }
 
         /// <summary>
-        /// Récupère l'ensemble des effets depuis la table 'effet'
-        /// </summary>
-        /// <returns>Une liste d'objets de type Effet</returns>
-        public static List<Effet> GetEffets()
-        {
-            MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "SELECT * FROM EFFET";
-            List<Effet> lE = new List<Effet>();
-            MySqlDataReader rdr = cmd.ExecuteReader();
-            while (rdr.Read())
-                lE.Add(new Effet(rdr["CODE_EFFET"].ToString(), rdr["NOM_EFFET"].ToString()));
-            rdr.Close();
-            return lE;
-        }
-
-        /// <summary>
-        /// Récupère la liste des effets d'une carte
-        /// </summary>
-        /// <param name="noCarte">Le numéro de la carte</param>
-        /// <returns>Une liste d'objets de type Effet</returns>
-        public static List<Effet> GetEffetsByCard(int noCarte)
-        {
-            MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "SELECT E.* FROM EFFET_CARTE EC, EFFET E, CARTE C WHERE C.NO_CARTE = EC.NO_CARTE AND C.NO_CARTE = @noCarte AND EC.CODE_EFFET = E.CODE_EFFET";
-            cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = noCarte;
-
-            List<Effet> lE = new List<Effet>();
-            MySqlDataReader rdr = cmd.ExecuteReader();
-            while (rdr.Read())
-                lE.Add(new Effet(rdr["CODE_EFFET"].ToString(), rdr["NOM_EFFET"].ToString()));
-            rdr.Close();
-            return lE;
-        }
-
-        /// <summary>
         /// Récupère une carte par son numéro
         /// </summary>
         /// <param name="noCarte">Le numéro d'une carte</param>
@@ -138,7 +99,7 @@ namespace YGO_Designer.Classes.Carte
             string nom;
             Attribut attr = GetAttribut(noCarte);
             string description;
-            List<Effet> eff = GetEffetsByCard(noCarte);
+            List<Effet> eff = ORMEffet.GetEffetsByCard(noCarte);
             MySqlDataReader rdr = cmd.ExecuteReader();
             if (rdr.Read())
             {
@@ -188,7 +149,7 @@ namespace YGO_Designer.Classes.Carte
             Attribut attr = GetAttribut(noCarte);
             string description = "";
             int nbExemplaire = 0;
-            List<Effet> eff = GetEffetsByCard(noCarte);
+            List<Effet> eff = ORMEffet.GetEffetsByCard(noCarte);
             MySqlDataReader rdr = cmd.ExecuteReader();
 
             if (rdr.Read())
@@ -240,7 +201,7 @@ namespace YGO_Designer.Classes.Carte
             rdr.Close();
             for(int i = 0; i < lN.Count; i++)
             {
-                lE.Add(GetEffetsByCard(lN[i]));
+                lE.Add(ORMEffet.GetEffetsByCard(lN[i]));
                 lA.Add(GetAttribut(lN[i]));
             }
             cmd.CommandText = "SELECT * FROM CARTE WHERE NOM LIKE '%" + partName + "%'";
@@ -317,71 +278,6 @@ namespace YGO_Designer.Classes.Carte
                 at = new Attribut(rdr["CODE_ATTR_CARTE"].ToString(), rdr["NOM_ATTR_CARTE"].ToString());
             rdr.Close();
             return at;
-        }
-
-        /// <summary>
-        /// Permet d'ajouter les effets d'une carte dans la tables effet_carte
-        /// </summary>
-        /// <param name="c">Un objet de type Carte</param>
-        /// <returns>Un booléen : true si l'insertion de 0 ou n effets a réussie, false sinon</returns>
-        public static bool AjouterEffetsCarte(Carte c)
-        {
-            if (c != null && ORMCarte.Exist(c))
-            {
-                MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-                cmd.CommandText = "INSERT INTO EFFET_CARTE(CODE_EFFET, NO_CARTE) VALUES(@cdEffet, @noCarte)";
-                bool estTransactionReussi = true;
-                cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = c.GetNo();
-                MySqlParameter cdEffet = new MySqlParameter("@cdEffet", MySqlDbType.VarChar);
-                cmd.Parameters.Add(cdEffet);
-                
-                foreach (Effet e in c.GetListEffets())
-                {
-                    if (estTransactionReussi)
-                    {
-                        cdEffet.Value = e.GetCode();
-                        estTransactionReussi = cmd.ExecuteNonQuery() == 1;
-                    }
-                    else
-                    {
-                        Notification.ShowFormDanger("Echec : L'effet " + e.GetCode() + " n'a pas été lié à la carte");
-                        estTransactionReussi = true;
-                    }
-                }
-                return true;
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Ajoute un effet à la liste globale des effets que peuvent posséder une carte
-        /// </summary>
-        /// <param name="eff">Un effet</param>
-        /// <returns></returns>
-        public static bool AddEffet(Effet eff)
-        {
-            MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            if (!IsExistEffet(eff))
-            {
-                cmd.CommandText = "INSERT INTO EFFET(CODE_EFFET, NOM_EFFET) VALUES(@cdEffet, @nomEffet)";
-                cmd.Parameters.Add("@cdEffet", MySqlDbType.VarChar).Value = eff.GetCode();
-                cmd.Parameters.Add("@nomEffet", MySqlDbType.VarChar).Value = eff.GetNom();
-                return cmd.ExecuteNonQuery() == 1;
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Vérifie si un effet existe
-        /// </summary>
-        /// <param name="eff">Un effet</param>
-        /// <returns></returns>
-        private static bool IsExistEffet(Effet eff)
-        {
-            MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "SELECT COUNT(CODE_EFFET) FROM EFFET WHERE CODE_EFFET = @cdEff";
-            cmd.Parameters.Add("@cdEff", MySqlDbType.VarChar).Value = eff.GetCode();
-                return Convert.ToInt32(cmd.ExecuteScalar()) == 1;
         }
     }
 }

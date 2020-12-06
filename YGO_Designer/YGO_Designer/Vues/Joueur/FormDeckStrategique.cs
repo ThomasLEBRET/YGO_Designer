@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using YGO_Designer.Classes.Carte;
 
-namespace YGO_Designer.Vues.Joueur
+namespace YGO_Designer
 {
     public partial class FormDeckStrategique : Form
     {
@@ -19,7 +13,7 @@ namespace YGO_Designer.Vues.Joueur
         {
             InitializeComponent();
             deck = new List<Carte>();
-            lE = ORMCarte.GetEffets();
+            lE = ORMEffet.GetEffets();
         }
 
         private void ChargeEffets()

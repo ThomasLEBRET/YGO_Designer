@@ -1,18 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using YGO_Designer.Classes;
-using YGO_Designer.Classes.Carte;
-using YGO_Designer.Classes.Carte.Attribut_Carte;
-using YGO_Designer.Classes.Carte.TypeCarte;
-using YGO_Designer.Classes.ORM;
-using YGO_Designer.Vues.Joueur;
 
 namespace YGO_Designer
 {
@@ -31,9 +21,7 @@ namespace YGO_Designer
             Theme.Add(this, Color.FromArgb(167, 103, 38), Color.FromArgb(187, 174, 152));
             Theme.AddColorTabControl(this, Color.FromArgb(187, 174, 152), Color.FromArgb(187, 174, 152));
 
-            ORMDatabase.Connexion();
-
-            foreach (Effet e in ORMCarte.GetEffets())
+            foreach (Effet e in ORMEffet.GetEffets())
                 clbEffets.Items.Add(e);
 
             cbAttribMon.DataSource = Enum.GetValues(typeof(AttributMonstre));
@@ -96,7 +84,7 @@ namespace YGO_Designer
                 {
                     if (!string.IsNullOrEmpty(tbAtkMo.Text) && !string.IsNullOrEmpty(tbDefMo.Text))
                     {
-                        string typeM = Classes.Carte.Attribut_Carte.TypeMonstre.GetName(typeof(Classes.Carte.Attribut_Carte.TypeMonstre), (Classes.Carte.Attribut_Carte.TypeMonstre)cbTypeMon.SelectedItem);
+                        string typeM = TypeMonstre.GetName(typeof(TypeMonstre), (TypeMonstre)cbTypeMon.SelectedItem);
                         string attrM = AttributMonstre.GetName(typeof(AttributMonstre), (AttributMonstre)cbAttribMon.SelectedItem);
                         int nbEtoiles = Convert.ToInt32(cbNbrEtoiles.SelectedItem.ToString());
                         if (nbEtoiles == 0)
@@ -261,7 +249,7 @@ namespace YGO_Designer
                 string code = tbCodeEffet.Text;
                 string desc = tbDescEffet.Text;
                 Effet eff = new Effet(code, desc);
-                if (ORMCarte.AddEffet(eff))
+                if (ORMEffet.AddEffet(eff))
                 {
                     Notification.ShowFormSuccess("L'effet a été ajouté à la liste des effets");
                     clbEffets.Items.Add(eff);

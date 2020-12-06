@@ -1,4 +1,4 @@
-﻿namespace YGO_Designer.Vues.Joueur
+﻿namespace YGO_Designer
 {
     partial class FormDeckStrategique
     {

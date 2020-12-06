@@ -1,17 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using YGO_Designer.Classes;
-using YGO_Designer.Classes.Carte;
-using YGO_Designer.Classes.Carte.Attribut_Carte;
-using YGO_Designer.Classes.Carte.TypeCarte;
-using YGO_Designer.Classes.ORM;
 
 namespace YGO_Designer
 {
@@ -25,7 +13,7 @@ namespace YGO_Designer
         private FormHome fh;
         private FormAjouterCartes fac;
         private FormChercherCarte fcc;
-
+        private FormCreerStrategie fcs;
         public FormTemplateAdmin()
         {
             InitializeComponent();
@@ -58,7 +46,7 @@ namespace YGO_Designer
         /// <param name="e"></param>
         private void btChercherCarte_Click(object sender, EventArgs e)
         {
-                openChildForm(fcc);
+            openChildForm(fcc);
         }
 
         /// <summary>
@@ -71,6 +59,7 @@ namespace YGO_Designer
             {
                 if (activeForm != null)
                     activeForm.Hide(); //On cache le formulaire enfant actif
+
                 activeForm = childForm;
                 childForm.TopLevel = false; //Le formulaire s'affiche en tant que formulaire enfant à celui-ci
                 childForm.FormBorderStyle = FormBorderStyle.None; //Pas de bordures
@@ -92,6 +81,8 @@ namespace YGO_Designer
             fh = new FormHome();
             fac = new FormAjouterCartes();
             fcc = new FormChercherCarte();
+            fcs = new FormCreerStrategie();
+
             openChildForm(fh);
         }
 
@@ -103,6 +94,16 @@ namespace YGO_Designer
         private void btClose_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        /// <summary>
+        /// Charge le formulaire CreerStrategie
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btCreerStrat_Click(object sender, EventArgs e)
+        {
+            openChildForm(fcs);
         }
     }
 }

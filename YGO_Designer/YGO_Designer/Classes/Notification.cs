@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using YGO_Designer.Vues.Joueur;
 
-namespace YGO_Designer.Classes
+namespace YGO_Designer
 {
     public static class Notification
     {

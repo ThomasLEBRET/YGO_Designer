@@ -282,7 +282,7 @@ namespace YGO_Designer
             this.ilAttrib.Images.SetKeyName(12, "Rapide.png");
             this.ilAttrib.Images.SetKeyName(13, "Equipement.png");
             this.ilAttrib.Images.SetKeyName(14, "Continue.png");
-            this.ilAttrib.Images.SetKeyName(15, "Normale.png");
+            this.ilAttrib.Images.SetKeyName(15, "Normal.png");
             this.ilAttrib.Images.SetKeyName(16, "Contre_Piege.png");
             // 
             // btDelete

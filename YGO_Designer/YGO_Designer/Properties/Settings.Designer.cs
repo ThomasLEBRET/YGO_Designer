@@ -32,5 +32,14 @@ namespace YGO_Designer.Properties {
                 return ((string)(this["loginDist"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("host=localhost;user=root;password=;database=omuzoki_ygodesigner;")]
+        public string loginLocal {
+            get {
+                return ((string)(this["loginLocal"]));
+            }
+        }
     }
 }
