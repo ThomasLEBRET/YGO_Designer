@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
 namespace YGO_Designer
@@ -45,6 +46,26 @@ namespace YGO_Designer
             return false;
         }
 
-        
+        /// <summary>
+        /// Récupère et renvoi toutes les stratégies existantes
+        /// </summary>
+        /// <returns></returns>
+        public static List<Strategie> GetAll()
+        {
+            MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
+            cmd.CommandText = "SELECT * FROM STRATEGIE";
+
+            MySqlDataReader rdr = cmd.ExecuteReader();
+
+            List<Strategie> lS = new List<Strategie>();
+            while(rdr.Read())
+                lS.Add(new Strategie(rdr["CODE_STRAT"].ToString(), rdr["NOM_STRAT"].ToString(), Convert.ToInt16(rdr["RATIO_STARTER"]), Convert.ToInt16(rdr["RATIO_EXTENDER"]), Convert.ToInt16(rdr["RATIO_HANDTRAP"]), new List<Effet>()));
+            rdr.Close();
+
+            foreach(Strategie s in lS)
+                s.SetListEffet(ORMEffet.GetEffetsByStrategie(s));
+
+            return lS;
+        }
     }
 }

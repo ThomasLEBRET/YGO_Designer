@@ -69,11 +69,11 @@ namespace YGO_Designer
             this.tcEffet = new System.Windows.Forms.TabControl();
             this.tpEffet = new System.Windows.Forms.TabPage();
             this.tpAddEffet = new System.Windows.Forms.TabPage();
-            this.tbCodeEffet = new System.Windows.Forms.TextBox();
-            this.tbDescEffet = new System.Windows.Forms.TextBox();
-            this.btAddEffet = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btAddEffet = new System.Windows.Forms.Button();
+            this.tbDescEffet = new System.Windows.Forms.TextBox();
+            this.tbCodeEffet = new System.Windows.Forms.TextBox();
             this.tbContainCarte.SuspendLayout();
             this.tbMonstre.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -251,6 +251,7 @@ namespace YGO_Designer
             this.cbNbrEtoiles.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbNbrEtoiles.BackColor = System.Drawing.SystemColors.Window;
             this.cbNbrEtoiles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbNbrEtoiles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbNbrEtoiles.FormattingEnabled = true;
             this.cbNbrEtoiles.Location = new System.Drawing.Point(617, 41);
             this.cbNbrEtoiles.Name = "cbNbrEtoiles";
@@ -262,6 +263,7 @@ namespace YGO_Designer
             this.cbAttribMon.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbAttribMon.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbAttribMon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAttribMon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbAttribMon.FormattingEnabled = true;
             this.cbAttribMon.Location = new System.Drawing.Point(164, 40);
             this.cbAttribMon.Name = "cbAttribMon";
@@ -273,6 +275,7 @@ namespace YGO_Designer
             this.cbTypeMon.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbTypeMon.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbTypeMon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTypeMon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbTypeMon.FormattingEnabled = true;
             this.cbTypeMon.Location = new System.Drawing.Point(164, 3);
             this.cbTypeMon.Name = "cbTypeMon";
@@ -578,19 +581,23 @@ namespace YGO_Designer
             this.tpAddEffet.TabIndex = 1;
             this.tpAddEffet.Text = "Ajouter";
             // 
-            // tbCodeEffet
+            // label7
             // 
-            this.tbCodeEffet.Location = new System.Drawing.Point(133, 15);
-            this.tbCodeEffet.Name = "tbCodeEffet";
-            this.tbCodeEffet.Size = new System.Drawing.Size(100, 31);
-            this.tbCodeEffet.TabIndex = 0;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(10, 81);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(103, 23);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "Description";
             // 
-            // tbDescEffet
+            // label1
             // 
-            this.tbDescEffet.Location = new System.Drawing.Point(133, 78);
-            this.tbDescEffet.Name = "tbDescEffet";
-            this.tbDescEffet.Size = new System.Drawing.Size(228, 31);
-            this.tbDescEffet.TabIndex = 1;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(62, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(51, 23);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Code";
             // 
             // btAddEffet
             // 
@@ -606,23 +613,19 @@ namespace YGO_Designer
             this.btAddEffet.UseVisualStyleBackColor = false;
             this.btAddEffet.Click += new System.EventHandler(this.btAddEffet_Click);
             // 
-            // label1
+            // tbDescEffet
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(62, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 23);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Code";
+            this.tbDescEffet.Location = new System.Drawing.Point(133, 78);
+            this.tbDescEffet.Name = "tbDescEffet";
+            this.tbDescEffet.Size = new System.Drawing.Size(228, 31);
+            this.tbDescEffet.TabIndex = 1;
             // 
-            // label7
+            // tbCodeEffet
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(10, 81);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(103, 23);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "Description";
+            this.tbCodeEffet.Location = new System.Drawing.Point(133, 15);
+            this.tbCodeEffet.Name = "tbCodeEffet";
+            this.tbCodeEffet.Size = new System.Drawing.Size(100, 31);
+            this.tbCodeEffet.TabIndex = 0;
             // 
             // FormAjouterCartes
             // 

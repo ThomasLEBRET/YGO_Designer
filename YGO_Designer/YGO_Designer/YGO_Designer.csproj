@@ -88,10 +88,17 @@
     <Compile Include="Classes\Deck\Deck.cs" />
     <Compile Include="Classes\Deck\ORMDeck.cs" />
     <Compile Include="Classes\Notification.cs" />
-    <Compile Include="Classes\Strategie\Combo.cs" />
+    <Compile Include="Classes\Strategie\Combo\Combo.cs" />
+    <Compile Include="Classes\Strategie\Combo\ORMCombo.cs" />
     <Compile Include="Classes\Strategie\ORMStrategie.cs" />
     <Compile Include="Classes\Strategie\Strategie.cs" />
     <Compile Include="Classes\Theme.cs" />
+    <Compile Include="Vues\Administrateur\FormCombo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vues\Administrateur\FormCombo.Designer.cs">
+      <DependentUpon>FormCombo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vues\Administrateur\FormCreerStrategie.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -188,6 +195,9 @@
     <Compile Include="Vues\Joueur\FormTemplateJoueur.Designer.cs">
       <DependentUpon>FormTemplateJoueur.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Vues\Administrateur\FormCombo.resx">
+      <DependentUpon>FormCombo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Vues\Administrateur\FormCreerStrategie.resx">
       <DependentUpon>FormCreerStrategie.cs</DependentUpon>
     </EmbeddedResource>

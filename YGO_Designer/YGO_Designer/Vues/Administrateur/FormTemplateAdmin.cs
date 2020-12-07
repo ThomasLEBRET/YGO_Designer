@@ -14,6 +14,7 @@ namespace YGO_Designer
         private FormAjouterCartes fac;
         private FormChercherCarte fcc;
         private FormCreerStrategie fcs;
+        private FormCombo fc;
         public FormTemplateAdmin()
         {
             InitializeComponent();
@@ -82,6 +83,7 @@ namespace YGO_Designer
             fac = new FormAjouterCartes();
             fcc = new FormChercherCarte();
             fcs = new FormCreerStrategie();
+            fc = new FormCombo();
 
             openChildForm(fh);
         }
@@ -104,6 +106,11 @@ namespace YGO_Designer
         private void btCreerStrat_Click(object sender, EventArgs e)
         {
             openChildForm(fcs);
+        }
+
+        private void btCombo_Click(object sender, EventArgs e)
+        {
+            openChildForm(fc);
         }
     }
 }

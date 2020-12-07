@@ -104,31 +104,6 @@ namespace YGO_Designer
         }
 
         /// <summary>
-        /// Ajoute les effets d'une stratégie de jeu par paire afin de déterminer les combos à réaliser
-        /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        /*
-        public static bool AddEffetsFromCombo(Strategie s)
-        {
-            MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "INSERT INTO COMBO(CODE_EFFET, CODE_EFFET_1, CODE_STRAT, POIDS) VALUES(@cdE1,@cdE2,@cdStrat,@poids)";
-
-            MySqlParameter cdE1 = new MySqlParameter("@cdE1", MySqlDbType.VarChar);
-            MySqlParameter cdE2 = new MySqlParameter("@cdE2", MySqlDbType.VarChar);
-            MySqlParameter cdStrat = new MySqlParameter("@cdStrat", MySqlDbType.VarChar);
-            MySqlParameter poids = new MySqlParameter("@poids", MySqlDbType.Int16);
-
-            foreach(Effet eff in s.GetListeEffets())
-            {
-                cdE1.Value = eff.
-            }
-            cmd.CommandText = "";
-            return true;
-        }
-         */
-
-        /// <summary>
         /// Ajoute les effets d'une stratégie de jeu
         /// </summary>
         /// <param name="s"></param>
@@ -159,6 +134,70 @@ namespace YGO_Designer
                 }
             }
             return noError;
+        }
+
+        /// <summary>
+        /// Récupère tous les effets d'une stratégie
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static List<Effet> GetEffetsByStrategie(Strategie s)
+        {
+            MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
+            cmd.CommandText = "SELECT E.* FROM EFFET_STRAT ES, EFFET E WHERE ES.CODE_EFFET = E.CODE_EFFET AND ES.CODE_STRAT = @cdStrat";
+
+            cmd.Parameters.Add(new MySqlParameter("@cdStrat", MySqlDbType.VarChar)).Value = s.GetCode();
+            MySqlDataReader rdr = cmd.ExecuteReader();
+
+            List<Effet> lE = new List<Effet>();
+            while(rdr.Read())
+                lE.Add(new Effet(rdr["CODE_EFFET"].ToString(), rdr["NOM_EFFET"].ToString()));
+            rdr.Close();
+
+            return lE;
+        }
+
+        /// <summary>
+        /// Récupère les effets pères d'une stratégie basées sur les combos de cette dernière
+        /// </summary>
+        /// <param name="s">Une stratégie</param>
+        /// <returns></returns>
+        public static List<Effet> GetEffetsComboPereByStrategie(Strategie s)
+        {
+            MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
+            cmd.CommandText = "SELECT C.CODE_EFFET, E.NOM_EFFET FROM COMBO C, EFFET E WHERE C.CODE_STRAT = @cdStrat AND C.CODE_EFFET = E.CODE_EFFET GROUP BY E.CODE_EFFET";
+
+            cmd.Parameters.Add(new MySqlParameter("@cdStrat", MySqlDbType.VarChar)).Value = s.GetCode();
+
+            List<Effet> lE = new List<Effet>();
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            while(rdr.Read())
+                lE.Add(new Effet(rdr["CODE_EFFET"].ToString(), rdr["NOM_EFFET"].ToString()));
+            rdr.Close();
+
+            return lE;
+        }
+
+        /// <summary>
+        /// Récupère les effets pères d'une stratégie basées sur les combos de cette dernière
+        /// </summary>
+        /// <param name="s">Une stratégie</param>
+        /// <returns></returns>
+        public static List<Effet> GetEffetsComboFilsByStrategie(Strategie s, Effet e)
+        {
+            MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
+            cmd.CommandText = "SELECT C.CODE_EFFET_1, E.NOM_EFFET  FROM COMBO C, EFFET_STRAT EF, EFFET E WHERE C.CODE_EFFET = EF.CODE_EFFET AND EF.CODE_EFFET = E.CODE_EFFET AND C.CODE_STRAT = @cdStrat AND C.CODE_EFFET_1 = @pere";
+
+            cmd.Parameters.Add(new MySqlParameter("@cdStrat", MySqlDbType.VarChar)).Value = s.GetCode();
+            cmd.Parameters.Add(new MySqlParameter("@pere", MySqlDbType.VarChar)).Value = e.GetCode();
+
+            List<Effet> lE = new List<Effet>();
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            while(rdr.Read())
+                lE.Add(new Effet(rdr["CODE_EFFET_1"].ToString(), rdr["NOM_EFFET"].ToString()));
+            rdr.Close();
+
+            return lE;
         }
     }
 }

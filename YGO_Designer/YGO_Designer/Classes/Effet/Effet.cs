@@ -28,6 +28,26 @@
             return nomEffet;
         }
 
+        public override bool Equals(object obj)
+        {
+            if((obj == null) || !this.GetType().Equals(obj.GetType()))
+                return false;
+            else
+            {
+                Effet e = (Effet)obj;
+                return cdEffet == e.cdEffet;
+            }
+        }
+
+        /// <summary>
+        /// Demandé pour Equals
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return this.cdEffet.Length;
+        }
+
         /// <summary>
         /// Accesseur du code de l'effet
         /// </summary>

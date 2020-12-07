@@ -40,3 +40,4 @@ C:\Users\Thomas\Documents\GitHub\YGO_Designer\YGO_Designer\YGO_Designer\obj\x64\
 C:\Users\Thomas\Documents\GitHub\YGO_Designer\YGO_Designer\YGO_Designer\obj\x64\Debug\YGO_Designer.exe
 C:\Users\Thomas\Documents\GitHub\YGO_Designer\YGO_Designer\YGO_Designer\obj\x64\Debug\YGO_Designer.pdb
 C:\Users\Thomas\Documents\GitHub\YGO_Designer\YGO_Designer\YGO_Designer\obj\x64\Debug\YGO_Designer.csprojResolveAssemblyReference.cache
+C:\Users\Thomas\Documents\GitHub\YGO_Designer\YGO_Designer\YGO_Designer\obj\x64\Debug\YGO_Designer.FormCombo.resources

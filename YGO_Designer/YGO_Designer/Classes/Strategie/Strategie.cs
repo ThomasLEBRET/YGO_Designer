@@ -37,6 +37,15 @@ namespace YGO_Designer
         }
 
         /// <summary>
+        /// Redéfinition de la méthode ToString issue de la superclasse Object
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return this.code + " : " + this.nom;
+        }
+
+        /// <summary>
         /// Accesseur du code
         /// </summary>
         /// <returns></returns>
@@ -84,6 +93,11 @@ namespace YGO_Designer
         public List<Effet> GetListeEffets()
         {
             return this.lE;
+        }
+
+        public void SetListEffet(List<Effet> lE)
+        {
+            this.lE = lE;
         }
     }
 }

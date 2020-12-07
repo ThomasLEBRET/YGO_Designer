@@ -31,13 +31,14 @@ namespace YGO_Designer
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTemplateAdmin));
             this.pnContainer = new System.Windows.Forms.Panel();
+            this.btCreerStrat = new System.Windows.Forms.Button();
             this.btClose = new System.Windows.Forms.Button();
             this.btChercherCarte = new System.Windows.Forms.Button();
             this.btAjouterCarte = new System.Windows.Forms.Button();
             this.btHome = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pnFormChild = new System.Windows.Forms.Panel();
-            this.btCreerStrat = new System.Windows.Forms.Button();
+            this.btCombo = new System.Windows.Forms.Button();
             this.pnContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,6 +48,7 @@ namespace YGO_Designer
             | System.Windows.Forms.AnchorStyles.Left)));
             this.pnContainer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnContainer.BackColor = System.Drawing.Color.Black;
+            this.pnContainer.Controls.Add(this.btCombo);
             this.pnContainer.Controls.Add(this.btCreerStrat);
             this.pnContainer.Controls.Add(this.btClose);
             this.pnContainer.Controls.Add(this.btChercherCarte);
@@ -57,6 +59,24 @@ namespace YGO_Designer
             this.pnContainer.Name = "pnContainer";
             this.pnContainer.Size = new System.Drawing.Size(171, 485);
             this.pnContainer.TabIndex = 4;
+            // 
+            // btCreerStrat
+            // 
+            this.btCreerStrat.BackColor = System.Drawing.Color.Transparent;
+            this.btCreerStrat.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btCreerStrat.FlatAppearance.BorderSize = 0;
+            this.btCreerStrat.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btCreerStrat.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.btCreerStrat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btCreerStrat.Font = new System.Drawing.Font("Candara", 15.75F, System.Drawing.FontStyle.Bold);
+            this.btCreerStrat.ForeColor = System.Drawing.Color.White;
+            this.btCreerStrat.Location = new System.Drawing.Point(0, 242);
+            this.btCreerStrat.Name = "btCreerStrat";
+            this.btCreerStrat.Size = new System.Drawing.Size(171, 75);
+            this.btCreerStrat.TabIndex = 4;
+            this.btCreerStrat.Text = "Créer une stratégie de jeu";
+            this.btCreerStrat.UseVisualStyleBackColor = false;
+            this.btCreerStrat.Click += new System.EventHandler(this.btCreerStrat_Click);
             // 
             // btClose
             // 
@@ -69,9 +89,9 @@ namespace YGO_Designer
             this.btClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btClose.Font = new System.Drawing.Font("Candara", 15.75F, System.Drawing.FontStyle.Bold);
             this.btClose.ForeColor = System.Drawing.Color.White;
-            this.btClose.Location = new System.Drawing.Point(-17, 410);
+            this.btClose.Location = new System.Drawing.Point(0, 416);
             this.btClose.Name = "btClose";
-            this.btClose.Size = new System.Drawing.Size(188, 82);
+            this.btClose.Size = new System.Drawing.Size(171, 69);
             this.btClose.TabIndex = 3;
             this.btClose.Text = "Quitter";
             this.btClose.UseVisualStyleBackColor = false;
@@ -151,23 +171,23 @@ namespace YGO_Designer
             this.pnFormChild.Size = new System.Drawing.Size(672, 485);
             this.pnFormChild.TabIndex = 5;
             // 
-            // btCreerStrat
+            // btCombo
             // 
-            this.btCreerStrat.BackColor = System.Drawing.Color.Transparent;
-            this.btCreerStrat.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btCreerStrat.FlatAppearance.BorderSize = 0;
-            this.btCreerStrat.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.btCreerStrat.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
-            this.btCreerStrat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btCreerStrat.Font = new System.Drawing.Font("Candara", 15.75F, System.Drawing.FontStyle.Bold);
-            this.btCreerStrat.ForeColor = System.Drawing.Color.White;
-            this.btCreerStrat.Location = new System.Drawing.Point(0, 242);
-            this.btCreerStrat.Name = "btCreerStrat";
-            this.btCreerStrat.Size = new System.Drawing.Size(171, 75);
-            this.btCreerStrat.TabIndex = 4;
-            this.btCreerStrat.Text = "Créer une stratégie de jeu";
-            this.btCreerStrat.UseVisualStyleBackColor = false;
-            this.btCreerStrat.Click += new System.EventHandler(this.btCreerStrat_Click);
+            this.btCombo.BackColor = System.Drawing.Color.Transparent;
+            this.btCombo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btCombo.FlatAppearance.BorderSize = 0;
+            this.btCombo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btCombo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.btCombo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btCombo.Font = new System.Drawing.Font("Candara", 15.75F, System.Drawing.FontStyle.Bold);
+            this.btCombo.ForeColor = System.Drawing.Color.White;
+            this.btCombo.Location = new System.Drawing.Point(0, 323);
+            this.btCombo.Name = "btCombo";
+            this.btCombo.Size = new System.Drawing.Size(171, 87);
+            this.btCombo.TabIndex = 5;
+            this.btCombo.Text = "Organiser les combos d\'une stratégie";
+            this.btCombo.UseVisualStyleBackColor = false;
+            this.btCombo.Click += new System.EventHandler(this.btCombo_Click);
             // 
             // FormTemplateAdmin
             // 
@@ -202,6 +222,7 @@ namespace YGO_Designer
         private System.Windows.Forms.Button btClose;
         private System.Windows.Forms.Panel pnFormChild;
         private System.Windows.Forms.Button btCreerStrat;
+        private System.Windows.Forms.Button btCombo;
     }
 }
 
