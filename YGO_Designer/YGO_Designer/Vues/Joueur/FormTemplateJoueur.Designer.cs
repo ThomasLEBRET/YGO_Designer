@@ -85,11 +85,11 @@ namespace YGO_Designer
             this.btClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btClose.Font = new System.Drawing.Font("Candara", 15.75F, System.Drawing.FontStyle.Bold);
             this.btClose.ForeColor = System.Drawing.Color.White;
-            this.btClose.Location = new System.Drawing.Point(-17, 410);
+            this.btClose.Location = new System.Drawing.Point(0, 416);
             this.btClose.Name = "btClose";
-            this.btClose.Size = new System.Drawing.Size(188, 82);
+            this.btClose.Size = new System.Drawing.Size(171, 69);
             this.btClose.TabIndex = 3;
-            this.btClose.Text = "Quitter";
+            this.btClose.Text = "Déconnexion";
             this.btClose.UseVisualStyleBackColor = false;
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 

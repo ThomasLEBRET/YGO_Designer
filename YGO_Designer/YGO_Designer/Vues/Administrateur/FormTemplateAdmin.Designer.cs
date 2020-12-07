@@ -31,6 +31,7 @@ namespace YGO_Designer
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTemplateAdmin));
             this.pnContainer = new System.Windows.Forms.Panel();
+            this.btCombo = new System.Windows.Forms.Button();
             this.btCreerStrat = new System.Windows.Forms.Button();
             this.btClose = new System.Windows.Forms.Button();
             this.btChercherCarte = new System.Windows.Forms.Button();
@@ -38,7 +39,6 @@ namespace YGO_Designer
             this.btHome = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pnFormChild = new System.Windows.Forms.Panel();
-            this.btCombo = new System.Windows.Forms.Button();
             this.pnContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,6 +59,24 @@ namespace YGO_Designer
             this.pnContainer.Name = "pnContainer";
             this.pnContainer.Size = new System.Drawing.Size(171, 485);
             this.pnContainer.TabIndex = 4;
+            // 
+            // btCombo
+            // 
+            this.btCombo.BackColor = System.Drawing.Color.Transparent;
+            this.btCombo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btCombo.FlatAppearance.BorderSize = 0;
+            this.btCombo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btCombo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.btCombo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btCombo.Font = new System.Drawing.Font("Candara", 15.75F, System.Drawing.FontStyle.Bold);
+            this.btCombo.ForeColor = System.Drawing.Color.White;
+            this.btCombo.Location = new System.Drawing.Point(0, 323);
+            this.btCombo.Name = "btCombo";
+            this.btCombo.Size = new System.Drawing.Size(171, 87);
+            this.btCombo.TabIndex = 5;
+            this.btCombo.Text = "Organiser les combos d\'une stratégie";
+            this.btCombo.UseVisualStyleBackColor = false;
+            this.btCombo.Click += new System.EventHandler(this.btCombo_Click);
             // 
             // btCreerStrat
             // 
@@ -93,7 +111,7 @@ namespace YGO_Designer
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(171, 69);
             this.btClose.TabIndex = 3;
-            this.btClose.Text = "Quitter";
+            this.btClose.Text = "Déconnexion";
             this.btClose.UseVisualStyleBackColor = false;
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
@@ -170,24 +188,6 @@ namespace YGO_Designer
             this.pnFormChild.Name = "pnFormChild";
             this.pnFormChild.Size = new System.Drawing.Size(672, 485);
             this.pnFormChild.TabIndex = 5;
-            // 
-            // btCombo
-            // 
-            this.btCombo.BackColor = System.Drawing.Color.Transparent;
-            this.btCombo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btCombo.FlatAppearance.BorderSize = 0;
-            this.btCombo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.btCombo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
-            this.btCombo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btCombo.Font = new System.Drawing.Font("Candara", 15.75F, System.Drawing.FontStyle.Bold);
-            this.btCombo.ForeColor = System.Drawing.Color.White;
-            this.btCombo.Location = new System.Drawing.Point(0, 323);
-            this.btCombo.Name = "btCombo";
-            this.btCombo.Size = new System.Drawing.Size(171, 87);
-            this.btCombo.TabIndex = 5;
-            this.btCombo.Text = "Organiser les combos d\'une stratégie";
-            this.btCombo.UseVisualStyleBackColor = false;
-            this.btCombo.Click += new System.EventHandler(this.btCombo_Click);
             // 
             // FormTemplateAdmin
             // 

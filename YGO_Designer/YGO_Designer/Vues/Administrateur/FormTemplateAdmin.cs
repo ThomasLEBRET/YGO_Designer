@@ -95,7 +95,9 @@ namespace YGO_Designer
         /// <param name="e"></param>
         private void btClose_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            FormLogin fl = new FormLogin();
+            fl.Show();
+            this.Close();
         }
 
         /// <summary>
