@@ -18,8 +18,6 @@ namespace YGO_Designer
         public FormLogin()
         {
             InitializeComponent();
-
-            ORMDatabase.Connexion();
         }
 
         private bool ControlData()
@@ -84,6 +82,18 @@ namespace YGO_Designer
         private void btClose_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void FormLogin_Load(object sender, EventArgs e)
+        {
+            cbConnexion.SelectedIndex = 0;
+        }
+
+        private void cbConnexion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string typeConn = cbConnexion.SelectedItem.ToString();
+            if(ORMDatabase.ChangeConnexion(typeConn))
+                Notification.ShowFormInfo("La connexion s'opère désormais en mode " + typeConn);
         }
     }
 }

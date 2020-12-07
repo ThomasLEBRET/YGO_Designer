@@ -186,7 +186,7 @@ namespace YGO_Designer
         public static List<Effet> GetEffetsComboFilsByStrategie(Strategie s, Effet e)
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "SELECT C.CODE_EFFET_1, E.NOM_EFFET  FROM COMBO C, EFFET_STRAT EF, EFFET E WHERE C.CODE_EFFET = EF.CODE_EFFET AND EF.CODE_EFFET = E.CODE_EFFET AND C.CODE_STRAT = @cdStrat AND C.CODE_EFFET_1 = @pere";
+            cmd.CommandText = "SELECT C.CODE_EFFET_1  FROM COMBO C, EFFET_STRAT EF, EFFET E WHERE C.CODE_EFFET = EF.CODE_EFFET AND EF.CODE_EFFET = E.CODE_EFFET AND C.CODE_STRAT = @cdStrat AND C.CODE_EFFET = @pere AND EF.CODE_STRAT = @cdStrat";
 
             cmd.Parameters.Add(new MySqlParameter("@cdStrat", MySqlDbType.VarChar)).Value = s.GetCode();
             cmd.Parameters.Add(new MySqlParameter("@pere", MySqlDbType.VarChar)).Value = e.GetCode();
@@ -194,10 +194,27 @@ namespace YGO_Designer
             List<Effet> lE = new List<Effet>();
             MySqlDataReader rdr = cmd.ExecuteReader();
             while(rdr.Read())
-                lE.Add(new Effet(rdr["CODE_EFFET_1"].ToString(), rdr["NOM_EFFET"].ToString()));
+                lE.Add(new Effet(rdr["CODE_EFFET_1"].ToString(), ""));
             rdr.Close();
+            foreach(Effet eff in lE)
+                eff.SetNom(Get(eff.GetCode()));
 
             return lE;
+        }
+
+        public static string Get(string code)
+        {
+            MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
+            cmd.CommandText = "SELECT NOM_EFFET FROM EFFET WHERE CODE_EFFET = @cd";
+
+            cmd.Parameters.Add(new MySqlParameter("@cd", MySqlDbType.VarChar)).Value = code;
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            string nom = "";
+            if(rdr.Read())
+                nom = rdr["NOM_EFFET"].ToString();
+            rdr.Close();
+
+            return nom;
         }
     }
 }

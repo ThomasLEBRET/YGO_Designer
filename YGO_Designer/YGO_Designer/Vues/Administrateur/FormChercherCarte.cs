@@ -160,26 +160,6 @@ namespace YGO_Designer
         }
 
         /// <summary>
-        /// Contrôle si une carte peut être recherchée par son numéro
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btChercherParNum_Click(object sender, EventArgs e)
-        {
-            int noC = 0;
-            if (!string.IsNullOrEmpty(tbNoCarte.Text) && tbNoCarte.Text.Length == 8 && int.TryParse(tbNoCarte.Text, out noC))
-            {
-                Carte c = ORMCarte.GetByNo(Convert.ToInt32(tbNoCarte.Text));
-                lbCartes.Items.Clear();
-                lbCartes.Items.Add(c);
-                if (lbCartes.Items.Count > 0)
-                    lbCartes.SelectedItem = lbCartes.Items[0];
-            }
-            else
-                Notification.ShowFormAlert("Entrez un numéro valide svp");
-        }
-
-        /// <summary>
         /// Affiche la carte sélectionnée dans la ListBox de résultat
         /// </summary>
         /// <param name="sender"></param>
@@ -253,7 +233,6 @@ namespace YGO_Designer
             {
                 Notification.ShowFormInfo("La carte " + c.GetNom() + " a bien été supprimée ainsi que tous ses effets");
                 lbCartes.Items.Clear();
-                tbNoCarte.Text = "";
                 tbNomCarte.Text = "";
             }
             else

@@ -38,6 +38,7 @@ namespace YGO_Designer
             this.btSingin = new System.Windows.Forms.Button();
             this.btClose = new System.Windows.Forms.Button();
             this.pbLogo = new System.Windows.Forms.PictureBox();
+            this.cbConnexion = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -152,12 +153,29 @@ namespace YGO_Designer
             this.pbLogo.TabIndex = 7;
             this.pbLogo.TabStop = false;
             // 
+            // cbConnexion
+            // 
+            this.cbConnexion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbConnexion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbConnexion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbConnexion.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbConnexion.FormattingEnabled = true;
+            this.cbConnexion.Items.AddRange(new object[] {
+            "Local",
+            "Distant"});
+            this.cbConnexion.Location = new System.Drawing.Point(676, 10);
+            this.cbConnexion.Name = "cbConnexion";
+            this.cbConnexion.Size = new System.Drawing.Size(155, 31);
+            this.cbConnexion.TabIndex = 8;
+            this.cbConnexion.SelectedIndexChanged += new System.EventHandler(this.cbConnexion_SelectedIndexChanged);
+            // 
             // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(843, 486);
+            this.Controls.Add(this.cbConnexion);
             this.Controls.Add(this.pbLogo);
             this.Controls.Add(this.btClose);
             this.Controls.Add(this.btSingin);
@@ -172,6 +190,7 @@ namespace YGO_Designer
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "YGO Designer - Login";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.FormLogin_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -188,6 +207,7 @@ namespace YGO_Designer
         private System.Windows.Forms.Button btSingin;
         private System.Windows.Forms.Button btClose;
         private System.Windows.Forms.PictureBox pbLogo;
+        private System.Windows.Forms.ComboBox cbConnexion;
     }
 }
 

@@ -65,7 +65,7 @@ namespace YGO_Designer
                         lE.Add(eff);
 
                     Strategie s = new Strategie(code, nom, ratioStarter, ratioExtender, ratioHandtrap, lE);
-                    MessageBox.Show(lE.Count.ToString());
+
                     if(ORMStrategie.Add(s))
                         Notification.ShowFormSuccess("La Stratégie " + s.ToString() + " a été ajouté");
                     else

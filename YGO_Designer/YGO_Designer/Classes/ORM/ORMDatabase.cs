@@ -15,7 +15,6 @@ namespace YGO_Designer
         /// <returns>Un booléen : true si la connexion a pu s'opérer, false sinon</returns>
         public static bool Connexion()
         {
-            conn = new MySqlConnection(Properties.Settings.Default.loginLocal);
             conn.Open();
             return conn.State == System.Data.ConnectionState.Open;
         }
@@ -37,6 +36,28 @@ namespace YGO_Designer
         public static MySqlConnection GetConn()
         {
             return conn;
+        }
+
+        public static void ChooseConnexion(string choix)
+        {
+            switch(choix)
+            {
+                case "Local":
+                    conn = new MySqlConnection(Properties.Settings.Default.loginLocal);
+                    break;
+                case "Distant":
+                    conn = new MySqlConnection(Properties.Settings.Default.loginDist);
+                    break;
+                default:
+                    conn = new MySqlConnection(Properties.Settings.Default.loginLocal);
+                    break;
+            }
+        }
+
+        public static bool ChangeConnexion(string choix)
+        {
+            ChooseConnexion(choix);
+            return Connexion();
         }
     }
 }

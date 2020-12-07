@@ -31,11 +31,8 @@ namespace YGO_Designer
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormChercherCarte));
-            this.label7 = new System.Windows.Forms.Label();
-            this.tbNoCarte = new System.Windows.Forms.TextBox();
             this.tbNomCarte = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btChercherParNum = new System.Windows.Forms.Button();
             this.lbCartes = new System.Windows.Forms.ListBox();
             this.paCarte = new System.Windows.Forms.Panel();
             this.pbTypeMP = new System.Windows.Forms.PictureBox();
@@ -62,67 +59,31 @@ namespace YGO_Designer
             this.bgCarte.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Candara", 14.25F);
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(15, 22);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(28, 23);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "N°";
-            // 
-            // tbNoCarte
-            // 
-            this.tbNoCarte.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
-            this.tbNoCarte.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbNoCarte.Location = new System.Drawing.Point(56, 23);
-            this.tbNoCarte.MaxLength = 8;
-            this.tbNoCarte.Name = "tbNoCarte";
-            this.tbNoCarte.Size = new System.Drawing.Size(182, 31);
-            this.tbNoCarte.TabIndex = 9;
-            // 
             // tbNomCarte
             // 
             this.tbNomCarte.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
-            this.tbNomCarte.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbNomCarte.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbNomCarte.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbNomCarte.Location = new System.Drawing.Point(929, 22);
+            this.tbNomCarte.Location = new System.Drawing.Point(353, 48);
             this.tbNomCarte.MaxLength = 8;
             this.tbNomCarte.Name = "tbNomCarte";
-            this.tbNomCarte.Size = new System.Drawing.Size(182, 31);
+            this.tbNomCarte.Size = new System.Drawing.Size(499, 31);
             this.tbNomCarte.TabIndex = 11;
             this.tbNomCarte.TextChanged += new System.EventHandler(this.tbNomCarte_TextChanged);
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Candara", 14.25F);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(638, 18);
+            this.label1.Location = new System.Drawing.Point(465, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(285, 23);
             this.label1.TabIndex = 10;
             this.label1.Text = "Correspondance partielle par nom";
-            // 
-            // btChercherParNum
-            // 
-            this.btChercherParNum.BackColor = System.Drawing.Color.Black;
-            this.btChercherParNum.FlatAppearance.BorderSize = 0;
-            this.btChercherParNum.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btChercherParNum.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
-            this.btChercherParNum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btChercherParNum.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Bold);
-            this.btChercherParNum.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btChercherParNum.Location = new System.Drawing.Point(56, 74);
-            this.btChercherParNum.Name = "btChercherParNum";
-            this.btChercherParNum.Size = new System.Drawing.Size(181, 60);
-            this.btChercherParNum.TabIndex = 12;
-            this.btChercherParNum.Text = "Chercher par numéro";
-            this.btChercherParNum.UseVisualStyleBackColor = false;
-            this.btChercherParNum.Click += new System.EventHandler(this.btChercherParNum_Click);
             // 
             // lbCartes
             // 
@@ -287,7 +248,8 @@ namespace YGO_Designer
             // 
             // btDelete
             // 
-            this.btDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btDelete.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btDelete.AutoSize = true;
             this.btDelete.BackColor = System.Drawing.Color.Black;
             this.btDelete.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -296,7 +258,7 @@ namespace YGO_Designer
             this.btDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
             this.btDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btDelete.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Bold);
-            this.btDelete.Location = new System.Drawing.Point(818, 103);
+            this.btDelete.Location = new System.Drawing.Point(482, 97);
             this.btDelete.Name = "btDelete";
             this.btDelete.Size = new System.Drawing.Size(258, 46);
             this.btDelete.TabIndex = 16;
@@ -371,11 +333,8 @@ namespace YGO_Designer
             this.Controls.Add(this.gbResultat);
             this.Controls.Add(this.gbDecks);
             this.Controls.Add(this.btDelete);
-            this.Controls.Add(this.btChercherParNum);
             this.Controls.Add(this.tbNomCarte);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.tbNoCarte);
-            this.Controls.Add(this.label7);
             this.ForeColor = System.Drawing.SystemColors.Control;
             this.Name = "FormChercherCarte";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -396,11 +355,9 @@ namespace YGO_Designer
         }
 
         #endregion
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox tbNoCarte;
+
         private System.Windows.Forms.TextBox tbNomCarte;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btChercherParNum;
         private System.Windows.Forms.ListBox lbCartes;
         private System.Windows.Forms.Panel paCarte;
         private System.Windows.Forms.RichTextBox rtbDescription;

@@ -65,5 +65,10 @@
         {
             return this.nomEffet;
         }
+
+        public void SetNom(string nomEffet)
+        {
+            this.nomEffet = nomEffet;
+        }
     }
 }

@@ -22,6 +22,7 @@ namespace YGO_Designer
             List<Effet> effetsFils = new List<Effet>();
             string result = "";
             Combo c;
+
             foreach(Effet eP in effetsPere)
             {
                 effetsFils = ORMEffet.GetEffetsComboFilsByStrategie(s, eP);
@@ -30,10 +31,12 @@ namespace YGO_Designer
                     c = ORMCombo.Get(eP, eF, s);
                     result = "";
                     result += "L'effet " + eP.ToString() + " fonctionne bien avec ";
-                    if(eP.Equals(eF))
+
+                    if(eP.Equals(eF) || eP == eF)
                         result +=  " lui-même" + " : POIDS : " + c.GetPoids();
                     else
                         result +=  eF.ToString() +  " : POIDS : " + c.GetPoids();
+
                     lbCombos.Items.Add(result);
                 }
             }
@@ -76,13 +79,17 @@ namespace YGO_Designer
                 {
                     Combo c = new Combo(e1, e2, s, poids);
                     if(ORMCombo.Add(c))
+                    {
+                        AfficheLiens(s);
                         Notification.ShowFormSuccess("Le combo d'effet " + e1.ToString() + " / " + e2.ToString() + " a bien été ajouté");
+                    }
                     else
                         Notification.ShowFormDanger("Une erreur innatendue est survenue, veillez vérifier votre connexion internet");
                 }
                 else
                     Notification.ShowFormAlert("Le poids doit être un entier supérieur à 0");
             }
+            
         }
     }
 }
