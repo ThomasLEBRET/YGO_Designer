@@ -83,7 +83,11 @@ namespace YGO_Designer
             fl.Show();
             this.Close();
         }
-
+        /// <summary>
+        /// Charge le formulaire de création de Deck
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btCreerDeck_Click(object sender, EventArgs e)
         {
             openChildForm(fds);

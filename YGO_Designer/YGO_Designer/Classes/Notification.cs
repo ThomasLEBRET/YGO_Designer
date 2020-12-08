@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using YGO_Designer.Vues.Joueur;
+﻿using YGO_Designer.Vues.Joueur;
 
 namespace YGO_Designer
 {
@@ -20,28 +15,28 @@ namespace YGO_Designer
         {
             description = otherDescription;
             fa = new FormAlert();
-            fa.Show();
+            fa.ShowDialog();
         }
 
         public static void ShowFormInfo(string otherDescription)
         {
             description = otherDescription;
             fi = new FormInfo();
-            fi.Show();
+            fi.ShowDialog();
         }
 
         public static void ShowFormDanger(string otherDescription)
         {
             description = otherDescription;
             fd = new FormDanger();
-            fd.Show();
+            fd.ShowDialog();
         }
 
         public static void ShowFormSuccess(string otherDescription)
         {
             description = otherDescription;
             fs = new FormSuccess();
-            fs.Show();
+            fs.ShowDialog();
         }
 
         public static string GetDescription()
