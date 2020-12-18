@@ -279,5 +279,12 @@ namespace YGO_Designer
             rdr.Close();
             return at;
         }
+
+		public static int GetNoMax()
+		{
+			MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
+			cmd.CommandText = "SELECT MAX(NO_CARTE) FROM CARTE";
+			return Convert.ToInt32(cmd.ExecuteScalar());
+		}
     }
 }

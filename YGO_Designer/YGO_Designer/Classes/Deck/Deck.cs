@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using YGO_Designer.Classes.User;
 
 namespace YGO_Designer
 {
@@ -29,6 +30,14 @@ namespace YGO_Designer
             this.nom = nom;
             this.listCartes = new List<Carte>();
         }
+
+		public Deck()
+		{
+			this.numDeck = -1;
+			this.user = User.GetUsername();
+			this.nom = "???";
+			this.listCartes = new List<Carte>();
+		}
 
         public override bool Equals(object obj)
         {
@@ -104,24 +113,12 @@ namespace YGO_Designer
         }
 
         /// <summary>
-        /// Méthode privée calculant le nombre de cartes d'un deck
-        /// </summary>
-        /// <returns>Le nombre total de cartes associées à leur nomre d'exemplaire</returns>
-        private int NbCartesFromDeck()
-        {
-            int nbExemplaireTotal = 0;
-            foreach (Carte c in listCartes)
-                nbExemplaireTotal += c.GetNbExemplaireFromDeck();
-            return nbExemplaireTotal;
-        }
-
-        /// <summary>
         /// Redéfinition de la méthode ToStrign
         /// </summary>
         /// <returns>Le nom et le nombre de cartes du deck</returns>
         public override string ToString()
         {
-            return this.nom + " " + NbCartesFromDeck() + " cartes";
+            return this.nom + " : " + listCartes.Count + " cartes";
         }
     }
 }

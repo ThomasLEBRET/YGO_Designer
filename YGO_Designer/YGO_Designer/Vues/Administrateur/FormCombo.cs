@@ -4,9 +4,19 @@ using System.Windows.Forms;
 
 namespace YGO_Designer
 {
+	/// <summary>
+	/// Formulaire permettant d'ajouter et de visualiser des combinaisons d'effets liées à une stratégie de jeu
+	/// </summary>
     public partial class FormCombo : Form
     {
-        List<Strategie> lS;
+		/// <summary>
+		/// Attributs privés
+		/// </summary>
+        private List<Strategie> lS;
+
+		/// <summary>
+		/// Constructeur
+		/// </summary>
         public FormCombo()
         {
             InitializeComponent();
@@ -15,6 +25,10 @@ namespace YGO_Designer
             cbStrategie.Items.AddRange(lS.ToArray());
         }
 
+		/// <summary>
+		/// Affiche les liens entre les effets de la stratégie
+		/// </summary>
+		/// <param name="s"></param>
         private void AfficheLiens(Strategie s)
         {
             lbCombos.Items.Clear();
@@ -48,6 +62,11 @@ namespace YGO_Designer
             
         }
 
+		/// <summary>
+		/// Quand on change de stratégie, on affiche les combinaisons de cette stratégie ainsi que ses effets 
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
         private void cbStrategie_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(cbStrategie.SelectedIndex >= 0)
@@ -66,6 +85,11 @@ namespace YGO_Designer
             
         }
 
+		/// <summary>
+		/// Ajoute une combinaison d'effet dans une stratégie
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
         private void btAjouterCombo_Click(object sender, EventArgs e)
         {
             if(cbEffet1.SelectedIndex >= 0 && cbEffet2.SelectedIndex >= 0 && cbStrategie.SelectedIndex >= 0 && tbPoids.Text != "")

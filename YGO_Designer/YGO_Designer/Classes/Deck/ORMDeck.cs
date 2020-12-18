@@ -90,7 +90,7 @@ namespace YGO_Designer
                     return false;
             cmd.Parameters.Add("@noDeck", MySqlDbType.Int32).Value = numDeck;
             cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = numCarte;
-            return Convert.ToInt32(cmd.ExecuteNonQuery()) == 1;
+			return Convert.ToInt32(cmd.ExecuteNonQuery()) == 1;
         }
 
         /// <summary>
@@ -173,5 +173,57 @@ namespace YGO_Designer
             cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = c.GetNo();
             return Convert.ToInt32(cmd.ExecuteNonQuery()) == 1;
         }
+
+		/// <summary>
+		/// Pioche une carte aléatoirement et l'ajoute au Deck 
+		/// </summary>
+		/// <returns></returns>
+		public static Carte PiocheAlea(Deck d)
+		{
+			int noMax = ORMCarte.GetNoMax();
+			int no = new Random().Next(1, noMax);
+			MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
+			cmd.CommandText = "SELECT NO_CARTE FROM CARTE WHERE NO_CARTE = @noCarte";
+			cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = -1;
+
+			MySqlDataReader rdr;
+			while(ORMCarte.Exist(new Carte(no)) == false)
+			{
+				cmd.Parameters["@noCarte"].Value = new Random().Next(1, noMax);
+				rdr = cmd.ExecuteReader();
+
+				if(rdr.Read())
+				{
+					no = Convert.ToInt32(rdr["NO_CARTE"]);
+					rdr.Close();
+					AddCard(no, d.GetNo());
+				}
+				else
+					rdr.Close();
+			}
+
+			return ORMCarte.GetByNo(no);
+		}
+
+		/// <summary>
+		/// Retourne un deck à un utilisateur
+		/// </summary>
+		/// <param name="no">Le numéro du Deck à récupére</param>
+		/// <returns></returns>
+		public static Deck Get(int no)
+		{
+			MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
+			cmd.CommandText = "SELECT * FROM Deck WHERE NO_DECK = @noDeck";
+			cmd.Parameters.Add("@noDeck", MySqlDbType.Int32).Value = no;
+			MySqlDataReader rdr = cmd.ExecuteReader();
+
+			Deck d = null;
+			if(rdr.Read())
+			{
+				d = new Deck(Convert.ToInt16(rdr["NO_DECK"]), rdr["USER"].ToString(), rdr["NOM_DECK"].ToString());
+				rdr.Close();
+			}
+			return d;
+		}
     }
 }

@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace YGO_Designer
 {
@@ -15,7 +16,14 @@ namespace YGO_Designer
         /// <returns>Un booléen : true si la connexion a pu s'opérer, false sinon</returns>
         public static bool Connexion()
         {
-            conn.Open();
+            try
+			{
+				conn.Open();
+			} 
+			catch(MySqlException e)
+			{
+				MessageBox.Show("La connexion a échouée : " + e.Message);
+			}
             return conn.State == System.Data.ConnectionState.Open;
         }
 

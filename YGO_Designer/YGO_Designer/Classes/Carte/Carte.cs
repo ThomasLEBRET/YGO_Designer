@@ -24,8 +24,13 @@ namespace YGO_Designer
             this.attr = new Attribut();
             this.nom = "Unknow";
             this.description = "Void";
-            this.nbExemplaireDansDeck = -1;
+            this.nbExemplaireDansDeck = 0;
         }
+
+		public Carte(int no)
+		{
+			this.no = no;
+		}
 
         /// <summary>
         /// Surcharge du constructeur de la classe mère affectant aux paramètres privés les paramètres 
@@ -38,13 +43,13 @@ namespace YGO_Designer
         /// <param name="description">La description</param>
         public Carte(List<Effet> eff, int no, Attribut attr, string nom, string description)
         {
+			this.no = no;
             this.eff = new List<Effet>();
             this.eff = eff;
-            this.no = no;
             this.attr = attr;
             this.nom = nom;
             this.description = description;
-            this.nbExemplaireDansDeck = -1;
+			this.nbExemplaireDansDeck = 0;
         }
 
         /// <summary>
@@ -149,6 +154,10 @@ namespace YGO_Designer
             return this.nbExemplaireDansDeck;
         }
 
+		/// <summary>
+		/// Mutateur du numéro de la carte
+		/// </summary>
+		/// <param name="no"></param>
         public void SetNo(int no)
         {
             this.no = no;
