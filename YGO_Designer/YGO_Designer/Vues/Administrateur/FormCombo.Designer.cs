@@ -34,14 +34,15 @@
             this.cbEffet1 = new System.Windows.Forms.ComboBox();
             this.lbNomStrat = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tbPoids = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btAjouterCombo = new System.Windows.Forms.Button();
             this.gbCombos = new System.Windows.Forms.GroupBox();
             this.lbCombos = new System.Windows.Forms.ListBox();
+            this.tbPoids = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             this.gbCombos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbPoids)).BeginInit();
             this.SuspendLayout();
             // 
             // cbStrategie
@@ -117,14 +118,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Créer un combo à partir d\'une stratégie";
             // 
-            // tbPoids
-            // 
-            this.tbPoids.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbPoids.Location = new System.Drawing.Point(298, 115);
-            this.tbPoids.Name = "tbPoids";
-            this.tbPoids.Size = new System.Drawing.Size(199, 31);
-            this.tbPoids.TabIndex = 8;
-            // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -189,6 +182,13 @@
             this.lbCombos.Size = new System.Drawing.Size(705, 188);
             this.lbCombos.TabIndex = 0;
             // 
+            // tbPoids
+            // 
+            this.tbPoids.Location = new System.Drawing.Point(343, 115);
+            this.tbPoids.Name = "tbPoids";
+            this.tbPoids.Size = new System.Drawing.Size(120, 31);
+            this.tbPoids.TabIndex = 8;
+            // 
             // FormCombo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
@@ -209,6 +209,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.gbCombos.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tbPoids)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -225,8 +226,8 @@
         private System.Windows.Forms.Button btAjouterCombo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox tbPoids;
         private System.Windows.Forms.GroupBox gbCombos;
         private System.Windows.Forms.ListBox lbCombos;
+        private System.Windows.Forms.NumericUpDown tbPoids;
     }
 }

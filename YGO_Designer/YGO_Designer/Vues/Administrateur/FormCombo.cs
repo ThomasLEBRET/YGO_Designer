@@ -105,13 +105,13 @@ namespace YGO_Designer
                     if(ORMCombo.Add(c))
                     {
                         AfficheLiens(s);
-                        Notification.ShowFormSuccess("Le combo d'effet " + e1.ToString() + " / " + e2.ToString() + " a bien été ajouté");
+                        Notification.ShowFormSuccess("Le combo d'effets " + e1.ToString() + " / " + e2.ToString() + " a bien été ajouté");
                     }
                     else
-                        Notification.ShowFormDanger("Une erreur innatendue est survenue, veillez vérifier votre connexion internet");
+                        Notification.ShowFormDanger("Une erreur inattendue est survenue, le combo doit déjà exister ou vérifiez votre connexion internet");
                 }
                 else
-                    Notification.ShowFormAlert("Le poids doit être un entier supérieur à 0");
+                    Notification.ShowFormAlert("Le poids doit être un entier différent de 0");
             }
             
         }
