@@ -6,7 +6,7 @@
       <Value Profile="(Default)">host=mysql-omuzoki.alwaysdata.net;user=omuzoki;password=##THlb0302##;database=omuzoki_ygodesigner;</Value>
     </Setting>
     <Setting Name="loginLocal" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">host=localhost;user=root;password=;database=omuzoki_ygodesigner;</Value>
+      <Value Profile="(Default)">server=localhost;database=omuzoki_ygodesigner;Uid=root;Pwd=;</Value>
     </Setting>
   </Settings>
 </SettingsFile>

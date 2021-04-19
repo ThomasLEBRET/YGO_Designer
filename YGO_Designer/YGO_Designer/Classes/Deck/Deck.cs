@@ -31,7 +31,14 @@ namespace YGO_Designer
             this.listCartes = new List<Carte>();
         }
 
-		public Deck()
+        public Deck(string user, string nom)
+        {
+            this.user = user;
+            this.nom = nom;
+            this.listCartes = new List<Carte>();
+        }
+
+        public Deck()
 		{
 			this.numDeck = -1;
 			this.user = User.GetUsername();
@@ -62,6 +69,11 @@ namespace YGO_Designer
         public int GetNo()
         {
             return this.numDeck;
+        }
+
+        public void SetNo(int numDeck)
+        {
+            this.numDeck = numDeck;
         }
 
         /// <summary>

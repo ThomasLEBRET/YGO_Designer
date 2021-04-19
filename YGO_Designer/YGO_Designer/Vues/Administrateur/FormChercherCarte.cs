@@ -206,9 +206,13 @@ namespace YGO_Designer
         private void AddToDeck()
         {
             if (lbCartes.SelectedIndex < 0 || lbDecks.SelectedIndex < 0)
+            {
                 Notification.ShowFormAlert("Sélectionnez le deck dans lequel ajouter la carte et/ou une carte recherchée");
+                return;
+            }
             Carte c = (Carte)lbCartes.SelectedItem;
             Deck d = (Deck)lbDecks.SelectedItem;
+
             if (ORMDeck.AddCard(c.GetNo(), d.GetNo()))
             {
                 Notification.ShowFormSuccess("La carte " + c.GetNom() + " a bien été ajoutée dans ce deck");

@@ -46,11 +46,12 @@ namespace YGO_Designer
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(tbNomDeck.Text) && !string.IsNullOrEmpty(tbNoDeck.Text))
+            if(!string.IsNullOrEmpty(tbNomDeck.Text))
             {
-                Deck d = new Deck(int.Parse(tbNoDeck.Text), User.GetUsername(), tbNomDeck.Text);
+                Deck d = new Deck(User.GetUsername(), tbNomDeck.Text);
                 if(ORMDeck.Add(d))
                 {
+                    d.SetNo(ORMDeck.GetIdInsertedDeck());
                     lbAllDecks.Items.Add(d);
                     Notification.ShowFormSuccess("Le deck a bien été ajouté à votre collection");
                 }
@@ -81,9 +82,7 @@ namespace YGO_Designer
 
             }
             else
-            {
                 Notification.ShowFormAlert("Veuillez sélectionner un deck");
-            }
             
         }
 
@@ -135,20 +134,27 @@ namespace YGO_Designer
         /// <param name="e"></param>
         private void btSuppExemplaire_Click(object sender, EventArgs e)
         {
-            if (lbDeck.SelectedIndex >= 0)
+            if (lbDeck.SelectedIndex >= 0 && lbAllDecks.SelectedIndex >= 0)
             {
                 Deck d = (Deck)lbAllDecks.SelectedItem;
                 Carte c = (Carte)lbDeck.SelectedItem;
                 if(ORMDeck.RemoveCopyCard(c,d))
                 {
-                    if(c.GetNbExemplaireFromDeck() - 1 == 0)
+                    c.SetNbExemplaireFromDeck(c.GetNbExemplaireFromDeck() - 1);
+                    Notification.ShowFormInfo("Un exemplaire de la carte a été supprimé");
+                    if (c.GetNbExemplaireFromDeck() == 0)
                     {
-                        if(ORMDeck.DeleteCard(c,d))
-                        {
-
-                        }
+                        if (ORMDeck.DeleteCard(c, d))
+                            Notification.ShowFormInfo("La carte a été supprimée du deck.");
                     }
                 }
+                ActualiseDecks();
+                lbDeck.Items.AddRange(d.GetCartes().ToArray());
+                lbAllDecks.SelectedItem = 0;
+            }
+            else 
+            {
+                Notification.ShowFormAlert("Sélectionnez un deck puis une carte svp");
             }
         }
     }

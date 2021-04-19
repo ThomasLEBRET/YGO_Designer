@@ -64,8 +64,7 @@ namespace YGO_Designer
 
             string userName = User.GetUsername();
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-            cmd.CommandText = "INSERT INTO DECK(NO_DECK, USER, NOM_DECK) VALUES(@no, @user, @nom)";
-            cmd.Parameters.Add("@no", MySqlDbType.Int32).Value = d.GetNo();
+            cmd.CommandText = "INSERT INTO DECK(USER, NOM_DECK) VALUES(@user, @nom)";
             cmd.Parameters.Add("@user", MySqlDbType.VarChar).Value = userName;
             cmd.Parameters.Add("@nom", MySqlDbType.VarChar).Value = d.GetNom();
             return Convert.ToInt32(cmd.ExecuteNonQuery()) == 1;
@@ -205,25 +204,38 @@ namespace YGO_Designer
 			return ORMCarte.GetByNo(no);
 		}
 
-		/// <summary>
-		/// Retourne un deck à un utilisateur
-		/// </summary>
-		/// <param name="no">Le numéro du Deck à récupére</param>
-		/// <returns></returns>
-		public static Deck Get(int no)
-		{
-			MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-			cmd.CommandText = "SELECT * FROM Deck WHERE NO_DECK = @noDeck";
-			cmd.Parameters.Add("@noDeck", MySqlDbType.Int32).Value = no;
-			MySqlDataReader rdr = cmd.ExecuteReader();
+        /// <summary>
+        /// Retourne un deck à un utilisateur
+        /// </summary>
+        /// <param name="no">Le numéro du Deck à récupére</param>
+        /// <returns></returns>
+        public static Deck Get(int no)
+        {
+            MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
+            cmd.CommandText = "SELECT * FROM Deck WHERE NO_DECK = @noDeck";
+            cmd.Parameters.Add("@noDeck", MySqlDbType.Int32).Value = no;
+            MySqlDataReader rdr = cmd.ExecuteReader();
 
-			Deck d = null;
-			if(rdr.Read())
-			{
-				d = new Deck(Convert.ToInt16(rdr["NO_DECK"]), rdr["USER"].ToString(), rdr["NOM_DECK"].ToString());
-				rdr.Close();
-			}
-			return d;
-		}
+            Deck d = null;
+            if (rdr.Read())
+            {
+                d = new Deck(Convert.ToInt16(rdr["NO_DECK"]), rdr["USER"].ToString(), rdr["NOM_DECK"].ToString());
+                rdr.Close();
+            }
+            return d;
+        }
+
+        public static int GetIdInsertedDeck()
+        {
+            MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
+            cmd.CommandText = "SELECT LAST_INSERT_ID() as id FROM Deck WHERE USER = @user";
+            cmd.Parameters.Add("@user", MySqlDbType.VarChar).Value = User.GetUsername();
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            int id = 0;
+            if (rdr.Read())
+                id = Convert.ToInt32(rdr["id"]);
+            rdr.Close();
+            return id;
+        }
     }
 }

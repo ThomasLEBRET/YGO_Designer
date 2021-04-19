@@ -163,5 +163,15 @@ namespace YGO_Designer
             this.no = no;
         }
 
+        /// <summary>
+        /// Mutateur du nombre d'exemplaire d'une carte dans un deck
+        /// </summary>
+        /// <param name="nbExemplaireDansDeck"></param>
+        public void SetNbExemplaireFromDeck(int nbExemplaireDansDeck)
+        {
+            if(nbExemplaireDansDeck != this.nbExemplaireDansDeck && nbExemplaireDansDeck <= 3 && nbExemplaireDansDeck > 0)
+                this.nbExemplaireDansDeck = nbExemplaireDansDeck;
+        }
+
     }
 }

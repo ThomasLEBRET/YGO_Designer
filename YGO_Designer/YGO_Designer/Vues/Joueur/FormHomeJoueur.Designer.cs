@@ -35,9 +35,7 @@ namespace YGO_Designer
             this.lbAllDecks = new System.Windows.Forms.ListBox();
             this.gbCreerDeck = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.tbNoDeck = new System.Windows.Forms.TextBox();
             this.tbNomDeck = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.lbNom = new System.Windows.Forms.Label();
             this.lbNomDeck = new System.Windows.Forms.Label();
             this.lbViable = new System.Windows.Forms.Label();
@@ -88,9 +86,7 @@ namespace YGO_Designer
             this.gbCreerDeck.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbCreerDeck.Controls.Add(this.button1);
-            this.gbCreerDeck.Controls.Add(this.tbNoDeck);
             this.gbCreerDeck.Controls.Add(this.tbNomDeck);
-            this.gbCreerDeck.Controls.Add(this.label2);
             this.gbCreerDeck.Controls.Add(this.lbNom);
             this.gbCreerDeck.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbCreerDeck.ForeColor = System.Drawing.SystemColors.ButtonFace;
@@ -115,33 +111,17 @@ namespace YGO_Designer
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // tbNoDeck
-            // 
-            this.tbNoDeck.Location = new System.Drawing.Point(145, 95);
-            this.tbNoDeck.Name = "tbNoDeck";
-            this.tbNoDeck.Size = new System.Drawing.Size(194, 31);
-            this.tbNoDeck.TabIndex = 4;
-            // 
             // tbNomDeck
             // 
-            this.tbNomDeck.Location = new System.Drawing.Point(145, 52);
+            this.tbNomDeck.Location = new System.Drawing.Point(109, 99);
             this.tbNomDeck.Name = "tbNomDeck";
             this.tbNomDeck.Size = new System.Drawing.Size(194, 31);
             this.tbNomDeck.TabIndex = 3;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(38, 98);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 23);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Numéro";
-            // 
             // lbNom
             // 
             this.lbNom.AutoSize = true;
-            this.lbNom.Location = new System.Drawing.Point(38, 55);
+            this.lbNom.Location = new System.Drawing.Point(28, 102);
             this.lbNom.Name = "lbNom";
             this.lbNom.Size = new System.Drawing.Size(54, 23);
             this.lbNom.TabIndex = 0;
@@ -276,9 +256,7 @@ namespace YGO_Designer
         private System.Windows.Forms.ListBox lbDeck;
         private System.Windows.Forms.ListBox lbAllDecks;
         private System.Windows.Forms.GroupBox gbCreerDeck;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lbNom;
-        private System.Windows.Forms.TextBox tbNoDeck;
         private System.Windows.Forms.TextBox tbNomDeck;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label lbNomDeck;
