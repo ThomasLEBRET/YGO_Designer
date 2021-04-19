@@ -138,6 +138,19 @@ namespace YGO_Designer
         }
 
         /// <summary>
+        /// Supprime un deck de la base de données pour un utilisateur
+        /// </summary>
+        /// <param name="id"></param>
+        public static bool Delete(int id)
+        {
+            MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
+            cmd.CommandText = "DELETE FROM DECK WHERE NO_DECK = @noDeck AND USER = @user";
+            cmd.Parameters.Add("@noDeck", MySqlDbType.Int32).Value = id;
+            cmd.Parameters.Add("@user", MySqlDbType.VarChar).Value = User.GetUsername();
+            return Convert.ToInt32(cmd.ExecuteNonQuery()) == 1;
+        }
+
+        /// <summary>
         /// Procédure supprimant les cartes d'un deck 
         /// </summary>
         /// <param name="noDeck">Le numéro du deck</param>

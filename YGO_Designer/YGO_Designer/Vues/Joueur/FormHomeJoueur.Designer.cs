@@ -44,6 +44,7 @@ namespace YGO_Designer
             this.gbCartesDeck = new System.Windows.Forms.GroupBox();
             this.btSuppExemplaire = new System.Windows.Forms.Button();
             this.btSupprCarte = new System.Windows.Forms.Button();
+            this.btnDeleteDeck = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.gbCreerDeck.SuspendLayout();
             this.gbDecks.SuspendLayout();
@@ -222,12 +223,28 @@ namespace YGO_Designer
             this.btSupprCarte.UseVisualStyleBackColor = false;
             this.btSupprCarte.Click += new System.EventHandler(this.btSupprCarte_Click);
             // 
+            // btnDeleteDeck
+            // 
+            this.btnDeleteDeck.BackColor = System.Drawing.Color.Red;
+            this.btnDeleteDeck.FlatAppearance.BorderSize = 0;
+            this.btnDeleteDeck.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeleteDeck.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteDeck.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnDeleteDeck.Location = new System.Drawing.Point(485, 190);
+            this.btnDeleteDeck.Name = "btnDeleteDeck";
+            this.btnDeleteDeck.Size = new System.Drawing.Size(225, 49);
+            this.btnDeleteDeck.TabIndex = 12;
+            this.btnDeleteDeck.Text = "Supprimer le deck";
+            this.btnDeleteDeck.UseVisualStyleBackColor = false;
+            this.btnDeleteDeck.Click += new System.EventHandler(this.btnDeleteDeck_Click);
+            // 
             // FormHomeJoueur
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(70)))), ((int)(((byte)(107)))));
             this.ClientSize = new System.Drawing.Size(1000, 600);
+            this.Controls.Add(this.btnDeleteDeck);
             this.Controls.Add(this.gbCartesDeck);
             this.Controls.Add(this.gbDecks);
             this.Controls.Add(this.gbCreerDeck);
@@ -266,6 +283,7 @@ namespace YGO_Designer
         private System.Windows.Forms.GroupBox gbCartesDeck;
         private System.Windows.Forms.Button btSupprCarte;
         private System.Windows.Forms.Button btSuppExemplaire;
+        private System.Windows.Forms.Button btnDeleteDeck;
     }
 }
 

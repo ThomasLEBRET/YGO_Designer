@@ -157,5 +157,23 @@ namespace YGO_Designer
                 Notification.ShowFormAlert("Sélectionnez un deck puis une carte svp");
             }
         }
+
+        private void btnDeleteDeck_Click(object sender, EventArgs e)
+        {
+            if (lbAllDecks.SelectedIndex >= 0)
+            {
+                Deck d = (Deck)lbAllDecks.SelectedItem;
+                ORMDeck.DeleteCards(d.GetNo());
+                if (ORMDeck.Delete(d.GetNo()))
+                {
+                    Notification.ShowFormInfo("Le deck " + d.GetNom() + " a bien été supprimé");
+                    ActualiseDecks();
+                }
+                else
+                    Notification.ShowFormDanger("Le deck n'a pas pu être supprimé");
+            }
+            else
+                Notification.ShowFormAlert("Veuillez sélectionner un deck dans la liste svp");
+        }
     }
 }
