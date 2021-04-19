@@ -20,4 +20,4 @@ Un duelliste étant soit en recherche d’optimisation de sa stratégie, soit ch
 * Chercher à créer un deck par rapport à une stratégie
 
 Une stratégie de jeu se caractérise par une liste d’effets synergies entre eux. Par exemple, un effet qui va envoyer une carte de type monstre au cimetière et un effet qui va invoquer un monstre du cimetière sur le terrain sont 2 effets synergiques entre eux.
-Comme ce jeu est compliqué à aborder avec des concepts simples, j’ai décidé de ne pas aborder certaines notions comme le déroulement d’une partie ainsi que tous les concepts que j’ai jugé inutiles à présenter ici.	
+Comme ce jeu est compliqué à aborder avec des concepts simples, j’ai décidé de ne pas aborder certaines notions comme le déroulement d’une partie ainsi que tous les concepts que j’ai jugé inutiles de présenter ici.	
