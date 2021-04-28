@@ -208,7 +208,6 @@ namespace YGO_Designer
 				{
 					no = Convert.ToInt32(rdr["NO_CARTE"]);
 					rdr.Close();
-					AddCard(no, d.GetNo());
 				}
 				else
 					rdr.Close();

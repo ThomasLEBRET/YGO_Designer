@@ -59,9 +59,8 @@ namespace YGO_Designer
         private void btGenererAleatoire_Click(object sender, EventArgs e)
         {
 			lbDeck.Items.Clear();
-			int numDeck = 0;
             //TODO
-			if(tbNom.Text != "" && tbNo.Text != "" && int.TryParse(tbNo.Text, out numDeck))
+			if(tbNom.Text != "")
 			{
 				//ratio aléatoire
 				int ratioMagie = new Random().Next(5, 11);
@@ -73,8 +72,9 @@ namespace YGO_Designer
 				int nbPie = 0;
 				int nbMon = 0;
 
-				Deck deck = new Deck(numDeck, User.GetUsername(), tbNom.Text);
-				ORMDeck.Add(deck);
+				Deck deck = new Deck(User.GetUsername(), tbNom.Text);
+				List<Carte> listCartes = new List<Carte>();
+
 				int nbCartesDeck = new Random().Next(40, 61);
 				Carte c = null;
 
@@ -101,10 +101,10 @@ namespace YGO_Designer
 							nbPie++;
 						}
 					}
-					deck = ORMDeck.Get(deck.GetNo());
 					deck.SetCartes(ORMDeck.GetCartes(deck.GetNo()));
 				}
-				Notification.ShowFormSuccess("Votre deck a bien été créé !");
+				if (ORMDeck.Add(deck))
+					Notification.ShowFormSuccess("Votre deck a bien été créé !");
 			}
 
 			else

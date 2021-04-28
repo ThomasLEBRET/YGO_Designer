@@ -17,27 +17,6 @@ namespace YGO_Designer
         private const int nbrCarteMinClassic = 40;
         private const int nbrCarteMaxClassic = 60;
 
-        /// <summary>
-        /// Constructeur par défaut 
-        /// </summary>
-        /// <param name="numDeck">Le numéro du deck</param>
-        /// <param name="user">Le nom d'utilisateur du joueur</param>
-        /// <param name="nom">Le nom du deck</param>
-        public Deck(int numDeck, string user, string nom)
-        {
-            this.numDeck = numDeck;
-            this.user = user;
-            this.nom = nom;
-            this.listCartes = new List<Carte>();
-        }
-
-        public Deck(string user, string nom)
-        {
-            this.user = user;
-            this.nom = nom;
-            this.listCartes = new List<Carte>();
-        }
-
         public Deck()
 		{
 			this.numDeck = -1;
@@ -45,6 +24,25 @@ namespace YGO_Designer
 			this.nom = "???";
 			this.listCartes = new List<Carte>();
 		}
+
+        public Deck(string user, string nom)
+            : this()
+        {
+            this.user = user;
+            this.nom = nom;
+        }
+
+        /// <summary>
+        /// Constructeur par défaut 
+        /// </summary>
+        /// <param name="numDeck">Le numéro du deck</param>
+        /// <param name="user">Le nom d'utilisateur du joueur</param>
+        /// <param name="nom">Le nom du deck</param>
+        public Deck(int numDeck, string user, string nom) 
+            : this(user, nom)
+        {
+            this.numDeck = numDeck;
+        }
 
         public override bool Equals(object obj)
         {

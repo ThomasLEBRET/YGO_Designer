@@ -35,7 +35,7 @@ namespace YGO_Designer.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("server=localhost;database=omuzoki_ygodesigner;Uid=root;Pwd=;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("SERVER=localhost;DATABASE=ygodesigner;UID=root;PASSWORD=;")]
         public string loginLocal {
             get {
                 return ((string)(this["loginLocal"]));
