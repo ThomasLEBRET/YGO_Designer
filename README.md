@@ -1,4 +1,4 @@
-# YGO_Designer (Concepteur de deck Yu-Gi-Oh)
+# YGO_Designer (Concepteur de deck Yu-Gi-Oh) : PPE 2ème année BTS SIO option SLAM
  
 ## Présentation du jeu de carte à jouer et à collectionner Yu-Gi-Oh
 
