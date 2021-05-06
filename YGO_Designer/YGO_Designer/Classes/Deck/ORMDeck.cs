@@ -18,7 +18,6 @@ namespace YGO_Designer
         /// <returns></returns>
         private static int NbExemplaireCard(int noDeck, int noCarte)
         {
-            string userName = User.GetUsername();
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
             cmd.CommandText = "SELECT NB_EXEMPLAIRE FROM INCLUS WHERE NO_DECK = @noDeck AND NO_CARTE = @noCarte";
             cmd.Parameters.Add("@noDeck", MySqlDbType.Int32).Value = noDeck;
@@ -38,7 +37,6 @@ namespace YGO_Designer
         /// <returns>Un booléen : true si le deck existe, false sinon</returns>
         private static bool Exist(int noDeck)
         {
-            string userName = User.GetUsername();
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
             cmd.CommandText = "SELECT NO_DECK FROM INCLUS WHERE NO_DECK = @noDeck";
             cmd.Parameters.Add("@noDeck", MySqlDbType.Int32).Value = noDeck;
@@ -78,7 +76,6 @@ namespace YGO_Designer
         /// <returns>Un booléen : true si la carte a pu être ajoutée au deck, false sinon</returns>
         public static bool AddCard(int numCarte, int numDeck)
         {
-            string userName = User.GetUsername();
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
             if (NbExemplaireCard(numDeck, numCarte) == 0)
                 cmd.CommandText = "INSERT INTO INCLUS(NO_DECK, NO_CARTE, NB_EXEMPLAIRE) VALUES(@noDeck, @noCarte, 1)";
@@ -120,7 +117,6 @@ namespace YGO_Designer
         /// <returns>Une liste typée Carte</returns>
         public static List<Carte> GetCartes(int noDeck)
         {
-            string userName = User.GetUsername();
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
             cmd.CommandText = "SELECT NO_CARTE FROM INCLUS WHERE NO_DECK = @noDeck";
             cmd.Parameters.Add("@noDeck", MySqlDbType.Int32).Value = noDeck;
@@ -190,7 +186,7 @@ namespace YGO_Designer
 		/// Pioche une carte aléatoirement et l'ajoute au Deck 
 		/// </summary>
 		/// <returns></returns>
-		public static Carte PiocheAlea(Deck d)
+		public static Carte PiocheAlea()
 		{
 			int noMax = ORMCarte.GetNoMax();
 			int no = new Random().Next(1, noMax);
@@ -199,7 +195,7 @@ namespace YGO_Designer
 			cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = -1;
 
 			MySqlDataReader rdr;
-			while(ORMCarte.Exist(new Carte(no)) == false)
+			while(ORMCarte.Exist(no) == false)
 			{
 				cmd.Parameters["@noCarte"].Value = new Random().Next(1, noMax);
 				rdr = cmd.ExecuteReader();

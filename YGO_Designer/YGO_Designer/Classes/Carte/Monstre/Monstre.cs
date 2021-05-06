@@ -7,15 +7,20 @@ namespace YGO_Designer
     /// </summary>
     public class Monstre : Carte
     {
-        private string typeMo;
-        private string attrMo;
-        private int nbrEtoiles;
-        private int atk;
-        private int def;
-        private string sousType;
+        private readonly string typeMo;
+        private readonly string attrMo;
+        private readonly int nbrEtoiles;
+        private readonly int atk;
+        private readonly int def;
+        private readonly string sousType;
+
+        public Monstre() : base()
+        {
+
+        }
 
         /// <summary>
-        /// Constructeur par défaut de la classe
+        /// Surcharge du constructeur de la classe 
         /// </summary>
         /// <param name="typeMo">Le type</param>
         /// <param name="attrMo">L'attribut</param>

@@ -52,7 +52,7 @@ namespace YGO_Designer
         /// <returns>Un booléen : true si l'insertion de 0 ou n effets a réussie, false sinon</returns>
         public static bool AjouterEffetsCarte(Carte c)
         {
-            if(c != null && ORMCarte.Exist(c))
+            if(c != null && ORMCarte.Exist(c.GetNo()))
             {
                 MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
                 cmd.CommandText = "INSERT INTO EFFET_CARTE(CODE_EFFET, NO_CARTE) VALUES(@cdEffet, @noCarte)";

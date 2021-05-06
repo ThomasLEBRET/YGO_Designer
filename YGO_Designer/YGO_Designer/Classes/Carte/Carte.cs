@@ -5,13 +5,13 @@ namespace YGO_Designer
     /// <summary>
     /// Classe mère permettant de créer un objet Carte 
     /// </summary>
-    public class Carte
+    public abstract class Carte
     {
         private int no; //PK
-        private Attribut attr; 
-        private string nom;
-        private string description;
-        private List<Effet> eff;
+        private readonly Attribut attr; 
+        private readonly string nom;
+        private readonly string description;
+        private readonly List<Effet> eff;
         private int nbExemplaireDansDeck;
 
         /// <summary>
@@ -21,16 +21,11 @@ namespace YGO_Designer
         {
             this.eff = new List<Effet>();
             this.no = 00000000;
-            this.attr = new Attribut();
+            this.attr = new Attribut("","");
             this.nom = "Unknow";
             this.description = "Void";
             this.nbExemplaireDansDeck = 0;
         }
-
-		public Carte(int no)
-		{
-			this.no = no;
-		}
 
         /// <summary>
         /// Surcharge du constructeur de la classe mère affectant aux paramètres privés les paramètres 
@@ -93,7 +88,7 @@ namespace YGO_Designer
         /// <returns></returns>
         public override string ToString()
         {
-            string maCarte = "";
+            string maCarte;
             if (nbExemplaireDansDeck <= 0)
                 maCarte = this.no + " : " + this.attr + " " + this.nom;
             else

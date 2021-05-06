@@ -80,7 +80,7 @@ namespace YGO_Designer
 
 				while(deck.GetCartes().Count < nbCartesDeck)
 				{
-					c = ORMDeck.PiocheAlea(deck);
+					c = ORMDeck.PiocheAlea();
 
 					if(c.GetAttr().GetCdAttrCarte() == "MAG" && ratioMagie < nbMag)
 					{

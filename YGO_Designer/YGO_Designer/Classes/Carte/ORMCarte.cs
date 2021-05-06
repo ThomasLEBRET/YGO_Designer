@@ -59,13 +59,13 @@ namespace YGO_Designer
         /// </summary>
         /// <param name="c">Un objet de type Carte</param>
         /// <returns>Un booléen : true si la carte existe, false sinon</returns>
-        public static bool Exist(Carte c)
+        public static bool Exist(int n)
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
             cmd.CommandText = "SELECT COUNT(*)  FROM CARTE WHERE NO_CARTE = @noCarte";
-            cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = c.GetNo();
+            cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = n;
 
-            return  Convert.ToInt32(cmd.ExecuteScalar()) == 1;
+            return Convert.ToInt32(cmd.ExecuteScalar()) == 1;
         }
 
         /// <summary>
@@ -95,12 +95,13 @@ namespace YGO_Designer
 
             cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = noCarte;
 
-            Carte c = new Carte();
+            Carte c;
             string nom;
             Attribut attr = GetAttribut(noCarte);
             string description;
             List<Effet> eff = ORMEffet.GetEffetsByCard(noCarte);
             MySqlDataReader rdr = cmd.ExecuteReader();
+
             if (rdr.Read())
             {
                 nom = (string)rdr["NOM"];
@@ -124,7 +125,14 @@ namespace YGO_Designer
                     case "PIE":
                         c = new Piege(eff, noCarte, attr, nom, description, (string)rdr["TYPE_PI"]);
                         break;
+                    default:
+                        c = new Monstre();
+                        break;
                 }
+            }
+            else
+            {
+                c = new Monstre();
             }
             rdr.Close();
             return c;
@@ -144,11 +152,11 @@ namespace YGO_Designer
             cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = noCarte;
             cmd.Parameters.Add("@noDeck", MySqlDbType.Int32).Value = noDeck;
 
-            Carte c = new Carte();
-            string nom = "";
+            Carte c;
+            string nom;
             Attribut attr = GetAttribut(noCarte);
-            string description = "";
-            int nbExemplaire = 0;
+            string description;
+            int nbExemplaire;
             List<Effet> eff = ORMEffet.GetEffetsByCard(noCarte);
             MySqlDataReader rdr = cmd.ExecuteReader();
 
@@ -174,7 +182,14 @@ namespace YGO_Designer
                     case "PIE":
                         c = new Piege(eff, noCarte, attr, nom, description, (string)rdr["TYPE_PI"], nbExemplaire);
                         break;
+                    default:
+                        c = new Monstre();
+                        break;
                 }
+            }
+            else
+            {
+                c = new Monstre();
             }
             rdr.Close();
             return c;
@@ -192,7 +207,6 @@ namespace YGO_Designer
             MySqlDataReader rdr = cmd.ExecuteReader();
 
             List<List<Effet>> lE = new List<List<Effet>>();
-            List<Effet> lEc = new List<Effet>();
             List<Attribut> lA = new List<Attribut>();
             List<int> lN = new List<int>();
 
@@ -206,7 +220,7 @@ namespace YGO_Designer
             }
             cmd.CommandText = "SELECT * FROM CARTE WHERE NOM LIKE '%" + partName + "%'";
             List<Carte> lC = new List<Carte>();
-            Carte c = new Carte();
+            Carte c;
             int no;
             string nom;
             string description;
@@ -230,15 +244,17 @@ namespace YGO_Designer
                         int def = Convert.ToInt32(rdr["DEF"]);
                         string typeMoCarte = (string)rdr["TYPE_MONSTRE_CARTE"];
                         c = new Monstre(typeMo, attrMo, nivMo, atk, def, typeMoCarte, lE[cursorCard], no, at, nom, description);
+                        lC.Add(c);
                         break;
                     case "MAG":
                         c = new Magie(lE[cursorCard], no, at, nom, description, (string)rdr["TYPE_MA"]);
+                        lC.Add(c);
                         break;
                     case "PIE":
                         c = new Piege(lE[cursorCard], no, at, nom, description, (string)rdr["TYPE_PI"]);
+                        lC.Add(c);
                         break;
                 }
-                lC.Add(c);
                 cursorCard++;
             }
             rdr.Close();
@@ -272,7 +288,7 @@ namespace YGO_Designer
             cmd.CommandText = "SELECT AT.* FROM ATTRIBUT_CARTE AT, CARTE C WHERE AT.CODE_ATTR_CARTE = C.CODE_ATTR_CARTE AND C.NO_CARTE = @noCarte";
 
             cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = noCarte;
-            Attribut at = new Attribut();
+            Attribut at = new Attribut("","");
             MySqlDataReader rdr = cmd.ExecuteReader();
             if (rdr.Read())
                 at = new Attribut(rdr["CODE_ATTR_CARTE"].ToString(), rdr["NOM_ATTR_CARTE"].ToString());
