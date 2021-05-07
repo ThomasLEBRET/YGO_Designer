@@ -48,5 +48,21 @@ namespace YGO_Designer
         {
             return this.nomTypePi;
         }
+
+        public override bool EstStrater(Strategie s)
+        {
+            return false;
+        }
+
+        public override bool EstExtender(Strategie s)
+        {
+            // TODO : A redéfinir
+            return false;
+        }
+
+        public override bool EstHandtrap(Strategie s)
+        {
+            return false;
+        }
     }
 }

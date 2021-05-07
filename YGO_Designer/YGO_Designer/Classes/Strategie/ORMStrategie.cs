@@ -14,12 +14,12 @@ namespace YGO_Designer
         /// </summary>
         /// <param name="s">Un objet de type Strategie</param>
         /// <returns></returns>
-        public static bool EstStrategieValide(Strategie s)
+        public static bool Exist(Strategie s)
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
             cmd.CommandText = "SELECT COUNT(CODE_STRAT) FROM STRATEGIE WHERE CODE_STRAT = @cdStrat";
             cmd.Parameters.Add("@cdStrat", MySqlDbType.VarChar).Value = s.GetCode();
-            return Convert.ToInt32(cmd.ExecuteScalar()) == 0;
+            return Convert.ToInt32(cmd.ExecuteScalar()) == 1;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace YGO_Designer
         /// <returns></returns>
         public static bool Add(Strategie s)
         {
-            if(EstStrategieValide(s))
+            if(!Exist(s))
             {
                 MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
                 cmd.CommandText = "INSERT INTO STRATEGIE(CODE_STRAT, NOM_STRAT, RATIO_STARTER, RATIO_EXTENDER, RATIO_HANDTRAP) VALUES (@cd, @nom, @starter, @extender, @handtrap)";

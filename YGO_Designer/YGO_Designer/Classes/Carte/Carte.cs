@@ -96,6 +96,11 @@ namespace YGO_Designer
             return maCarte;
         }
 
+        public abstract bool EstStrater(Strategie s);
+        public abstract bool EstExtender(Strategie s);
+        public abstract bool EstHandtrap(Strategie s);
+
+
         /// <summary>
         /// Accesseur de la liste d'effets associés à une carte (un effet = une action octroyée au joueur par une carte)
         /// </summary>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace YGO_Designer
 {
 
-    public class Combo
+    public struct Combo
     {
         /// <summary>
         /// Attributs privés de la classe

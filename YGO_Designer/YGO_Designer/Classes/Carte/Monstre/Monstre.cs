@@ -86,6 +86,24 @@ namespace YGO_Designer
             return this.GetNo();
         }
 
+        public override bool EstStrater(Strategie s)
+        {
+            // TODO : A redéfinir
+            return false;
+        }
+
+        public override bool EstExtender(Strategie s)
+        {
+            // TODO : A redéfinir
+            return false;
+        }
+
+        public override bool EstHandtrap(Strategie s)
+        {
+            //TODO : A redéfinir
+            return false;
+        }
+
         /// <summary>
         /// Accesseur du type du monstre
         /// </summary>

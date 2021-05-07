@@ -99,5 +99,19 @@ namespace YGO_Designer
         {
             this.lE = lE;
         }
+
+        public int DefiniNombreCarteDeck()
+        {
+            int n = 0;
+            // TODO : A coder
+            return n;
+        }
+
+        public int DefiniNombreStarterDeck()
+        {
+            int n = 0;
+            // TODO : A coder
+            return n;
+        }
     }
 }
