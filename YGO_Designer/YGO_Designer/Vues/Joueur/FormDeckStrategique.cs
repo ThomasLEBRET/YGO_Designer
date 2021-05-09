@@ -33,76 +33,32 @@ namespace YGO_Designer
             deck.Clear();
         }
 
-        private void tbSearchEffet_TextChanged(object sender, EventArgs e)
-        {
-            string filtre = tbSearchEffet.Text;
-            var query =
-                from effet in lE
-                where effet.GetNom().ToUpper().Contains(filtre.ToUpper())
-                select effet;
-            clbEffets.Items.Clear();
-            List<Effet> listEffetsFiltre = query.ToList();
-            clbEffets.Items.AddRange(listEffetsFiltre.ToArray());
-
-        }
-
-		private int NbCartes(List<Carte> lC)
-		{
-			int nbExemplaire = 0;
-			foreach(Carte c in lC)
-			{
-				nbExemplaire += c.GetNbExemplaireFromDeck();
-			}
-			return nbExemplaire;
-		}
-
         private void btGenererAleatoire_Click(object sender, EventArgs e)
         {
 			lbDeck.Items.Clear();
-            //TODO
+
 			if(tbNom.Text != "")
 			{
-				//ratio aléatoire
-				int ratioMagie = new Random().Next(5, 11);
-				int ratioPiege = new Random().Next(1, 5);
-				int ratioMonstre = new Random().Next(10, 21);
+				int nbCartesDeck = new Random().Next(40, 61);
 
-				//Nombre d'exemplaires effectifs de chaque types de cartes
-				int nbMag = 0;
-				int nbPie = 0;
-				int nbMon = 0;
 
 				Deck deck = new Deck(User.GetUsername(), tbNom.Text);
-				List<Carte> listCartes = new List<Carte>();
+                List<Carte> listCartes = new List<Carte>();
 
-				int nbCartesDeck = new Random().Next(40, 61);
-				Carte c = null;
+				Carte c;
 
-				while(deck.GetCartes().Count < nbCartesDeck)
+                int i = 0;
+
+                while (i < nbCartesDeck)
 				{
-					c = ORMDeck.PiocheAlea();
+                    c = ORMDeck.PiocheAlea();
+                    if (deck.AjouteCarte(c))
+                        i++;
+                }
 
-					if(c.GetAttr().GetCdAttrCarte() == "MAG" && ratioMagie < nbMag)
-					{
-						ORMDeck.AddCard(c.GetNo(), deck.GetNo());
-						nbMag++;
-					}
-					else
-						if(c.GetAttr().GetCdAttrCarte() == "MON" && ratioMagie < nbMon)
-						{
-							ORMDeck.AddCard(c.GetNo(), deck.GetNo());
-							nbMon++;
-						}
-					else
-					{
-						if(c.GetAttr().GetCdAttrCarte() == "PIE" && ratioMagie < nbPie)
-						{
-							ORMDeck.AddCard(c.GetNo(), deck.GetNo());
-							nbPie++;
-						}
-					}
-					deck.SetCartes(ORMDeck.GetCartes(deck.GetNo()));
-				}
+                MessageBox.Show(deck.GetSize().ToString());
+                MessageBox.Show(nbCartesDeck+"");
+
 				if (ORMDeck.Add(deck))
 					Notification.ShowFormSuccess("Votre deck a bien été créé !");
 			}

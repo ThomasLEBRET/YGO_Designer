@@ -9,9 +9,9 @@ namespace YGO_Designer
     {
         private int no; //PK
         private readonly Attribut attr; 
-        private readonly string nom;
-        private readonly string description;
-        private readonly List<Effet> eff;
+        private string nom;
+        private string description;
+        private List<Effet> eff;
         private int nbExemplaireDansDeck;
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace YGO_Designer
             this.attr = new Attribut("","");
             this.nom = "Unknow";
             this.description = "Void";
-            this.nbExemplaireDansDeck = 0;
+            this.nbExemplaireDansDeck = 1;
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace YGO_Designer
             this.attr = attr;
             this.nom = nom;
             this.description = description;
-			this.nbExemplaireDansDeck = 0;
+			this.nbExemplaireDansDeck = 1;
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace YGO_Designer
         public override string ToString()
         {
             string maCarte;
-            if (nbExemplaireDansDeck <= 0)
+            if (this.nbExemplaireDansDeck <= 0)
                 maCarte = this.no + " : " + this.attr + " " + this.nom;
             else
                 maCarte = this.no + " : " + this.attr + " " + this.nom + " x" + this.GetNbExemplaireFromDeck();
@@ -169,8 +169,14 @@ namespace YGO_Designer
         /// <param name="nbExemplaireDansDeck"></param>
         public void SetNbExemplaireFromDeck(int nbExemplaireDansDeck)
         {
-            if(nbExemplaireDansDeck != this.nbExemplaireDansDeck && nbExemplaireDansDeck <= 3 && nbExemplaireDansDeck > 0)
+            if(nbExemplaireDansDeck <= 3 && nbExemplaireDansDeck >= 1)
                 this.nbExemplaireDansDeck = nbExemplaireDansDeck;
+        }
+
+        public void AjouteExemplaire()
+        {
+            if(this.nbExemplaireDansDeck < 3)
+                this.nbExemplaireDansDeck++;
         }
 
     }

@@ -117,9 +117,47 @@ namespace YGO_Designer
         public bool IsDeckValid()
         {
             bool estValide = false;
-            if (listCartes.Count >= nbrCarteMinClassic && listCartes.Count <= nbrCarteMaxClassic)
+            int i = 0;
+            foreach(Carte c in this.listCartes)
+            {
+                i += c.GetNbExemplaireFromDeck();
+            }
+            if (i >= nbrCarteMinClassic && i <= nbrCarteMaxClassic)
                 estValide = true;
             return estValide;
+        }
+
+        public int GetSize()
+        {
+            int i = 0;
+
+            foreach (Carte c in this.listCartes)
+            {
+                i = i + c.GetNbExemplaireFromDeck();
+            }
+            return i;
+        }
+
+        public bool AjouteCarte(Carte c)
+        {
+            bool cdt = false;
+            if(this.listCartes.Contains(c))
+            {
+                Carte carte = this.listCartes.Find(x => x.Equals(c));
+                if (carte.GetNbExemplaireFromDeck() < 3 && carte.GetNbExemplaireFromDeck() > 0)
+                {
+                    carte.AjouteExemplaire();
+                    this.listCartes.Remove(c);
+                    this.listCartes.Add(carte);
+                    cdt = true;
+                }
+            }
+            else
+            {
+                this.listCartes.Add(c);
+                cdt = true;
+            }
+            return cdt;
         }
 
         /// <summary>

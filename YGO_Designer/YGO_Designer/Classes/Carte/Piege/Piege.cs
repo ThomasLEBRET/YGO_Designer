@@ -19,7 +19,7 @@ namespace YGO_Designer
         /// <param name="description">La description</param>
         /// <param name="nomTypePi">Le nom du type de la carte</param>
         public Piege(List<Effet> eff, int no, Attribut attr, string nom, string description, string nomTypePi)
-            : base(eff, no, attr, nom, description)
+            : base(eff, no, attr, nom, description, 1)
         {
             this.nomTypePi = nomTypePi;
         }

@@ -7,12 +7,12 @@ namespace YGO_Designer
     /// </summary>
     public class Monstre : Carte
     {
-        private readonly string typeMo;
-        private readonly string attrMo;
-        private readonly int nbrEtoiles;
-        private readonly int atk;
-        private readonly int def;
-        private readonly string sousType;
+        private string typeMo;
+        private string attrMo;
+        private int nbrEtoiles;
+        private int atk;
+        private int def;
+        private string sousType;
 
         public Monstre() : base()
         {
@@ -34,7 +34,7 @@ namespace YGO_Designer
         /// <param name="nom">Le nom</param>
         /// <param name="description">La description</param>
         public Monstre(string typeMo, string attrMo, int nivMo, int atk, int def, string typesCarteMonstre, List<Effet> eff, int no, Attribut attr, string nom, string description)
-            : base(eff, no, attr, nom, description, -1)
+            : base(eff, no, attr, nom, description, 1)
         {
             this.typeMo = typeMo;
             this.attrMo = attrMo;
@@ -68,22 +68,6 @@ namespace YGO_Designer
             this.atk = atk;
             this.def = def;
             this.sousType = typesCarteMonstre;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if ((obj == null) || !this.GetTypeM().Equals(obj.GetType()))
-                return false;
-            else
-            {
-                Monstre m = (Monstre)obj;
-                return this.GetNo() == m.GetNo();
-            }
-        }
-
-        public override int GetHashCode()
-        {
-            return this.GetNo();
         }
 
         public override bool EstStrater(Strategie s)

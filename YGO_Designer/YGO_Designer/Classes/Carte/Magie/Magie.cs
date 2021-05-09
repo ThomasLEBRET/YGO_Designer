@@ -19,7 +19,7 @@ namespace YGO_Designer
         /// <param name="description">La description</param>
         /// <param name="nomTypeMa">Le nom du type de magie</param>
         public Magie(List<Effet> eff, int no, Attribut attr, string nom, string description, string nomTypeMa)
-            : base(eff, no, attr, nom, description)
+            : base(eff, no, attr, nom, description, 1)
         {
             this.nomTypeMa = nomTypeMa;
         }

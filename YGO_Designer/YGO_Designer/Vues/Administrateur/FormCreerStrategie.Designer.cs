@@ -33,19 +33,11 @@
             this.tbCode = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.gbRatio = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.tbHandtrap = new System.Windows.Forms.TextBox();
-            this.tbExtender = new System.Windows.Forms.TextBox();
-            this.tbStarter = new System.Windows.Forms.TextBox();
             this.gbEffets = new System.Windows.Forms.GroupBox();
             this.tbSearchEffet = new System.Windows.Forms.TextBox();
             this.clbEffets = new System.Windows.Forms.CheckedListBox();
             this.btValider = new System.Windows.Forms.Button();
             this.gbBase.SuspendLayout();
-            this.gbRatio.SuspendLayout();
             this.gbEffets.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -103,78 +95,6 @@
             this.label1.Size = new System.Drawing.Size(52, 23);
             this.label1.TabIndex = 0;
             this.label1.Text = "Code";
-            // 
-            // gbRatio
-            // 
-            this.gbRatio.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.gbRatio.Controls.Add(this.label5);
-            this.gbRatio.Controls.Add(this.label4);
-            this.gbRatio.Controls.Add(this.label3);
-            this.gbRatio.Controls.Add(this.tbHandtrap);
-            this.gbRatio.Controls.Add(this.tbExtender);
-            this.gbRatio.Controls.Add(this.tbStarter);
-            this.gbRatio.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbRatio.ForeColor = System.Drawing.SystemColors.Control;
-            this.gbRatio.Location = new System.Drawing.Point(12, 141);
-            this.gbRatio.Name = "gbRatio";
-            this.gbRatio.Size = new System.Drawing.Size(246, 393);
-            this.gbRatio.TabIndex = 1;
-            this.gbRatio.TabStop = false;
-            this.gbRatio.Text = "Ratios (%)";
-            // 
-            // label5
-            // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 286);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(85, 23);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "Handtrap";
-            // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 175);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(84, 23);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Extender";
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(27, 58);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 23);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Starter";
-            // 
-            // tbHandtrap
-            // 
-            this.tbHandtrap.Location = new System.Drawing.Point(112, 283);
-            this.tbHandtrap.MaxLength = 3;
-            this.tbHandtrap.Name = "tbHandtrap";
-            this.tbHandtrap.Size = new System.Drawing.Size(100, 31);
-            this.tbHandtrap.TabIndex = 2;
-            // 
-            // tbExtender
-            // 
-            this.tbExtender.Location = new System.Drawing.Point(112, 175);
-            this.tbExtender.MaxLength = 3;
-            this.tbExtender.Name = "tbExtender";
-            this.tbExtender.Size = new System.Drawing.Size(100, 31);
-            this.tbExtender.TabIndex = 1;
-            // 
-            // tbStarter
-            // 
-            this.tbStarter.Location = new System.Drawing.Point(112, 55);
-            this.tbStarter.MaxLength = 3;
-            this.tbStarter.Name = "tbStarter";
-            this.tbStarter.Size = new System.Drawing.Size(100, 31);
-            this.tbStarter.TabIndex = 0;
             // 
             // gbEffets
             // 
@@ -236,15 +156,12 @@
             this.ClientSize = new System.Drawing.Size(827, 588);
             this.Controls.Add(this.btValider);
             this.Controls.Add(this.gbEffets);
-            this.Controls.Add(this.gbRatio);
             this.Controls.Add(this.gbBase);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FormCreerStrategie";
             this.Text = "FormCreerStrategie";
             this.gbBase.ResumeLayout(false);
             this.gbBase.PerformLayout();
-            this.gbRatio.ResumeLayout(false);
-            this.gbRatio.PerformLayout();
             this.gbEffets.ResumeLayout(false);
             this.gbEffets.PerformLayout();
             this.ResumeLayout(false);
@@ -258,13 +175,6 @@
         private System.Windows.Forms.TextBox tbCode;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox gbRatio;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox tbHandtrap;
-        private System.Windows.Forms.TextBox tbExtender;
-        private System.Windows.Forms.TextBox tbStarter;
         private System.Windows.Forms.GroupBox gbEffets;
         private System.Windows.Forms.CheckedListBox clbEffets;
         private System.Windows.Forms.TextBox tbSearchEffet;

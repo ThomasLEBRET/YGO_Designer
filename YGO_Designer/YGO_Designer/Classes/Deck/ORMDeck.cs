@@ -65,7 +65,34 @@ namespace YGO_Designer
             cmd.CommandText = "INSERT INTO DECK(USER, NOM_DECK) VALUES(@user, @nom)";
             cmd.Parameters.Add("@user", MySqlDbType.VarChar).Value = userName;
             cmd.Parameters.Add("@nom", MySqlDbType.VarChar).Value = d.GetNom();
-            return Convert.ToInt32(cmd.ExecuteNonQuery()) == 1;
+            bool cdt = true;
+            if (Convert.ToInt32(cmd.ExecuteNonQuery()) == 1)
+            {
+                int lastIdDeck = GetIdInsertedDeck();
+                if (d.GetCartes().Count > 0)
+                {
+                    foreach (Carte c in d.GetCartes())
+                    {
+                        if(c.GetNbExemplaireFromDeck() == 1)
+                        {
+                            AddCard(c.GetNo(), lastIdDeck);
+                        }
+                        else
+                        {
+                            for (int i = 1; i <= c.GetNbExemplaireFromDeck(); i++)
+                            {
+                                if (AddCard(c.GetNo(), lastIdDeck) == false)
+                                {
+                                    cdt = false;
+                                }
+                            }
+                        }
+                    }
+                }
+                return cdt;
+            }
+            else
+                return false;
         }
 
         /// <summary>
@@ -80,10 +107,11 @@ namespace YGO_Designer
             if (NbExemplaireCard(numDeck, numCarte) == 0)
                 cmd.CommandText = "INSERT INTO INCLUS(NO_DECK, NO_CARTE, NB_EXEMPLAIRE) VALUES(@noDeck, @noCarte, 1)";
             else
-                if (NbExemplaireCard(numDeck, numCarte) <= 2)
+                if (NbExemplaireCard(numDeck, numCarte) <= 2 && NbExemplaireCard(numDeck, numCarte) > 0)
                     cmd.CommandText = "UPDATE INCLUS SET NB_EXEMPLAIRE = NB_EXEMPLAIRE + 1 WHERE NO_DECK = @noDeck AND NO_CARTE = @noCarte";
                 else
-                    return false;
+                    return true;
+
             cmd.Parameters.Add("@noDeck", MySqlDbType.Int32).Value = numDeck;
             cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = numCarte;
 			return Convert.ToInt32(cmd.ExecuteNonQuery()) == 1;
@@ -189,10 +217,10 @@ namespace YGO_Designer
 		public static Carte PiocheAlea()
 		{
 			int noMax = ORMCarte.GetNoMax();
-			int no = new Random().Next(1, noMax);
+			int no = new Random().Next(1, noMax + 1);
 			MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
 			cmd.CommandText = "SELECT NO_CARTE FROM CARTE WHERE NO_CARTE = @noCarte";
-			cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = -1;
+			cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = no;
 
 			MySqlDataReader rdr;
 			while(ORMCarte.Exist(no) == false)

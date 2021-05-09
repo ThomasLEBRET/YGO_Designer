@@ -22,7 +22,10 @@ namespace YGO_Designer
             InitializeComponent();
 
             lS = ORMStrategie.GetAll();
-            cbStrategie.Items.AddRange(lS.ToArray());
+            foreach (Strategie s in lS)
+            {
+                cbStrategie.Items.Add(s);
+            }
         }
 
 		/// <summary>

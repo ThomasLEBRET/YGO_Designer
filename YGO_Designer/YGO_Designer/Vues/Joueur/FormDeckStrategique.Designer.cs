@@ -107,7 +107,6 @@
             this.tbSearchEffet.Name = "tbSearchEffet";
             this.tbSearchEffet.Size = new System.Drawing.Size(277, 31);
             this.tbSearchEffet.TabIndex = 1;
-            this.tbSearchEffet.TextChanged += new System.EventHandler(this.tbSearchEffet_TextChanged);
             // 
             // clbEffets
             // 
