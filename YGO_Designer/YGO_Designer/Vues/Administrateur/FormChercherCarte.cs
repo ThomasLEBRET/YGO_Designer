@@ -171,23 +171,6 @@ namespace YGO_Designer
         }
 
         /// <summary>
-        /// Tente de rechercher une carte en fonction du contenu saisie dans la TextBox de recherche de carte par nom partiel
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tbNomCarte_TextChanged(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(tbNomCarte.Text))
-            {
-                List<Carte> lC = ORMCarte.GetByPartialName(tbNomCarte.Text);
-                lbCartes.Items.Clear();
-                lbCartes.Items.AddRange(lC.ToArray());
-                if (lbCartes.Items.Count > 0)
-                    lbCartes.SelectedItem = lbCartes.Items[0];
-            }
-        }
-
-        /// <summary>
         /// Supprime une carte si l'utilisateur est un administrateur, sinon l'ajoute à un deck pour un joueur
         /// </summary>
         /// <param name="sender"></param>
@@ -262,6 +245,18 @@ namespace YGO_Designer
         {
             lbDecks.Items.Clear();
             lbDecks.Items.AddRange(ORMDeck.GetByUser().ToArray());
+        }
+
+        private void btRecherche_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(tbNomCarte.Text))
+            {
+                List<Carte> lC = ORMCarte.GetByPartialName(tbNomCarte.Text);
+                lbCartes.Items.Clear();
+                lbCartes.Items.AddRange(lC.ToArray());
+                if (lbCartes.Items.Count > 0)
+                    lbCartes.SelectedItem = lbCartes.Items[0];
+            }
         }
     }
 }

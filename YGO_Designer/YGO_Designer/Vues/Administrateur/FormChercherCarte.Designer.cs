@@ -50,6 +50,7 @@ namespace YGO_Designer
             this.gbDecks = new System.Windows.Forms.GroupBox();
             this.gbResultat = new System.Windows.Forms.GroupBox();
             this.bgCarte = new System.Windows.Forms.GroupBox();
+            this.btRecherche = new System.Windows.Forms.Button();
             this.paCarte.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbTypeMP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbNv)).BeginInit();
@@ -70,7 +71,6 @@ namespace YGO_Designer
             this.tbNomCarte.Name = "tbNomCarte";
             this.tbNomCarte.Size = new System.Drawing.Size(499, 31);
             this.tbNomCarte.TabIndex = 11;
-            this.tbNomCarte.TextChanged += new System.EventHandler(this.tbNomCarte_TextChanged);
             // 
             // label1
             // 
@@ -323,12 +323,28 @@ namespace YGO_Designer
             this.bgCarte.TabStop = false;
             this.bgCarte.Text = "Carte";
             // 
+            // btRecherche
+            // 
+            this.btRecherche.AutoSize = true;
+            this.btRecherche.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btRecherche.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btRecherche.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btRecherche.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btRecherche.Location = new System.Drawing.Point(281, 96);
+            this.btRecherche.Name = "btRecherche";
+            this.btRecherche.Size = new System.Drawing.Size(187, 46);
+            this.btRecherche.TabIndex = 21;
+            this.btRecherche.Text = "Rechercher";
+            this.btRecherche.UseVisualStyleBackColor = false;
+            this.btRecherche.Click += new System.EventHandler(this.btRecherche_Click);
+            // 
             // FormChercherCarte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(70)))), ((int)(((byte)(107)))));
             this.ClientSize = new System.Drawing.Size(1121, 712);
+            this.Controls.Add(this.btRecherche);
             this.Controls.Add(this.bgCarte);
             this.Controls.Add(this.gbResultat);
             this.Controls.Add(this.gbDecks);
@@ -375,6 +391,7 @@ namespace YGO_Designer
         private System.Windows.Forms.GroupBox gbDecks;
         private System.Windows.Forms.GroupBox gbResultat;
         private System.Windows.Forms.GroupBox bgCarte;
+        private System.Windows.Forms.Button btRecherche;
     }
 }
 

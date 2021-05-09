@@ -245,5 +245,17 @@ namespace YGO_Designer
             rdr.Close();
             return id;
         }
+
+        public static int CountDecks()
+        {
+            MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
+            cmd.CommandText = "SELECT COUNT(*) as qteDecks FROM Deck";
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            int n = 0;
+            if (rdr.Read())
+                n = Convert.ToInt32(rdr["qteDecks"]);
+            rdr.Close();
+            return n;
+        }
     }
 }

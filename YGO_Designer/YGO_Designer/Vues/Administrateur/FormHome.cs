@@ -29,6 +29,7 @@ namespace YGO_Designer
             chPropCartes.Series.Add("Piege");
 
             lbNbCartes.Text = "Nombre de cartes : " + nbCartes;
+            lbNbDecks.Text = "Nombre de decks créés à ce jour : " + ORMDeck.CountDecks();
 
             //Charge et affiche le ratio de monstre
             float nbMonstre = ORMCarte.GetNbrMonstre();

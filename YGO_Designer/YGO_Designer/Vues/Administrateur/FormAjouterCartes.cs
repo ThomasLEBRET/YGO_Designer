@@ -45,7 +45,7 @@ namespace YGO_Designer
         {
             foreach (Control c in this.Controls)
             {
-                if (c is TextBox)
+                if (c is TextBox || c is RichTextBox)
                     c.Text = "";
             }
             foreach (ComboBox clb in this.Controls.OfType<ComboBox>())
