@@ -49,21 +49,46 @@ namespace YGO_Designer
             return this.nomTypeMa;
         }
 
-        public override bool EstStrater(Strategie s)
+        public override bool EstStrater(List<Combo> lC)
         {
-            // TODO : A redéfinir
-            return false;
+            bool isSarter = false;
+
+            foreach(Combo c in lC)
+            {
+                if(this.GetListEffets().Contains(new Effet("INVSPE", "Invocation Spéciale")) || (this.GetListEffets().Contains(new Effet("EFFRAP", "Effet rapide")) && this.GetListEffets().Contains(c.GetEffetPere()) || this.GetListEffets().Contains(c.GetEffetFils())))
+                {
+                    isSarter = true;
+                }
+                    
+            }
+            return isSarter;
         }
 
-        public override bool EstExtender(Strategie s)
+        public override bool EstExtender(List<Combo> lC)
         {
-            // TODO : A redéfinir
-            return false;
+            bool isExtender = false;
+            foreach (Combo c in lC)
+            {
+                if (this.GetListEffets().Contains(new Effet("EFFRAP", "Effet rapide")) || c.GetEffetPere().Equals(new Effet("EFFRAP", "Effet rapide")))
+                    isExtender = true;
+                if (this.GetListEffets().Contains(c.GetEffetFils()) || this.GetListEffets().Contains(c.GetEffetPere()))
+                    isExtender = true;
+            }
+            return isExtender;
         }
 
-        public override bool EstHandtrap(Strategie s)
+        public override bool EstHandtrap(List<Combo> lC)
         {
-            return false;
+            bool isHandtrap = false;
+
+            if (this.GetListEffets().Contains(new Effet("EFFRAP", "Effet rapide")))
+            {
+                if(this.GetListEffets().Contains(new Effet("ANNULATK", "Annulation attaque")) || this.GetListEffets().Contains(new Effet("INTEREFMO", "Interruption effet de Monstre")))
+                {
+                    isHandtrap = true;
+                }
+            }
+            return isHandtrap;
         }
     }
 }

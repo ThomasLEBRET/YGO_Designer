@@ -201,6 +201,12 @@ namespace YGO_Designer
             return Convert.ToInt32(cmd.ExecuteNonQuery()) == 1;
         }
 
+        /// <summary>
+        /// Supprime une copie d'une carte dans un deck
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns>True si la suppression a été effective, false sinon</returns>
         public static bool RemoveCopyCard(Carte c, Deck d)
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
@@ -261,6 +267,10 @@ namespace YGO_Designer
             return d;
         }
 
+        /// <summary>
+        /// Récupère le dernier id de deck inséré dans la base de données
+        /// </summary>
+        /// <returns></returns>
         public static int GetIdInsertedDeck()
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
@@ -274,6 +284,10 @@ namespace YGO_Designer
             return id;
         }
 
+        /// <summary>
+        /// Compte le nombre de decks de la base de données
+        /// </summary>
+        /// <returns></returns>
         public static int CountDecks()
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();

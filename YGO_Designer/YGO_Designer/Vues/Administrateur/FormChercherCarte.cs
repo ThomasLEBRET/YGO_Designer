@@ -168,6 +168,9 @@ namespace YGO_Designer
         {
             Carte c = (Carte)lbCartes.SelectedItem;
             DisplayCard(c);
+            lbEffets.Items.Clear();
+            if (c.GetListEffets().Count > 0)
+                lbEffets.Items.AddRange(c.GetListEffets().ToArray());
         }
 
         /// <summary>

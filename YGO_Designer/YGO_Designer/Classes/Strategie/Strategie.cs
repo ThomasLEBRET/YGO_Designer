@@ -5,7 +5,7 @@ namespace YGO_Designer
     /// <summary>
     /// Créer un objet de type Stratégie afin de construire automatiquement un Deck
     /// </summary>
-    public struct Strategie
+    public class Strategie
     {
         /// <summary>
         /// Attributs privés
@@ -54,28 +54,22 @@ namespace YGO_Designer
             return this.nom;
         }
 
+        /// <summary>
+        /// Récupère la liste des effets de la stratégie
+        /// </summary>
+        /// <returns>Une liste d'Effet</returns>
         public List<Effet> GetListeEffets()
         {
             return this.lE;
         }
 
+        /// <summary>
+        /// Mutateur de la liste d'effets de la stratégie
+        /// </summary>
+        /// <param name="lE">Une liste d'Effet</param>
         public void SetListEffet(List<Effet> lE)
         {
             this.lE = lE;
-        }
-
-        public int DefiniNombreCarteDeck()
-        {
-            int n = 0;
-            // TODO : A coder
-            return n;
-        }
-
-        public int DefiniNombreStarterDeck()
-        {
-            int n = 0;
-            // TODO : A coder
-            return n;
         }
     }
 }

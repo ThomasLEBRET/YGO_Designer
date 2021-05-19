@@ -48,7 +48,7 @@ namespace YGO_Designer
         {
             if(!string.IsNullOrEmpty(tbNomDeck.Text))
             {
-                Deck d = new Deck(User.GetUsername(), tbNomDeck.Text);
+                Deck d = new Deck(tbNomDeck.Text);
                 if(ORMDeck.Add(d))
                 {
                     d.SetNo(ORMDeck.GetIdInsertedDeck());
@@ -140,12 +140,14 @@ namespace YGO_Designer
                 Carte c = (Carte)lbDeck.SelectedItem;
                 if(ORMDeck.RemoveCopyCard(c,d))
                 {
-                    c.SetNbExemplaireFromDeck(c.GetNbExemplaireFromDeck() - 1);
                     Notification.ShowFormInfo("Un exemplaire de la carte a été supprimé");
-                    if (c.GetNbExemplaireFromDeck() == 0)
+                    if (c.GetNbExemplaireFromDeck() - 1 == 0)
                     {
                         if (ORMDeck.DeleteCard(c, d))
+                        {
                             Notification.ShowFormInfo("La carte a été supprimée du deck.");
+                            d.GetCartes().Remove(c);
+                        }
                     }
                 }
                 ActualiseDecks();

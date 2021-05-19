@@ -46,6 +46,10 @@ namespace YGO_Designer
             return conn;
         }
 
+        /// <summary>
+        /// Choisi la connexion (base de données distante ou locale via WAMP)
+        /// </summary>
+        /// <param name="choix"></param>
         public static void ChooseConnexion(string choix)
         {
             switch(choix)
@@ -62,6 +66,11 @@ namespace YGO_Designer
             }
         }
 
+        /// <summary>
+        /// Permet de changer la connexion 
+        /// </summary>
+        /// <param name="choix"></param>
+        /// <returns></returns>
         public static bool ChangeConnexion(string choix)
         {
             ChooseConnexion(choix);

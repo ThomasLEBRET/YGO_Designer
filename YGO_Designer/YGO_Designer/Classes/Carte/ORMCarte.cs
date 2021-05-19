@@ -196,6 +196,54 @@ namespace YGO_Designer
         }
 
         /// <summary>
+        /// Récupère une liste de cartes grâce à une liste d'effets
+        /// </summary>
+        /// <param name="lE"></param>
+        /// <returns></returns>
+        public static List<Carte> GetByEffets(List<Effet> lE)
+        {
+            List<Carte> lC = new List<Carte>();
+            MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
+            cmd.CommandText = "SELECT NO_CARTE FROM EFFET_CARTE WHERE CODE_EFFET = @codeEffet GROUP BY NO_CARTE";
+            MySqlDataReader rdr;
+            Carte c;
+            Carte temp;
+            cmd.Parameters.Add("@codeEffet", MySqlDbType.VarChar);
+            List<int> numCartes = new List<int>();
+            foreach (Effet e in lE)
+            {
+                cmd.Parameters[0].Value = e.GetCode();
+                rdr = cmd.ExecuteReader();
+                while(rdr.Read())
+                {
+                    numCartes.Add(Convert.ToInt32(rdr["NO_CARTE"]));
+                }
+                rdr.Close();
+
+                foreach(int n in numCartes)
+                {
+                    c = GetByNo(n);
+                    if (lE.Count > 0)
+                    {
+                        if (lC.Contains(c) && c.GetNbExemplaireFromDeck() > 0 && c.GetNbExemplaireFromDeck() < 3)
+                        {
+                            temp = lC.Find(x => x.Equals(c));
+                            lC.Remove(c);
+                            temp.AjouteExemplaire();
+                            lC.Add(temp);
+                        }
+                        else
+                        {
+                            lC.Add(c);
+                        }
+                    }
+                }
+
+            }
+            return lC;
+        }
+
+        /// <summary>
         /// Récupère une liste de cartes correspondant partiellement au nom passé en paramètre de la méthode
         /// </summary>
         /// <param name="partName">Nom partiellement écrit afin de rechercher une série de cartes</param>
@@ -302,5 +350,46 @@ namespace YGO_Designer
 			cmd.CommandText = "SELECT MAX(NO_CARTE) FROM CARTE";
 			return Convert.ToInt32(cmd.ExecuteScalar());
 		}
+
+        public static List<Carte> GetStarter(List<Combo> lC, int nbStarterUtil)
+        {
+            MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
+            List<Carte> lCartes = GetByPartialName("");
+            Deck lStarter = new Deck();
+
+            foreach (Carte c in lCartes)
+            {
+                if (lStarter.GetSize() < nbStarterUtil)
+                {
+                    if (c.EstStrater(lC))
+                    {
+                        c.SetNbExemplaireFromDeck(3);
+                        lStarter.AjouteCarte(c);
+                    }
+                    else
+                    {
+                        if (c.GetListEffets().Contains(lC[0].GetEffetFils()))
+                        {
+                            c.SetNbExemplaireFromDeck(2);
+                            lStarter.AjouteCarte(c);
+                        }
+                    }
+                }
+            }
+            if(lStarter.GetSize() < nbStarterUtil)
+            {
+                foreach(Carte c in lCartes)
+                {
+                    if(lStarter.GetCartes().Contains(c) == false && lStarter.GetSize() < nbStarterUtil)
+                    {
+                        c.SetNbExemplaireFromDeck(1);
+                        lStarter.AjouteCarte(c);
+                    }
+                }
+            }
+            
+            
+            return lStarter.GetCartes();
+        }
     }
 }

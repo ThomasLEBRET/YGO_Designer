@@ -96,9 +96,26 @@ namespace YGO_Designer
             return maCarte;
         }
 
-        public abstract bool EstStrater(Strategie s);
-        public abstract bool EstExtender(Strategie s);
-        public abstract bool EstHandtrap(Strategie s);
+        /// <summary>
+        /// Défini si une carte est bonne pour démarrer la partie d'une stratégie
+        /// </summary>
+        /// <param name="lC"></param>
+        /// <returns>True si elle l'est, false sinon</returns>
+        public abstract bool EstStrater(List<Combo> lC);
+
+        /// <summary>
+        /// Défini si une carte est bonne pour étendre les possibilités de jeu d'une stratégie
+        /// </summary>
+        /// <param name="lC"></param>
+        /// <returns>True si elle l'est, false sinon</returns>
+        public abstract bool EstExtender(List<Combo> lC);
+
+        /// <summary>
+        /// Défini si une carte est bonne pour piéger l'adversaire très rapidement et de manière efficace
+        /// </summary>
+        /// <param name="lC"></param>
+        /// <returns>True si elle l'est, false sinon</returns>
+        public abstract bool EstHandtrap(List<Combo> lC);
 
 
         /// <summary>
@@ -173,6 +190,9 @@ namespace YGO_Designer
                 this.nbExemplaireDansDeck = nbExemplaireDansDeck;
         }
 
+        /// <summary>
+        /// Ajoute un exemplaire d'une carte si son nombre d'exemplaire n'est pas de 3
+        /// </summary>
         public void AjouteExemplaire()
         {
             if(this.nbExemplaireDansDeck < 3)

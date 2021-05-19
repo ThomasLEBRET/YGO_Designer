@@ -70,22 +70,50 @@ namespace YGO_Designer
             this.sousType = typesCarteMonstre;
         }
 
-        public override bool EstStrater(Strategie s)
+        public override bool EstStrater(List<Combo> lC)
         {
-            // TODO : A redéfinir
-            return false;
+            bool isStarter = false;
+
+            foreach(Combo c in lC)
+            {
+                if (this.nbrEtoiles <= 4 && this.GetListEffets().Equals(c.GetEffetPere()))
+                {
+                    isStarter = true;
+                }
+            }
+            
+            return isStarter;
         }
 
-        public override bool EstExtender(Strategie s)
+        public override bool EstExtender(List<Combo> lC)
         {
-            // TODO : A redéfinir
-            return false;
+            bool isExtender = false;
+            foreach (Combo c in lC)
+            {
+                if (this.nbrEtoiles > 4 && this.GetListEffets().Contains(c.GetEffetFils()) || this.GetListEffets().Contains(c.GetEffetPere()))
+                {
+                    isExtender = true;
+                }
+            }
+            return isExtender;
         }
 
-        public override bool EstHandtrap(Strategie s)
+        public override bool EstHandtrap(List<Combo> lC)
         {
-            //TODO : A redéfinir
-            return false;
+            //TODO : A tester
+            bool isHandtrap = false;
+
+            foreach(Combo c in lC)
+            {
+                if(this.GetListEffets().Contains(c.GetEffetPere()) || this.GetListEffets().Contains(c.GetEffetFils()))
+                {
+                    if(this.GetListEffets().Contains(new Effet("EFFRAP", "Effet rapide")))
+                    {
+                        isHandtrap = true;
+                    }
+                }
+            }
+            return isHandtrap;
         }
 
         /// <summary>

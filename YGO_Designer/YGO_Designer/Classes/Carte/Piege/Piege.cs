@@ -49,18 +49,26 @@ namespace YGO_Designer
             return this.nomTypePi;
         }
 
-        public override bool EstStrater(Strategie s)
+        public override bool EstStrater(List<Combo> lC)
         {
             return false;
         }
 
-        public override bool EstExtender(Strategie s)
+        public override bool EstExtender(List<Combo> lC)
         {
-            // TODO : A redéfinir
-            return false;
+            bool isExtender = false;
+
+            foreach(Combo c in lC)
+            {
+                if (this.GetNomTypePi() == "Contre_Piège" || this.GetListEffets().Contains(c.GetEffetPere()))
+                {
+                    isExtender = true;
+                }
+            }
+            return isExtender;
         }
 
-        public override bool EstHandtrap(Strategie s)
+        public override bool EstHandtrap(List<Combo> lC)
         {
             return false;
         }
