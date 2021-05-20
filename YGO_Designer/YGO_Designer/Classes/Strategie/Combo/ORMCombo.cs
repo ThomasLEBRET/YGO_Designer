@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
 namespace YGO_Designer
@@ -52,6 +53,13 @@ namespace YGO_Designer
             return false;
         }
 
+        /// <summary>
+        /// Récupère un combo grâce à l'éffet parent, enfant et à la stratégie
+        /// </summary>
+        /// <param name="pere"></param>
+        /// <param name="fils"></param>
+        /// <param name="s"></param>
+        /// <returns>Un Combo</returns>
         public static Combo Get(Effet pere, Effet fils, Strategie s)
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
@@ -68,6 +76,40 @@ namespace YGO_Designer
             rdr.Close();
 
             return c;
+        }
+
+        /// <summary>
+        /// Récupère tous les combos d'une stratégie
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns>Une liste de Combo</returns>
+        public static List<Combo> GetAll(Strategie s)
+        {
+            MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
+            cmd.CommandText = "SELECT * FROM COMBO WHERE CODE_STRAT = @cdStrat";
+            cmd.Parameters.Add("@cdStrat", MySqlDbType.VarChar).Value = s.GetCode();
+            MySqlDataReader rdr = cmd.ExecuteReader();
+
+            List<string> effPeres = new List<string>();
+            List<string> effils = new List<string>();
+            while (rdr.Read())
+            {
+                effPeres.Add((string)rdr["CODE_EFFET"]);
+                effils.Add((string)rdr["CODE_EFFET_1"]);
+            }
+            rdr.Close();
+
+            List<Combo> lCombo = new List<Combo>();
+            Effet pere;
+            Effet fils;
+            for (int i = 0; i < effPeres.Count; i++)
+            {
+                pere = ORMEffet.GetEffet(effPeres[i]);
+                fils = ORMEffet.GetEffet(effils[i]);
+                lCombo.Add(Get(pere, fils, s));
+            }
+
+            return lCombo;
         }
     }
 }

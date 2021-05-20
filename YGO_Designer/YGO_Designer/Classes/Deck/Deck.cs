@@ -25,10 +25,9 @@ namespace YGO_Designer
 			this.listCartes = new List<Carte>();
 		}
 
-        public Deck(string user, string nom)
+        public Deck(string nom)
             : this()
         {
-            this.user = user;
             this.nom = nom;
         }
 
@@ -39,7 +38,7 @@ namespace YGO_Designer
         /// <param name="user">Le nom d'utilisateur du joueur</param>
         /// <param name="nom">Le nom du deck</param>
         public Deck(int numDeck, string user, string nom) 
-            : this(user, nom)
+            : this(nom)
         {
             this.numDeck = numDeck;
         }
@@ -69,6 +68,10 @@ namespace YGO_Designer
             return this.numDeck;
         }
 
+        /// <summary>
+        /// Mutateur du numéro de deck
+        /// </summary>
+        /// <param name="numDeck"></param>
         public void SetNo(int numDeck)
         {
             this.numDeck = numDeck;
@@ -117,18 +120,65 @@ namespace YGO_Designer
         public bool IsDeckValid()
         {
             bool estValide = false;
-            if (listCartes.Count >= nbrCarteMinClassic && listCartes.Count <= nbrCarteMaxClassic)
+            int i = 0;
+            foreach(Carte c in this.listCartes)
+            {
+                i += c.GetNbExemplaireFromDeck();
+            }
+            if (i >= nbrCarteMinClassic && i <= nbrCarteMaxClassic)
                 estValide = true;
             return estValide;
         }
 
         /// <summary>
-        /// Redéfinition de la méthode ToStrign
+        /// Récupère la taille effective du deck en fonction du nombre d'exemplaire de chaque cartes
+        /// </summary>
+        /// <returns></returns>
+        public int GetSize()
+        {
+            int i = 0;
+
+            foreach (Carte c in this.listCartes)
+            {
+                i += c.GetNbExemplaireFromDeck();
+            }
+            return i;
+        }
+
+        /// <summary>
+        /// Ajoute une carte si elle n'existe pas déjà, sinon ajoute un exemplaire si elle n'existe qu'en moins de 3 exemplaires
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public bool AjouteCarte(Carte c)
+        {
+            bool cdt = false;
+            if(this.listCartes.Contains(c))
+            {
+                Carte carte = this.listCartes.Find(x => x.Equals(c));
+                if (carte.GetNbExemplaireFromDeck() < 3 && carte.GetNbExemplaireFromDeck() > 0)
+                {
+                    carte.AjouteExemplaire();
+                    this.listCartes.Remove(c);
+                    this.listCartes.Add(carte);
+                    cdt = true;
+                }
+            }
+            else
+            {
+                this.listCartes.Add(c);
+                cdt = true;
+            }
+            return cdt;
+        }
+
+        /// <summary>
+        /// Redéfinition de la méthode ToString
         /// </summary>
         /// <returns>Le nom et le nombre de cartes du deck</returns>
         public override string ToString()
         {
-            return this.nom + " : " + listCartes.Count + " cartes";
+            return this.nom + " : " + GetSize() + " cartes";
         }
     }
 }

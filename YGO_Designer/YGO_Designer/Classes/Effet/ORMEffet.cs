@@ -52,7 +52,7 @@ namespace YGO_Designer
         /// <returns>Un booléen : true si l'insertion de 0 ou n effets a réussie, false sinon</returns>
         public static bool AjouterEffetsCarte(Carte c)
         {
-            if(c != null && ORMCarte.Exist(c))
+            if(c != null && ORMCarte.Exist(c.GetNo()))
             {
                 MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
                 cmd.CommandText = "INSERT INTO EFFET_CARTE(CODE_EFFET, NO_CARTE) VALUES(@cdEffet, @noCarte)";
@@ -179,7 +179,7 @@ namespace YGO_Designer
         }
 
         /// <summary>
-        /// Récupère les effets pères d'une stratégie basées sur les combos de cette dernière
+        /// Récupère les effets fils d'une stratégie basées sur les combos de cette dernière
         /// </summary>
         /// <param name="s">Une stratégie</param>
         /// <returns></returns>
@@ -202,6 +202,11 @@ namespace YGO_Designer
             return lE;
         }
 
+        /// <summary>
+        /// Récupère un effet grâce à son code
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns>Une chaine de caractère string qui est le nom de l'effet</returns>
         public static string Get(string code)
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
@@ -210,11 +215,31 @@ namespace YGO_Designer
             cmd.Parameters.Add(new MySqlParameter("@cd", MySqlDbType.VarChar)).Value = code;
             MySqlDataReader rdr = cmd.ExecuteReader();
             string nom = "";
-            if(rdr.Read())
+            if (rdr.Read())
                 nom = rdr["NOM_EFFET"].ToString();
             rdr.Close();
 
             return nom;
+        }
+
+        /// <summary>
+        /// Récupère un effet grâce à son code 
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns>Un Effet</returns>
+        public static Effet GetEffet(string code)
+        {
+            MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
+            cmd.CommandText = "SELECT * FROM EFFET WHERE CODE_EFFET = @cd";
+
+            cmd.Parameters.Add(new MySqlParameter("@cd", MySqlDbType.VarChar)).Value = code;
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            Effet e = new Effet(code,"");
+            if (rdr.Read())
+                e.SetNom((string)rdr["NOM_EFFET"]);
+            rdr.Close();
+
+            return e;
         }
     }
 }

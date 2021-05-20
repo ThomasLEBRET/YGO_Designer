@@ -3,10 +3,10 @@
     /// <summary>
     /// Classe objet précisant de quel attribut est l'objet Carte
     /// </summary>
-    public class Attribut
+    public readonly struct Attribut
     {
-        private string cdAttrCarte;
-        private string nomAttrCarte;
+        private readonly string cdAttrCarte;
+        private readonly string nomAttrCarte;
         /// <summary>
         /// Surcharge du constructeur de la classe Attribut affectant aux attributs privés de l'objet les paramètres du constructeur 
         /// </summary>
@@ -17,14 +17,7 @@
             this.cdAttrCarte = cdAttrCarte;
             this.nomAttrCarte = nomAttrCarte;
         }
-        /// <summary>
-        /// Constructeur de la classe Attribut initialisant les paramètres par défaut 
-        /// </summary>
-        public Attribut()
-        {
-            this.cdAttrCarte = "";
-            this.nomAttrCarte = "";
-        }
+
         /// <summary>
         /// Redéfinition de la méthode ToString 
         /// </summary>

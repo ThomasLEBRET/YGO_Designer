@@ -9,12 +9,12 @@ namespace YGO_Designer
     public partial class FormDeckStrategique : Form
     {
         private List<Effet> lE;
-        private List<Carte> deck;
         public FormDeckStrategique()
         {
             InitializeComponent();
-            deck = new List<Carte>();
             lE = ORMEffet.GetEffets();
+            foreach (Strategie s in ORMStrategie.GetAll())
+                cbStrat.Items.Add(s);
         }
 
         private void ChargeEffets()
@@ -27,82 +27,27 @@ namespace YGO_Designer
             ChargeEffets();
         }
 
-        private void btVider_Click(object sender, EventArgs e)
-        {
-            lbDeck.Items.Clear();
-            deck.Clear();
-        }
-
-        private void tbSearchEffet_TextChanged(object sender, EventArgs e)
-        {
-            string filtre = tbSearchEffet.Text;
-            var query =
-                from effet in lE
-                where effet.GetNom().ToUpper().Contains(filtre.ToUpper())
-                select effet;
-            clbEffets.Items.Clear();
-            List<Effet> listEffetsFiltre = query.ToList();
-            clbEffets.Items.AddRange(listEffetsFiltre.ToArray());
-
-        }
-
-		private int NbCartes(List<Carte> lC)
-		{
-			int nbExemplaire = 0;
-			foreach(Carte c in lC)
-			{
-				nbExemplaire += c.GetNbExemplaireFromDeck();
-			}
-			return nbExemplaire;
-		}
-
         private void btGenererAleatoire_Click(object sender, EventArgs e)
         {
-			lbDeck.Items.Clear();
-            //TODO
 			if(tbNom.Text != "")
 			{
-				//ratio aléatoire
-				int ratioMagie = new Random().Next(5, 11);
-				int ratioPiege = new Random().Next(1, 5);
-				int ratioMonstre = new Random().Next(10, 21);
-
-				//Nombre d'exemplaires effectifs de chaque types de cartes
-				int nbMag = 0;
-				int nbPie = 0;
-				int nbMon = 0;
-
-				Deck deck = new Deck(User.GetUsername(), tbNom.Text);
-				List<Carte> listCartes = new List<Carte>();
-
 				int nbCartesDeck = new Random().Next(40, 61);
-				Carte c = null;
 
-				while(deck.GetCartes().Count < nbCartesDeck)
+
+				Deck deck = new Deck(tbNom.Text);
+                List<Carte> listCartes = new List<Carte>();
+
+				Carte c;
+
+                int i = 0;
+
+                while (i < nbCartesDeck)
 				{
-					c = ORMDeck.PiocheAlea(deck);
+                    c = ORMDeck.PiocheAlea();
+                    if (deck.AjouteCarte(c))
+                        i++;
+                }
 
-					if(c.GetAttr().GetCdAttrCarte() == "MAG" && ratioMagie < nbMag)
-					{
-						ORMDeck.AddCard(c.GetNo(), deck.GetNo());
-						nbMag++;
-					}
-					else
-						if(c.GetAttr().GetCdAttrCarte() == "MON" && ratioMagie < nbMon)
-						{
-							ORMDeck.AddCard(c.GetNo(), deck.GetNo());
-							nbMon++;
-						}
-					else
-					{
-						if(c.GetAttr().GetCdAttrCarte() == "PIE" && ratioMagie < nbPie)
-						{
-							ORMDeck.AddCard(c.GetNo(), deck.GetNo());
-							nbPie++;
-						}
-					}
-					deck.SetCartes(ORMDeck.GetCartes(deck.GetNo()));
-				}
 				if (ORMDeck.Add(deck))
 					Notification.ShowFormSuccess("Votre deck a bien été créé !");
 			}
@@ -113,12 +58,65 @@ namespace YGO_Designer
 
         private void btDeckConstruit_Click(object sender, EventArgs e)
         {
-            //TODO
+            List<Effet> lECheck = new List<Effet>();
+            Deck d = new Deck(tbNom.Text);
+
+            List<Carte> lCEffets;
+            foreach (Effet eff in clbEffets.CheckedItems)
+                lECheck.Add(eff);
+
+            if (lECheck.Count > 0)
+            {
+                lCEffets = ORMCarte.GetByEffets(lECheck);
+                if(lCEffets.Count < 14)
+                {
+                    Notification.ShowFormAlert("Il n'y a pas assez de cartes pour constituer un deck cohérent");
+                    return;
+                }
+                else 
+                {
+                    MessageBox.Show(lCEffets.Count+"");
+                    foreach(Carte c in lCEffets)
+                    {
+                        if(d.GetSize() < 40)
+                        {
+                            d.AjouteCarte(c);
+                        }
+                    }
+                    if (ORMDeck.Add(d))
+                        Notification.ShowFormSuccess("Votre deck a été ajouté");
+                }
+            }
+            else
+                Notification.ShowFormAlert("Cochez au moins 1 effet svp");
         }
 
-        private void btCreerDeck_Click(object sender, EventArgs e)
+        private void btDeckStrat_Click(object sender, EventArgs e)
         {
-            //TODO
+            if (cbStrat.SelectedIndex >= 0)
+            {
+                Strategie s = (Strategie)cbStrat.SelectedItem;
+                List<Combo> lC = ORMCombo.GetAll(s);
+                lC.Sort();
+                int deckSize = 40;
+                int nbStarterUtil = 19;
+                List<Carte> lS = ORMCarte.GetStarter(lC, nbStarterUtil);
+
+                string st = "";
+                foreach(Carte c in lS)
+                {
+                    st += c.GetNom()+" "+c.GetNbExemplaireFromDeck() + "\n";
+                }
+                MessageBox.Show(st);
+
+
+                //TODO :
+                //Récupère la quantité de starter et complète avec des extenders - (2-5) handtrap (3 listes : 1 pour chaque catégorie stratégique)
+                //3 foreach (pour starter, extenders et handtrap) jusqu'à ce que la taille du deck soit égale à la liste des cartes du deck
+                //Insère deck
+            }
+            else
+                Notification.ShowFormAlert("Veuillez sélectionner une stratégie valide svp");
         }
     }
 }

@@ -19,7 +19,7 @@ namespace YGO_Designer
         /// <param name="description">La description</param>
         /// <param name="nomTypeMa">Le nom du type de magie</param>
         public Magie(List<Effet> eff, int no, Attribut attr, string nom, string description, string nomTypeMa)
-            : base(eff, no, attr, nom, description)
+            : base(eff, no, attr, nom, description, 1)
         {
             this.nomTypeMa = nomTypeMa;
         }
@@ -47,6 +47,48 @@ namespace YGO_Designer
         public string GetNomType()
         {
             return this.nomTypeMa;
+        }
+
+        public override bool EstStrater(List<Combo> lC)
+        {
+            bool isSarter = false;
+
+            foreach(Combo c in lC)
+            {
+                if(this.GetListEffets().Contains(new Effet("INVSPE", "Invocation Spéciale")) || (this.GetListEffets().Contains(new Effet("EFFRAP", "Effet rapide")) && this.GetListEffets().Contains(c.GetEffetPere()) || this.GetListEffets().Contains(c.GetEffetFils())))
+                {
+                    isSarter = true;
+                }
+                    
+            }
+            return isSarter;
+        }
+
+        public override bool EstExtender(List<Combo> lC)
+        {
+            bool isExtender = false;
+            foreach (Combo c in lC)
+            {
+                if (this.GetListEffets().Contains(new Effet("EFFRAP", "Effet rapide")) || c.GetEffetPere().Equals(new Effet("EFFRAP", "Effet rapide")))
+                    isExtender = true;
+                if (this.GetListEffets().Contains(c.GetEffetFils()) || this.GetListEffets().Contains(c.GetEffetPere()))
+                    isExtender = true;
+            }
+            return isExtender;
+        }
+
+        public override bool EstHandtrap(List<Combo> lC)
+        {
+            bool isHandtrap = false;
+
+            if (this.GetListEffets().Contains(new Effet("EFFRAP", "Effet rapide")))
+            {
+                if(this.GetListEffets().Contains(new Effet("ANNULATK", "Annulation attaque")) || this.GetListEffets().Contains(new Effet("INTEREFMO", "Interruption effet de Monstre")))
+                {
+                    isHandtrap = true;
+                }
+            }
+            return isHandtrap;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace YGO_Designer
         /// <param name="description">La description</param>
         /// <param name="nomTypePi">Le nom du type de la carte</param>
         public Piege(List<Effet> eff, int no, Attribut attr, string nom, string description, string nomTypePi)
-            : base(eff, no, attr, nom, description)
+            : base(eff, no, attr, nom, description, 1)
         {
             this.nomTypePi = nomTypePi;
         }
@@ -47,6 +47,30 @@ namespace YGO_Designer
         public string GetNomTypePi()
         {
             return this.nomTypePi;
+        }
+
+        public override bool EstStrater(List<Combo> lC)
+        {
+            return false;
+        }
+
+        public override bool EstExtender(List<Combo> lC)
+        {
+            bool isExtender = false;
+
+            foreach(Combo c in lC)
+            {
+                if (this.GetNomTypePi() == "Contre_Piège" || this.GetListEffets().Contains(c.GetEffetPere()))
+                {
+                    isExtender = true;
+                }
+            }
+            return isExtender;
+        }
+
+        public override bool EstHandtrap(List<Combo> lC)
+        {
+            return false;
         }
     }
 }

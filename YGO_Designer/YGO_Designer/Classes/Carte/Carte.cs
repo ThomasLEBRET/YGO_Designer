@@ -5,10 +5,10 @@ namespace YGO_Designer
     /// <summary>
     /// Classe mère permettant de créer un objet Carte 
     /// </summary>
-    public class Carte
+    public abstract class Carte
     {
         private int no; //PK
-        private Attribut attr; 
+        private readonly Attribut attr; 
         private string nom;
         private string description;
         private List<Effet> eff;
@@ -21,16 +21,11 @@ namespace YGO_Designer
         {
             this.eff = new List<Effet>();
             this.no = 00000000;
-            this.attr = new Attribut();
+            this.attr = new Attribut("","");
             this.nom = "Unknow";
             this.description = "Void";
-            this.nbExemplaireDansDeck = 0;
+            this.nbExemplaireDansDeck = 1;
         }
-
-		public Carte(int no)
-		{
-			this.no = no;
-		}
 
         /// <summary>
         /// Surcharge du constructeur de la classe mère affectant aux paramètres privés les paramètres 
@@ -49,7 +44,7 @@ namespace YGO_Designer
             this.attr = attr;
             this.nom = nom;
             this.description = description;
-			this.nbExemplaireDansDeck = 0;
+			this.nbExemplaireDansDeck = 1;
         }
 
         /// <summary>
@@ -93,13 +88,35 @@ namespace YGO_Designer
         /// <returns></returns>
         public override string ToString()
         {
-            string maCarte = "";
-            if (nbExemplaireDansDeck <= 0)
+            string maCarte;
+            if (this.nbExemplaireDansDeck <= 0)
                 maCarte = this.no + " : " + this.attr + " " + this.nom;
             else
                 maCarte = this.no + " : " + this.attr + " " + this.nom + " x" + this.GetNbExemplaireFromDeck();
             return maCarte;
         }
+
+        /// <summary>
+        /// Défini si une carte est bonne pour démarrer la partie d'une stratégie
+        /// </summary>
+        /// <param name="lC"></param>
+        /// <returns>True si elle l'est, false sinon</returns>
+        public abstract bool EstStrater(List<Combo> lC);
+
+        /// <summary>
+        /// Défini si une carte est bonne pour étendre les possibilités de jeu d'une stratégie
+        /// </summary>
+        /// <param name="lC"></param>
+        /// <returns>True si elle l'est, false sinon</returns>
+        public abstract bool EstExtender(List<Combo> lC);
+
+        /// <summary>
+        /// Défini si une carte est bonne pour piéger l'adversaire très rapidement et de manière efficace
+        /// </summary>
+        /// <param name="lC"></param>
+        /// <returns>True si elle l'est, false sinon</returns>
+        public abstract bool EstHandtrap(List<Combo> lC);
+
 
         /// <summary>
         /// Accesseur de la liste d'effets associés à une carte (un effet = une action octroyée au joueur par une carte)
@@ -169,8 +186,17 @@ namespace YGO_Designer
         /// <param name="nbExemplaireDansDeck"></param>
         public void SetNbExemplaireFromDeck(int nbExemplaireDansDeck)
         {
-            if(nbExemplaireDansDeck != this.nbExemplaireDansDeck && nbExemplaireDansDeck <= 3 && nbExemplaireDansDeck > 0)
+            if(nbExemplaireDansDeck <= 3 && nbExemplaireDansDeck >= 1)
                 this.nbExemplaireDansDeck = nbExemplaireDansDeck;
+        }
+
+        /// <summary>
+        /// Ajoute un exemplaire d'une carte si son nombre d'exemplaire n'est pas de 3
+        /// </summary>
+        public void AjouteExemplaire()
+        {
+            if(this.nbExemplaireDansDeck < 3)
+                this.nbExemplaireDansDeck++;
         }
 
     }

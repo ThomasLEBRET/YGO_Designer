@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 19, 2021 at 08:41 AM
+-- Generation Time: May 07, 2021 at 09:31 AM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `omuzoki_ygodesigner`
+-- Database: `ygodesigner`
 --
 
 -- --------------------------------------------------------
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `attribut_carte` (
   `CODE_ATTR_CARTE` varchar(12) NOT NULL,
   `NOM_ATTR_CARTE` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`CODE_ATTR_CARTE`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `attribut_carte`
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `carte` (
   `TYPE_MONSTRE_CARTE` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`NO_CARTE`),
   KEY `I_FK_CARTE_ATTRIBUT_CARTE` (`CODE_ATTR_CARTE`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `carte`
@@ -76,7 +76,6 @@ INSERT INTO `carte` (`NO_CARTE`, `CODE_ATTR_CARTE`, `NOM`, `DESCRIPTION`, `TYPE_
 (2, 'MAG', 'Terra Formation', 'Ajouter 1 Magie de Terrain depuis votre Deck à votre main.', NULL, NULL, NULL, 'Normal', '', NULL, NULL, NULL),
 (3, 'PIE', 'Métavers', 'Prenez 1 Magie de Terrain depuis votre Deck, et soit activez-la soit ajoutez-la à votre main.', NULL, NULL, NULL, NULL, 'Normal', NULL, NULL, ''),
 (4, 'MAG', 'Raigeki', 'Détruisez tous les monstres contrôlés par votre adversaire', NULL, NULL, NULL, 'Normal', NULL, NULL, NULL, NULL),
-(5, 'PIE', 'Métavers', 'Prenez 1 Magie de Terrain depuis votre Deck, et soit activez-la, soit ajoutez-la à votre main.', NULL, NULL, NULL, NULL, 'Normale', NULL, NULL, NULL),
 (6, 'MON', 'Demoiselle aux Yeux Couleur Bleu\r\n', 'Lorsqu\'une carte ou un effet qui cible cette carte est activé (Effet Rapide) : vous pouvez Invoquer Spécialement 1 \"Dragon Blanc aux Yeux Bleus\" depuis votre main, Deck ou Cimetière. Lorsque cette carte est ciblée par une attaque : vous pouvez annuler l\'attaque, et si vous le faites, changez la position de combat de cette carte, puis vous pouvez Invoquer Spécialement 1 \"Dragon Blanc aux Yeux Bleus\" depuis votre main, Deck ou Cimetière. Vous ne pouvez utiliser qu\'1 effet de \"Demoiselle aux Yeux Couleur Bleu\" par tour, et uniquement une fois le tour.', 'Magicien', 'Lumiere', 1, NULL, NULL, 0, 0, 'Syntoniseur');
 
 --
@@ -106,15 +105,17 @@ CREATE TABLE IF NOT EXISTS `combo` (
   KEY `I_FK_COMBO_EFFET` (`CODE_EFFET`),
   KEY `I_FK_COMBO_EFFET1` (`CODE_EFFET_1`),
   KEY `I_FK_COMBO_STRATEGIE` (`CODE_STRAT`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `combo`
 --
 
 INSERT INTO `combo` (`CODE_EFFET`, `CODE_EFFET_1`, `CODE_STRAT`, `POIDS`) VALUES
+('ANNULEFFMA', 'ANNULEFFMA', 'BL', 1),
+('ANNULEFFMA', 'CHPOSCOM', 'BL', 2),
 ('CHPOSCOM', 'ANNULEFFMA', 'BL', 1),
-('ANNULEFFMA', 'CHPOSCOM', 'BL', -1);
+('CHPOSCOM', 'DESMA', 'TEST', 3);
 
 -- --------------------------------------------------------
 
@@ -124,19 +125,12 @@ INSERT INTO `combo` (`CODE_EFFET`, `CODE_EFFET_1`, `CODE_STRAT`, `POIDS`) VALUES
 
 DROP TABLE IF EXISTS `deck`;
 CREATE TABLE IF NOT EXISTS `deck` (
-  `NO_DECK` int(11) NOT NULL,
+  `NO_DECK` int(11) NOT NULL AUTO_INCREMENT,
   `USER` char(32) NOT NULL,
   `NOM_DECK` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`NO_DECK`),
   KEY `I_FK_DECK_UTILISATEUR` (`USER`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `deck`
---
-
-INSERT INTO `deck` (`NO_DECK`, `USER`, `NOM_DECK`) VALUES
-(1, 'Omuzoki', 'Deck de test');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -147,9 +141,9 @@ INSERT INTO `deck` (`NO_DECK`, `USER`, `NOM_DECK`) VALUES
 DROP TABLE IF EXISTS `effet`;
 CREATE TABLE IF NOT EXISTS `effet` (
   `CODE_EFFET` varchar(12) NOT NULL,
-  `NOM_EFFET` varchar(30) DEFAULT NULL,
+  `NOM_EFFET` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`CODE_EFFET`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `effet`
@@ -161,7 +155,7 @@ INSERT INTO `effet` (`CODE_EFFET`, `NOM_EFFET`) VALUES
 ('ANNULEFFMO', 'Annulation d\'effet de Monstre'),
 ('ANNULEFFPI', 'Annulation d\'effet de Piège'),
 ('BANMO', 'Bannir un Monstre'),
-('CHPOSCOM', 'Changement de position de comb'),
+('CHPOSCOM', 'Changement de position de combat'),
 ('CITODE', 'Cimetière au Deck'),
 ('CITOTERR', 'Cimetière au Terrain'),
 ('DESMA', 'Destruction de Magie'),
@@ -204,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `effet_carte` (
   PRIMARY KEY (`CODE_EFFET`,`NO_CARTE`),
   KEY `I_FK_EFFET_CARTE_EFFET` (`CODE_EFFET`),
   KEY `I_FK_EFFET_CARTE_CARTE` (`NO_CARTE`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `effet_carte`
@@ -217,8 +211,7 @@ INSERT INTO `effet_carte` (`CODE_EFFET`, `NO_CARTE`) VALUES
 ('INVSPE', 6),
 ('MATOTER', 6),
 ('NORM', 6),
-('ONEBYTURN', 6),
-('PIO', 5);
+('ONEBYTURN', 6);
 
 -- --------------------------------------------------------
 
@@ -233,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `effet_strat` (
   PRIMARY KEY (`CODE_EFFET`,`CODE_STRAT`),
   KEY `I_FK_EFFET_STRAT_EFFET` (`CODE_EFFET`),
   KEY `I_FK_EFFET_STRAT_STRATEGIE` (`CODE_STRAT`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `effet_strat`
@@ -255,10 +248,11 @@ DROP TABLE IF EXISTS `inclus`;
 CREATE TABLE IF NOT EXISTS `inclus` (
   `NO_DECK` int(11) NOT NULL,
   `NO_CARTE` bigint(12) NOT NULL,
+  `NB_EXEMPLAIRE` int(1) NOT NULL,
   PRIMARY KEY (`NO_DECK`,`NO_CARTE`),
   KEY `I_FK_INCLUS_DECK` (`NO_DECK`),
   KEY `I_FK_INCLUS_CARTE` (`NO_CARTE`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -274,7 +268,7 @@ CREATE TABLE IF NOT EXISTS `strategie` (
   `RATIO_EXTENDER` smallint(6) DEFAULT NULL,
   `RATIO_HANDTRAP` smallint(6) DEFAULT NULL,
   PRIMARY KEY (`CODE_STRAT`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `strategie`
@@ -295,7 +289,7 @@ CREATE TABLE IF NOT EXISTS `type_user` (
   `CD_TYPE` char(32) NOT NULL,
   `NOM_TYPE` char(32) DEFAULT NULL,
   PRIMARY KEY (`CD_TYPE`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `type_user`
@@ -318,7 +312,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `MDP` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`USER`),
   KEY `I_FK_UTILISATEUR_TYPE_USER` (`CD_TYPE`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `utilisateur`

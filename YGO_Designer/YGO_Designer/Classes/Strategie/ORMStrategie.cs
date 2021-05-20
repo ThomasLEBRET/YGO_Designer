@@ -14,12 +14,12 @@ namespace YGO_Designer
         /// </summary>
         /// <param name="s">Un objet de type Strategie</param>
         /// <returns></returns>
-        public static bool EstStrategieValide(Strategie s)
+        public static bool Exist(Strategie s)
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
             cmd.CommandText = "SELECT COUNT(CODE_STRAT) FROM STRATEGIE WHERE CODE_STRAT = @cdStrat";
             cmd.Parameters.Add("@cdStrat", MySqlDbType.VarChar).Value = s.GetCode();
-            return Convert.ToInt32(cmd.ExecuteScalar()) == 0;
+            return Convert.ToInt32(cmd.ExecuteScalar()) == 1;
         }
 
         /// <summary>
@@ -29,16 +29,13 @@ namespace YGO_Designer
         /// <returns></returns>
         public static bool Add(Strategie s)
         {
-            if(EstStrategieValide(s))
+            if(!Exist(s))
             {
                 MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
-                cmd.CommandText = "INSERT INTO STRATEGIE(CODE_STRAT, NOM_STRAT, RATIO_STARTER, RATIO_EXTENDER, RATIO_HANDTRAP) VALUES (@cd, @nom, @starter, @extender, @handtrap)";
+                cmd.CommandText = "INSERT INTO STRATEGIE(CODE_STRAT, NOM_STRAT) VALUES (@cd, @nom)";
 
                 cmd.Parameters.Add("@cd", MySqlDbType.VarChar).Value = s.GetCode();
                 cmd.Parameters.Add("@nom", MySqlDbType.VarChar).Value = s.GetNom();
-                cmd.Parameters.Add("@starter", MySqlDbType.Int16).Value = s.GetRatioStarter();
-                cmd.Parameters.Add("@extender", MySqlDbType.Int16).Value = s.GetRatioExtender();
-                cmd.Parameters.Add("@handtrap", MySqlDbType.Int16).Value = s.GetRatioHandtrap();
 
                 if(Convert.ToInt32(cmd.ExecuteNonQuery()) == 1 && ORMEffet.AddEffetsFromStrat(s))
                     return true;
@@ -59,7 +56,7 @@ namespace YGO_Designer
 
             List<Strategie> lS = new List<Strategie>();
             while(rdr.Read())
-                lS.Add(new Strategie(rdr["CODE_STRAT"].ToString(), rdr["NOM_STRAT"].ToString(), Convert.ToInt16(rdr["RATIO_STARTER"]), Convert.ToInt16(rdr["RATIO_EXTENDER"]), Convert.ToInt16(rdr["RATIO_HANDTRAP"]), new List<Effet>()));
+                lS.Add(new Strategie(rdr["CODE_STRAT"].ToString(), rdr["NOM_STRAT"].ToString(), new List<Effet>()));
             rdr.Close();
 
             foreach(Strategie s in lS)

@@ -19,7 +19,7 @@ namespace YGO_Designer
 
             cmd.CommandText = "" +
                 "INSERT INTO CARTE(CODE_ATTR_CARTE , NOM, DESCRIPTION, TYPE_MO, ATTR_MO, NIVEAU_MO, TYPE_MA, TYPE_PI, ATK, DEF, TYPE_MONSTRE_CARTE) " +
-                "VALUES (@cdAttrC, @nomC, @descriptC, NULL, NULL, NULL, NULL, @typeMagie, NULL, NULL, NULL, NULL)";
+                "VALUES (@cdAttrC, @nomC, @descriptC, NULL, NULL, NULL, @typeMagie, NULL, NULL, NULL, NULL)";
 
             cmd.Parameters.Add("@cdAttrC", MySqlDbType.VarChar).Value = ma.GetAttr().GetCdAttrCarte();
             cmd.Parameters.Add("@nomC", MySqlDbType.VarChar).Value = ma.GetNom();

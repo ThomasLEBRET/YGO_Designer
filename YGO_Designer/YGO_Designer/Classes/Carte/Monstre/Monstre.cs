@@ -14,8 +14,13 @@ namespace YGO_Designer
         private int def;
         private string sousType;
 
+        public Monstre() : base()
+        {
+
+        }
+
         /// <summary>
-        /// Constructeur par défaut de la classe
+        /// Surcharge du constructeur de la classe 
         /// </summary>
         /// <param name="typeMo">Le type</param>
         /// <param name="attrMo">L'attribut</param>
@@ -29,7 +34,7 @@ namespace YGO_Designer
         /// <param name="nom">Le nom</param>
         /// <param name="description">La description</param>
         public Monstre(string typeMo, string attrMo, int nivMo, int atk, int def, string typesCarteMonstre, List<Effet> eff, int no, Attribut attr, string nom, string description)
-            : base(eff, no, attr, nom, description, -1)
+            : base(eff, no, attr, nom, description, 1)
         {
             this.typeMo = typeMo;
             this.attrMo = attrMo;
@@ -65,20 +70,50 @@ namespace YGO_Designer
             this.sousType = typesCarteMonstre;
         }
 
-        public override bool Equals(object obj)
+        public override bool EstStrater(List<Combo> lC)
         {
-            if ((obj == null) || !this.GetTypeM().Equals(obj.GetType()))
-                return false;
-            else
+            bool isStarter = false;
+
+            foreach(Combo c in lC)
             {
-                Monstre m = (Monstre)obj;
-                return this.GetNo() == m.GetNo();
+                if (this.nbrEtoiles <= 4 && this.GetListEffets().Equals(c.GetEffetPere()))
+                {
+                    isStarter = true;
+                }
             }
+            
+            return isStarter;
         }
 
-        public override int GetHashCode()
+        public override bool EstExtender(List<Combo> lC)
         {
-            return this.GetNo();
+            bool isExtender = false;
+            foreach (Combo c in lC)
+            {
+                if (this.nbrEtoiles > 4 && this.GetListEffets().Contains(c.GetEffetFils()) || this.GetListEffets().Contains(c.GetEffetPere()))
+                {
+                    isExtender = true;
+                }
+            }
+            return isExtender;
+        }
+
+        public override bool EstHandtrap(List<Combo> lC)
+        {
+            //TODO : A tester
+            bool isHandtrap = false;
+
+            foreach(Combo c in lC)
+            {
+                if(this.GetListEffets().Contains(c.GetEffetPere()) || this.GetListEffets().Contains(c.GetEffetFils()))
+                {
+                    if(this.GetListEffets().Contains(new Effet("EFFRAP", "Effet rapide")))
+                    {
+                        isHandtrap = true;
+                    }
+                }
+            }
+            return isHandtrap;
         }
 
         /// <summary>

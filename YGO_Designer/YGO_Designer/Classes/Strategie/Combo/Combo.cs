@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace YGO_Designer
 {
 
-    public class Combo
+    public struct Combo : IComparable<Combo>
     {
         /// <summary>
         /// Attributs privés de la classe
@@ -30,6 +30,11 @@ namespace YGO_Designer
             this.effetFils = effetFils;
             this.s = s;
             this.poids = poids;
+        }
+
+        public int CompareTo(Combo o)
+        {
+            return o.poids.CompareTo(this.poids);
         }
 
         /// <summary>

@@ -22,7 +22,8 @@ namespace YGO_Designer
             InitializeComponent();
 
             lS = ORMStrategie.GetAll();
-            cbStrategie.Items.AddRange(lS.ToArray());
+            foreach (Strategie s in lS)
+                cbStrategie.Items.Add(s);
         }
 
 		/// <summary>
@@ -77,8 +78,11 @@ namespace YGO_Designer
                 cbEffet1.Items.Clear();
                 cbEffet2.Items.Clear();
 
-                cbEffet1.Items.AddRange(s.GetListeEffets().ToArray());
-                cbEffet2.Items.AddRange(s.GetListeEffets().ToArray());
+                foreach(Effet eff in s.GetListeEffets())
+                {
+                    cbEffet1.Items.Add(eff);
+                    cbEffet2.Items.Add(eff);
+                }
 
                 AfficheLiens(s);
             }

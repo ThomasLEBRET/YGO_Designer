@@ -27,24 +27,6 @@ namespace YGO_Designer
         }
 
         /// <summary>
-        /// Vérifie si le ration des cartes total vaut 100%
-        /// </summary>
-        /// <returns></returns>
-        private bool EstRatioCorrect()
-        {
-            int ratioS = 0;
-            int ratioE = 0;
-            int ratioH = 0;
-
-            int.TryParse(tbStarter.Text, out ratioS);
-            int.TryParse(tbExtender.Text, out ratioE);
-            int.TryParse(tbHandtrap.Text, out ratioH);
-            if (ratioS + ratioE + ratioH == 100)
-                return true;
-            return false;
-        }
-
-        /// <summary>
         /// Vérifie si une stratégie de jeu peut être ajoutée dans une base de données et l'ajoute si c'est le cas
         /// </summary>
         /// <param name="sender"></param>
@@ -52,17 +34,11 @@ namespace YGO_Designer
         private void btValider_Click(object sender, EventArgs e)
         {
 			// Contrôle de validité
-            if(EstRatioCorrect())
-            {
                 if(tbCode.Text != "" && tbNom.Text != "")
                 {
 					// Créé les attributs de la stratégie
                     string code = tbCode.Text;
                     string nom = tbNom.Text;
-
-                    int ratioStarter = int.Parse(tbStarter.Text);
-                    int ratioExtender = int.Parse(tbExtender.Text);
-                    int ratioHandtrap = int.Parse(tbHandtrap.Text);
 
                     List<Effet> lE = new List<Effet>();
 
@@ -71,7 +47,7 @@ namespace YGO_Designer
                         lE.Add(eff);
 
 					// Créé la stratégie
-                    Strategie s = new Strategie(code, nom, ratioStarter, ratioExtender, ratioHandtrap, lE);
+                    Strategie s = new Strategie(code, nom, lE);
 
 					// Ajoute et vérifie si l'ajout de la stratégie s'est bien passé
                     if(ORMStrategie.Add(s))
@@ -81,9 +57,6 @@ namespace YGO_Designer
                 }
                 else
                     Notification.ShowFormAlert("Entrez un code et un nom valide svp");
-            }
-            else
-                Notification.ShowFormAlert("Le ratio ne fait pas 100%, veuillez vérifier vos calculs svp");
         }
 
         /// <summary>

@@ -18,7 +18,6 @@ namespace YGO_Designer
         /// <returns></returns>
         private static int NbExemplaireCard(int noDeck, int noCarte)
         {
-            string userName = User.GetUsername();
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
             cmd.CommandText = "SELECT NB_EXEMPLAIRE FROM INCLUS WHERE NO_DECK = @noDeck AND NO_CARTE = @noCarte";
             cmd.Parameters.Add("@noDeck", MySqlDbType.Int32).Value = noDeck;
@@ -38,7 +37,6 @@ namespace YGO_Designer
         /// <returns>Un booléen : true si le deck existe, false sinon</returns>
         private static bool Exist(int noDeck)
         {
-            string userName = User.GetUsername();
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
             cmd.CommandText = "SELECT NO_DECK FROM INCLUS WHERE NO_DECK = @noDeck";
             cmd.Parameters.Add("@noDeck", MySqlDbType.Int32).Value = noDeck;
@@ -67,7 +65,34 @@ namespace YGO_Designer
             cmd.CommandText = "INSERT INTO DECK(USER, NOM_DECK) VALUES(@user, @nom)";
             cmd.Parameters.Add("@user", MySqlDbType.VarChar).Value = userName;
             cmd.Parameters.Add("@nom", MySqlDbType.VarChar).Value = d.GetNom();
-            return Convert.ToInt32(cmd.ExecuteNonQuery()) == 1;
+            bool cdt = true;
+            if (Convert.ToInt32(cmd.ExecuteNonQuery()) == 1)
+            {
+                int lastIdDeck = GetIdInsertedDeck();
+                if (d.GetCartes().Count > 0)
+                {
+                    foreach (Carte c in d.GetCartes())
+                    {
+                        if(c.GetNbExemplaireFromDeck() == 1)
+                        {
+                            AddCard(c.GetNo(), lastIdDeck);
+                        }
+                        else
+                        {
+                            for (int i = 1; i <= c.GetNbExemplaireFromDeck(); i++)
+                            {
+                                if (AddCard(c.GetNo(), lastIdDeck) == false)
+                                {
+                                    cdt = false;
+                                }
+                            }
+                        }
+                    }
+                }
+                return cdt;
+            }
+            else
+                return false;
         }
 
         /// <summary>
@@ -78,15 +103,15 @@ namespace YGO_Designer
         /// <returns>Un booléen : true si la carte a pu être ajoutée au deck, false sinon</returns>
         public static bool AddCard(int numCarte, int numDeck)
         {
-            string userName = User.GetUsername();
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
             if (NbExemplaireCard(numDeck, numCarte) == 0)
                 cmd.CommandText = "INSERT INTO INCLUS(NO_DECK, NO_CARTE, NB_EXEMPLAIRE) VALUES(@noDeck, @noCarte, 1)";
             else
-                if (NbExemplaireCard(numDeck, numCarte) <= 2)
+                if (NbExemplaireCard(numDeck, numCarte) <= 2 && NbExemplaireCard(numDeck, numCarte) > 0)
                     cmd.CommandText = "UPDATE INCLUS SET NB_EXEMPLAIRE = NB_EXEMPLAIRE + 1 WHERE NO_DECK = @noDeck AND NO_CARTE = @noCarte";
                 else
-                    return false;
+                    return true;
+
             cmd.Parameters.Add("@noDeck", MySqlDbType.Int32).Value = numDeck;
             cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = numCarte;
 			return Convert.ToInt32(cmd.ExecuteNonQuery()) == 1;
@@ -120,7 +145,6 @@ namespace YGO_Designer
         /// <returns>Une liste typée Carte</returns>
         public static List<Carte> GetCartes(int noDeck)
         {
-            string userName = User.GetUsername();
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
             cmd.CommandText = "SELECT NO_CARTE FROM INCLUS WHERE NO_DECK = @noDeck";
             cmd.Parameters.Add("@noDeck", MySqlDbType.Int32).Value = noDeck;
@@ -177,6 +201,12 @@ namespace YGO_Designer
             return Convert.ToInt32(cmd.ExecuteNonQuery()) == 1;
         }
 
+        /// <summary>
+        /// Supprime une copie d'une carte dans un deck
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns>True si la suppression a été effective, false sinon</returns>
         public static bool RemoveCopyCard(Carte c, Deck d)
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
@@ -190,16 +220,16 @@ namespace YGO_Designer
 		/// Pioche une carte aléatoirement et l'ajoute au Deck 
 		/// </summary>
 		/// <returns></returns>
-		public static Carte PiocheAlea(Deck d)
+		public static Carte PiocheAlea()
 		{
 			int noMax = ORMCarte.GetNoMax();
-			int no = new Random().Next(1, noMax);
+			int no = new Random().Next(1, noMax + 1);
 			MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
 			cmd.CommandText = "SELECT NO_CARTE FROM CARTE WHERE NO_CARTE = @noCarte";
-			cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = -1;
+			cmd.Parameters.Add("@noCarte", MySqlDbType.Int32).Value = no;
 
 			MySqlDataReader rdr;
-			while(ORMCarte.Exist(new Carte(no)) == false)
+			while(ORMCarte.Exist(no) == false)
 			{
 				cmd.Parameters["@noCarte"].Value = new Random().Next(1, noMax);
 				rdr = cmd.ExecuteReader();
@@ -237,6 +267,10 @@ namespace YGO_Designer
             return d;
         }
 
+        /// <summary>
+        /// Récupère le dernier id de deck inséré dans la base de données
+        /// </summary>
+        /// <returns></returns>
         public static int GetIdInsertedDeck()
         {
             MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
@@ -248,6 +282,22 @@ namespace YGO_Designer
                 id = Convert.ToInt32(rdr["id"]);
             rdr.Close();
             return id;
+        }
+
+        /// <summary>
+        /// Compte le nombre de decks de la base de données
+        /// </summary>
+        /// <returns></returns>
+        public static int CountDecks()
+        {
+            MySqlCommand cmd = ORMDatabase.GetConn().CreateCommand();
+            cmd.CommandText = "SELECT COUNT(*) as qteDecks FROM Deck";
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            int n = 0;
+            if (rdr.Read())
+                n = Convert.ToInt32(rdr["qteDecks"]);
+            rdr.Close();
+            return n;
         }
     }
 }
